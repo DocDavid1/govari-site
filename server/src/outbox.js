@@ -70,7 +70,8 @@ export async function outboxHealth() {
            count(*) filter (where status = 'pending')::int  as pending,
            count(*) filter (where status = 'processing')::int as processing,
            count(*) filter (where status = 'failed')::int    as failed,
-           count(*) filter (where status = 'pending' and next_attempt_at < now() - interval '15 minutes')::int as stuck`
+           count(*) filter (where status = 'pending' and next_attempt_at < now() - interval '15 minutes')::int as stuck
+         from lead_events`
       );
       return r.rows[0];
     } catch (e) {
