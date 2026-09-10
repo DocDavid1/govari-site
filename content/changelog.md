@@ -1,5 +1,11 @@
 # יומן שינויים — אתר גוב ארי מערכות
 
+## 2026-09-11 — מסד חדש + קטלוג הסט הסופי של החומרים
+- **Supabase**: נוצר פרויקט חדש `govari-site` (ap-south-1), הורצה `server/sql/bootstrap.sql`, אומת חיבור מקצה-לקצה (ליד בדיקה נכתב ל-`leads`/`lead_submissions`/`lead_events` ואז נוקה). `server/.env` מקומי מצביע על המסד החדש.
+- **תיקון**: `server/src/outbox.js` — נוסף `FROM lead_events` לשאילתת הבריאות (באג ותיק שצף בחיבור Postgres ראשון).
+- **קטלוג חומרים**: `assets/asset-catalog.md` עודכן עם "הסט הסופי" (22 PNG + וידאו) מתיקיית `מצלמת רכב חומרים -סופי מוכן` — כולל מיפוי לסקשנים ורשימת סתירות תוכן לאישור (טלפון 050-4174996 מול 053-6813013, FHD מול 4K, כתיב המותג).
+- **וידאו**: `פרוייקט (1).mov` (8K, 224MB) → נדחס ל-`assets/videos/promo-reel.mp4` (~10MB) + `.webm` (~6.5MB) + פוסטר. עדיין לא משולב באתר.
+
 ## 2026-09-11 — ניקוי תשתית: מוכן לחיבור מסד/גיטהאב/Vercel חדשים
 - **ניתוק מהתשתית הישנה**: המסד הישן (Supabase `gevkcslzkeosyrapdglz`) נמחק. הוסרו כל האזכורים שלו, של פרויקט ה-Vercel הישן (`prj_17VON…`, `govari-d7u3.vercel.app`) ושל מסלול הדיפלוי של Render.
 - **נמחקו**: 11 קובצי audit/תכנון מסבבים קודמים (`AUDIT.md`, `CAMPAIGN-READINESS.md`, `HANDOFF.md`, `PRODUCTION-ALIGNMENT-PLAN.md`, `SUPABASE-AUDIT.md`, `INFRASTRUCTURE-INVENTORY.md`, `RESET-BASELINE.md`, `CLEAN-*.md`, `*-CONTRACT.md`); `render.yaml` + `deploy.sh`; נתוני dev מקומיים (`server/data/*.json`).
