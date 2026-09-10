@@ -39,12 +39,13 @@
     var statusEl = form.querySelector('[data-lead-status]') || (function () {
       var d = document.createElement('div');
       d.setAttribute('data-lead-status', '');
-      d.setAttribute('role', 'alert');
-      d.setAttribute('aria-live', 'assertive');
       d.style.cssText = 'display:none;margin-top:.7rem;font-size:.95rem;line-height:1.5';
       form.appendChild(d);
       return d;
     })();
+    // נגישות: מכריזים שגיאות/סטטוס לקורא מסך גם אם ה-div הגיע מה-HTML
+    statusEl.setAttribute('role', 'alert');
+    statusEl.setAttribute('aria-live', 'assertive');
 
     // תכונות נכונות לנייד/נגישות
     if (phoneEl) {
@@ -125,9 +126,9 @@
       box.style.cssText = 'text-align:center;padding:1.4rem 0';
       box.innerHTML =
         '<div style="font-size:2.2rem;line-height:1">👍</div>' +
-        '<h3 style="margin:.5rem 0 .3rem">קיבלנו את הפרטים</h3>' +
-        '<p style="color:var(--muted,#a2a2ad);margin:0 0 1rem">נציג של גוב ארי יחזור אליך בהקדם כדי לענות על שאלות ולבדוק התאמה. אין חיוב ולא בוצע תשלום.</p>' +
-        '<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="' + G.waHref(waText) + '">שמור את המספר שלנו בוואטסאפ</a>';
+        '<h3 style="margin:.5rem 0 .3rem">הבקשה התקבלה</h3>' +
+        '<p style="color:var(--muted,#c4c7ce);margin:0 0 1rem">נחזור אליכם להשלמת הפרטים. אין תשלום באתר ולא בוצע חיוב.</p>' +
+        '<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="' + G.waHref(waText) + '">שמירת המספר שלנו בוואטסאפ</a>';
       form.replaceWith(box);
     }
 

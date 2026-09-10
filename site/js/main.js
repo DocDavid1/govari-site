@@ -156,16 +156,16 @@
       '<div class="cta-modal-overlay" data-close></div>' +
       '<div class="cta-modal-card">' +
         '<button class="cta-modal-close" data-close aria-label="סגירה">×</button>' +
-        '<div class="cta-modal-banner"><img src="assets/images/hero-bg.webp" alt="מצלמת גוב ארי"></div>' +
+        '<div class="cta-modal-banner"><img src="assets/images/hero-studio-charcoal-900.webp" alt="מצלמת רכב גוב ארי"></div>' +
         '<div class="cta-modal-body">' +
-          '<span class="cta-modal-flag">ללא תשלום וללא התחייבות</span>' +
-          '<h3>רוצה לשמוע פרטים?</h3>' +
-          '<p class="cta-modal-sub">4 ערוצים, כיסוי 360° וחיבור 4G. השאירו שם ומספר — נציג של גוב ארי יחזור אליכם ויבדוק התאמה.</p>' +
+          '<span class="cta-modal-flag">אין תשלום באתר</span>' +
+          '<h3>בקשת הזמנה — ללא תשלום</h3>' +
+          '<p class="cta-modal-sub">4 ערוצים, כיסוי 360° וחיבור 4G. משאירים שם וטלפון — ונציג של גוב ארי יחזור אליכם להשלמת ההזמנה.</p>' +
           '<div class="cta-modal-actions">' +
-            '<a class="btn btn-primary btn-block btn-lg" href="#lead" data-close>אני רוצה שיחזרו אליי</a>' +
+            '<a class="btn btn-primary btn-block btn-lg" href="#lead" data-close>בקשת הזמנה ללא תשלום</a>' +
             '<a class="btn btn-ghost btn-block" href="https://wa.me/972536813013" target="_blank" rel="noopener">שאלה מהירה בוואטסאפ</a>' +
           '</div>' +
-          '<p class="cta-modal-trust">בלי כרטיס אשראי · בלי התחייבות · נחזור אליכם בהקדם</p>' +
+          '<p class="cta-modal-trust">אין תשלום באתר · שם וטלפון בלבד</p>' +
         '</div>' +
       '</div>';
     document.body.appendChild(modal);
@@ -198,26 +198,7 @@
     }, { passive: true });
   })();
 
-  // ===== הודעת תרומה צדדית — עדינה, "נותנת חיות" (מוצגת אחרי בחירת עוגיות) =====
-  function startDonate() {
-    var dismissed = false;
-    try { dismissed = localStorage.getItem('gav-donate') === '1'; } catch (e) {}
-    if (dismissed) return;
-    var t = document.createElement('div');
-    t.className = 'donate-toast';
-    t.setAttribute('role', 'status');
-    t.innerHTML =
-      '<svg class="heart" viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2 5.5 5.2 5.5c1.9 0 3 1 3.8 2 .8-1 1.9-2 3.8-2C16 5.5 17.5 9 15.5 12.5 13 16.65 12 21 12 21z"/></svg>' +
-      '<span><b>10% מהרווח על כל רכישה</b> נתרמים ללוחמים ולפצועי צה"ל. <a href="index.html#donation" style="color:#fff;text-decoration:underline">לפרטים</a></span>' +
-      '<button class="dt-close" aria-label="סגירה">×</button>';
-    document.body.appendChild(t);
-    setTimeout(function () { t.classList.add('show'); }, 4000);
-    t.querySelector('.dt-close').addEventListener('click', function () {
-      t.classList.remove('show');
-      try { localStorage.setItem('gav-donate', '1'); } catch (e) {}
-      setTimeout(function () { t.remove(); }, 500);
-    });
-  }
+  // (הודעת התרומה הצדדית הוסרה — טענת "10% מהרווח" לא אומתה. אין להחזיר ללא אישור דוד.)
 
   // ===== באנר עוגיות (הסכמה) =====
   var cookieChoice = null;
@@ -241,9 +222,6 @@
       try { localStorage.setItem('gav-cookie', c); } catch (e2) {}
       cb.classList.remove('show');
       setTimeout(function () { cb.remove(); }, 400);
-      startDonate();
     });
-  } else {
-    startDonate();
   }
 })();

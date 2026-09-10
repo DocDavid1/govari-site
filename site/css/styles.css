@@ -3,19 +3,21 @@
    פלטה: שחור עמוק · זהב מטאלי. Apple-grade, RTL. מצב כהה בלבד.
    ============================================================ */
 :root{
-  --bg:#08080a; --bg-2:#0e0e11; --surface:#151519; --surface-2:#1c1c22;
-  --line:rgba(230,200,140,.12); --line-2:rgba(230,200,140,.22);
-  --text:#f6f6f8; --muted:#a2a2ad; --muted-2:#7b7b86;
-  /* זהב מטאלי — האקצנט הראשי של המותג */
-  --gold:#c9a24e; --gold-2:#e7c877; --gold-3:#f4e2b3; --gold-ink:#1a1408;
-  --gold-grad:linear-gradient(135deg,#f4e2b3 0%,#e7c877 34%,#c9a24e 68%,#a9822f 100%);
-  /* אדום — אקצנט ה-CTA וחיווי "מקליט/התראה" */
-  --red:#e11623; --red-2:#ff2d3b; --red-ink:#3a0a0e;
-  --red-grad:linear-gradient(135deg,#ff2d3b 0%,#e11623 55%,#b3101b 100%);
+  /* פחם — רקע ומשטחים */
+  --bg:#111318; --bg-2:#14171d; --surface:#1b1f26; --surface-2:#222732;
+  --line:rgba(231,188,104,.14); --line-2:rgba(231,188,104,.26);
+  /* טקסט: ראשי בהיר, משני אפור קריא (נבדק ≥4.5:1 מול הפחם והמשטחים) */
+  --text:#f7f4ed; --muted:#c4c7ce; --muted-2:#9aa0aa;
+  /* זהב — פעולה ראשית, דגשים ומותג בלבד. טקסט על זהב = פחם. */
+  --gold:#e7bc68; --gold-2:#eec988; --gold-3:#f4ddb2; --gold-ink:#111318;
+  --gold-grad:linear-gradient(135deg,#f2d197 0%,#e7bc68 55%,#cfa858 100%);
+  /* ירוק — וואטסאפ ואישור הצלחה בלבד */
+  --wa:#25d366; --ok:#5fd08a;
+  /* אדום — שגיאות בלבד */
+  --err:#f2a3a3;
   --radius:20px; --radius-sm:12px; --radius-lg:28px;
   --shadow:0 30px 80px rgba(0,0,0,.5);
-  --shadow-gold:0 18px 50px rgba(201,162,78,.30);
-  --shadow-red:0 18px 50px rgba(225,22,35,.34);
+  --shadow-gold:0 16px 44px rgba(231,188,104,.24);
   --container:1180px; --gutter:24px;
   --space:clamp(72px,9vw,140px);
   --font:'Heebo',system-ui,'Segoe UI',Arial,sans-serif;
@@ -47,13 +49,13 @@ p{margin:0 0 1rem;color:var(--muted)}
   border:1px solid transparent;cursor:pointer;transition:transform .25s var(--ease),
   box-shadow .25s var(--ease),background .25s var(--ease),border-color .25s var(--ease)}
 .btn:hover{transform:translateY(-2px)}
-.btn-primary{background:var(--red-grad);color:#fff;font-weight:800;
-  box-shadow:var(--shadow-red),inset 0 1px 0 rgba(255,255,255,.28)}
-.btn-primary:hover{box-shadow:0 26px 70px rgba(225,22,35,.5),inset 0 1px 0 rgba(255,255,255,.4)}
-.btn-gold{background:var(--gold-grad);color:var(--gold-ink);font-weight:800;
-  box-shadow:var(--shadow-gold),inset 0 1px 0 rgba(255,255,255,.45)}
-.btn-ghost{border-color:var(--line-2);color:var(--text);background:rgba(231,200,119,.05)}
-.btn-ghost:hover{background:rgba(231,200,119,.12);border-color:var(--gold)}
+/* פעולה ראשית יחידה — זהב מלא, טקסט פחם */
+.btn-primary{background:var(--gold-grad);color:var(--gold-ink);font-weight:800;
+  box-shadow:var(--shadow-gold),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn-primary:hover{box-shadow:0 22px 58px rgba(231,188,104,.36),inset 0 1px 0 rgba(255,255,255,.5)}
+/* פעולות משניות — מתאר בלבד, לא מתחרות בכפתור הזהב */
+.btn-gold,.btn-ghost{border-color:var(--line-2);color:var(--text);background:rgba(231,188,104,.06);font-weight:700}
+.btn-gold:hover,.btn-ghost:hover{background:rgba(231,188,104,.13);border-color:var(--gold)}
 .btn-lg{padding:1.15rem 2.4rem;font-size:1.12rem}
 .btn-sm{padding:.6rem 1.2rem;font-size:.92rem}
 .btn-block{width:100%}
@@ -67,7 +69,7 @@ p{margin:0 0 1rem;color:var(--muted)}
 .site-header.solid{background:var(--bg);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;gap:1.5rem;padding:.85rem 0}
 .brand{display:flex;align-items:center;gap:.7rem;font-weight:800;font-size:1.12rem}
-.brand-logo{height:54px;width:auto;display:block;filter:drop-shadow(0 2px 12px rgba(201,162,78,.30))}
+.brand-logo{height:54px;width:auto;display:block;filter:drop-shadow(0 2px 12px rgba(231,188,104,.30))}
 .brand-footer .brand-logo{height:118px}
 @media(max-width:640px){.brand-logo{height:44px}}
 .brand small{display:block;color:var(--muted-2);font-size:.68rem;font-weight:500;letter-spacing:.04em;margin-top:-2px}
@@ -85,14 +87,16 @@ p{margin:0 0 1rem;color:var(--muted)}
 .burger{display:none;background:none;border:0;color:var(--text);cursor:pointer;padding:.4rem}
 .burger svg{width:26px;height:26px}
 
-/* ===== Hero (split: text + product over driving video — fits one screen) ===== */
-.hero{position:relative;overflow:hidden;padding:clamp(22px,3.2vw,44px) 0;background:#08080a}
+/* ===== Hero (split: text + form over a clean product photo) ===== */
+.hero{position:relative;overflow:hidden;padding:clamp(22px,3.2vw,44px) 0;background:#111318}
+.hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:22% center;z-index:0}
 .hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .hero-video-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    linear-gradient(to left,rgba(6,6,9,.9) 0%,rgba(6,6,9,.52) 46%,rgba(6,6,9,.3) 100%),
-    radial-gradient(55% 75% at 14% 30%,rgba(231,200,119,.14),transparent 62%),
-    linear-gradient(0deg,rgba(6,6,9,.6),transparent 46%)}
+    linear-gradient(to left,rgba(17,19,24,.94) 0%,rgba(17,19,24,.72) 38%,rgba(17,19,24,.34) 72%,rgba(17,19,24,.2) 100%),
+    radial-gradient(60% 80% at 12% 26%,rgba(231,188,104,.12),transparent 60%),
+    linear-gradient(0deg,rgba(17,19,24,.72),transparent 42%)}
 .hero-split{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;
   gap:clamp(24px,4vw,56px);align-items:center;min-height:min(70vh,580px)}
 .hero-text{max-width:600px}
@@ -117,7 +121,7 @@ p{margin:0 0 1rem;color:var(--muted)}
 .section-head{max-width:70ch;margin:0 auto clamp(40px,5vw,72px)}
 .glow-top{position:relative}
 .glow-top::before{content:'';position:absolute;top:-10%;left:50%;transform:translateX(-50%);
-  width:70%;height:340px;background:radial-gradient(closest-side,rgba(231,200,119,.16),transparent);
+  width:70%;height:340px;background:radial-gradient(closest-side,rgba(231,188,104,.16),transparent);
   pointer-events:none;filter:blur(10px)}
 
 /* ===== Pills / marquee ===== */
@@ -133,9 +137,9 @@ p{margin:0 0 1rem;color:var(--muted)}
 .grid-2{grid-template-columns:repeat(2,1fr)}
 .card{background:linear-gradient(180deg,var(--surface),var(--bg-2));border:1px solid var(--line);
   border-radius:var(--radius);padding:2rem;transition:transform .3s var(--ease),border-color .3s}
-.card:hover{transform:translateY(-5px);border-color:rgba(231,200,119,.45)}
+.card:hover{transform:translateY(-5px);border-color:rgba(231,188,104,.45)}
 .card .ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:1.1rem;
-  background:linear-gradient(135deg,rgba(231,200,119,.20),rgba(201,162,78,.10));border:1px solid var(--line-2)}
+  background:linear-gradient(135deg,rgba(231,188,104,.20),rgba(231,188,104,.10));border:1px solid var(--line-2)}
 .card .ico svg{width:26px;height:26px;stroke:var(--gold-2)}
 .card h3{margin-bottom:.4em}
 .card p{margin:0;font-size:.98rem}
@@ -152,7 +156,7 @@ p{margin:0 0 1rem;color:var(--muted)}
 .feature-list li{display:flex;gap:.7rem;align-items:flex-start;color:var(--text)}
 .feature-list li::before{content:'';flex:0 0 auto;width:22px;height:22px;margin-top:3px;border-radius:50%;
   background:radial-gradient(circle at 50% 40%,var(--gold-3),var(--gold) 62%);
-  box-shadow:0 0 0 4px rgba(231,200,119,.14)}
+  box-shadow:0 0 0 4px rgba(231,188,104,.14)}
 
 /* ===== Sticky story (Apple-like pinned) ===== */
 .story{position:relative}
@@ -192,10 +196,10 @@ p{margin:0 0 1rem;color:var(--muted)}
 
 /* ===== CTA band ===== */
 .cta-band{position:relative;text-align:center;overflow:hidden;
-  background:linear-gradient(180deg,var(--bg-2),#100d05)}
+  background:linear-gradient(180deg,var(--bg-2),#0f1115)}
 .cta-band .container{position:relative;z-index:2}
 .cta-band::before{content:'';position:absolute;inset:0;
-  background:radial-gradient(60% 100% at 50% 100%,rgba(231,200,119,.20),transparent)}
+  background:radial-gradient(60% 100% at 50% 100%,rgba(231,188,104,.20),transparent)}
 
 /* ===== Pre-order ===== */
 .order-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);align-items:start}
@@ -203,7 +207,7 @@ p{margin:0 0 1rem;color:var(--muted)}
   border-radius:var(--radius-lg);padding:2.2rem;box-shadow:var(--shadow);position:sticky;top:96px}
 .price-flag{display:inline-block;background:var(--gold-grad);color:var(--gold-ink);font-weight:800;font-size:.85rem;
   padding:.35rem .9rem;border-radius:999px;margin-bottom:1rem}
-.pay-free{display:flex;align-items:flex-start;gap:.55rem;background:rgba(231,200,119,.10);
+.pay-free{display:flex;align-items:flex-start;gap:.55rem;background:rgba(231,188,104,.10);
   border:1px solid var(--gold);color:var(--gold-3);font-weight:700;font-size:.92rem;line-height:1.55;
   padding:.6rem 1.05rem;border-radius:16px;max-width:min(52ch,100%)}
 .pay-free svg{width:17px;height:17px;stroke:var(--gold-2);flex:0 0 auto;margin-top:3px}
@@ -222,7 +226,7 @@ p{margin:0 0 1rem;color:var(--muted)}
 .field input,.field textarea{width:100%;padding:.9rem 1.1rem;border-radius:var(--radius-sm);
   background:var(--surface);border:1px solid var(--line-2);color:var(--text);font-family:inherit;font-size:1rem}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);
-  box-shadow:0 0 0 3px rgba(231,200,119,.22)}
+  box-shadow:0 0 0 3px rgba(231,188,104,.22)}
 .trust-row{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;margin-top:1.5rem;color:var(--muted);font-size:.92rem}
 .trust-row span{display:inline-flex;align-items:center;gap:.4rem}
 .trust-row svg{width:18px;height:18px;stroke:var(--gold-2)}
@@ -230,7 +234,7 @@ p{margin:0 0 1rem;color:var(--muted)}
 /* ===== Sticky mobile order bar ===== */
 .order-bar{position:fixed;inset-inline:0;bottom:0;z-index:90;display:none;
   gap:.8rem;align-items:center;justify-content:space-between;padding:.8rem 1rem;
-  background:rgba(8,8,10,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+  background:rgba(17,19,24,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
 .order-bar .op{font-weight:800}.order-bar .op small{color:var(--muted);font-weight:500}
 
 /* ===== Footer ===== */
@@ -279,7 +283,7 @@ p{margin:0 0 1rem;color:var(--muted)}
   .footer-grid{grid-template-columns:1fr}
   body{padding-bottom:72px}
   .mobile-open .nav-links{display:flex;position:absolute;inset-inline:0;top:100%;flex-direction:column;
-    gap:0;background:rgba(8,8,10,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:.5rem 0}
+    gap:0;background:rgba(17,19,24,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:.5rem 0}
   .mobile-open .nav-links a{padding:.9rem var(--gutter)}
 }
 
@@ -292,30 +296,30 @@ body{transition:background-color .35s var(--ease),color .35s var(--ease)}
 .video-band{position:relative;min-height:min(70vh,560px);display:flex;align-items:center;overflow:hidden}
 .video-band-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .video-band-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(130% 110% at 84% 50%,rgba(6,6,9,.86),rgba(6,6,9,.5) 52%,rgba(6,6,9,.22))}
+  background:radial-gradient(130% 110% at 84% 50%,rgba(17,19,24,.86),rgba(17,19,24,.5) 52%,rgba(17,19,24,.22))}
 .video-band-content{position:relative;z-index:2;max-width:600px;color:#fff}
 .video-band-content .eyebrow{color:var(--gold-2)}
 .video-band-content h2{color:#fff;text-shadow:0 3px 30px rgba(0,0,0,.5)}
 .video-band-content .lead{color:#e9e9f0;margin-bottom:1.6rem}
 @media(max-width:640px){
   .video-band{min-height:70vh}
-  .video-band-overlay{background:linear-gradient(0deg,rgba(6,6,9,.9),rgba(6,6,9,.45))}
+  .video-band-overlay{background:linear-gradient(0deg,rgba(17,19,24,.9),rgba(17,19,24,.45))}
 }
 
 /* ============================================================
    שדרוג היידר — רצועת מבצע, וואטסאפ, נגישות
    ============================================================ */
-/* רצועת מבצע עליונה — זהב מטאלי, מדגישה "ללא תשלום" */
-.topbar{position:relative;z-index:90;background:linear-gradient(90deg,#a9822f,#e7c877 50%,#a9822f);
-  color:var(--gold-ink);font-size:.86rem}
+/* רצועת מידע עליונה — משטח פחם עדין, נגיעת זהב בקישור בלבד */
+.topbar{position:relative;z-index:90;background:var(--surface-2);
+  color:var(--muted);font-size:.86rem;border-bottom:1px solid var(--line)}
 .topbar .tb-inner{display:flex;align-items:center;justify-content:center;gap:.5rem;
   padding:.5rem 44px;text-align:center;position:relative;min-height:38px}
-.topbar strong{font-weight:900;letter-spacing:.01em}
-.topbar .tb-link{color:var(--gold-ink);font-weight:900;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
-.topbar .tb-link:hover{opacity:.72}
+.topbar strong{font-weight:800;letter-spacing:.01em;color:var(--text)}
+.topbar .tb-link{color:var(--gold-2);font-weight:800;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.topbar .tb-link:hover{color:var(--gold-3)}
 .topbar .tb-close{position:absolute;inset-inline-end:14px;top:50%;transform:translateY(-50%);
-  background:none;border:0;color:var(--gold-ink);opacity:.6;cursor:pointer;font-size:1.25rem;line-height:1;padding:4px}
-.topbar .tb-close:hover{opacity:1}
+  background:none;border:0;color:var(--muted);opacity:.7;cursor:pointer;font-size:1.25rem;line-height:1;padding:4px}
+.topbar .tb-close:hover{opacity:1;color:var(--text)}
 .topbar.hide{display:none}
 @media(max-width:560px){.topbar .tb-inner{font-size:.76rem;padding-inline:36px}}
 
@@ -339,12 +343,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
    ============================================================ */
 .cta-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
 .cta-modal.open{display:flex}
-.cta-modal-overlay{position:absolute;inset:0;background:rgba(4,4,6,.72);backdrop-filter:blur(6px)}
+.cta-modal-overlay{position:absolute;inset:0;background:rgba(10,11,14,.72);backdrop-filter:blur(6px)}
 .cta-modal-card{position:relative;z-index:1;width:min(440px,100%);background:var(--surface);
   border:1px solid var(--line-2);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);
   transform:translateY(18px) scale(.98);opacity:0;transition:transform .38s var(--ease),opacity .38s}
 .cta-modal.open .cta-modal-card{transform:none;opacity:1}
-.cta-modal-banner{height:150px;background:#0b0b0d;position:relative}
+.cta-modal-banner{height:150px;background:#1b1f26;position:relative}
 .cta-modal-banner img{width:100%;height:100%;object-fit:cover}
 .cta-modal-banner::after{content:'';position:absolute;inset:0;
   background:linear-gradient(0deg,var(--surface),transparent 62%)}
@@ -389,7 +393,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 /* הירו וידאו — כהות אחידה יותר במובייל (טקסט ממורכז) */
 @media(max-width:920px){
-  .hero-video-overlay{background:linear-gradient(0deg,rgba(6,6,9,.82),rgba(6,6,9,.55))}
+  .hero-video-overlay{background:linear-gradient(0deg,rgba(17,19,24,.82),rgba(17,19,24,.55))}
 }
 
 /* תצוגת מוצר יחידה (רקע שחור) במקום גלריית שולחן */
@@ -412,9 +416,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 @media(prefers-reduced-motion:reduce){.cookie-bar{transition:opacity .4s}}
 
 /* דלג לתוכן (נגישות) */
-.skip-link{position:absolute;inset-inline-start:-9999px;top:0;z-index:200;background:var(--gold-grad);
-  color:var(--gold-ink);padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-weight:800}
-.skip-link:focus{inset-inline-start:0}
+.skip-link{position:fixed;inset-inline-start:12px;top:-64px;z-index:200;background:var(--gold-grad);
+  color:var(--gold-ink);padding:.7rem 1.2rem;border-radius:0 0 10px 10px;font-weight:800;
+  transition:top .18s var(--ease)}
+.skip-link:focus{top:0}
 
 /* ============================================================
    טופס ליד (שם + טלפון → חוזרים אליך). מובייל-קודם.
@@ -429,10 +434,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   background:var(--surface);border:1px solid var(--line-2);color:var(--text);
   font-family:inherit;font-size:1.05rem;min-height:52px}
 .lead-form .field input:focus{outline:none;border-color:var(--gold);
-  box-shadow:0 0 0 3px rgba(231,200,119,.22)}
+  box-shadow:0 0 0 3px rgba(231,188,104,.22)}
 .lead-form .field label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:.35rem}
 .lead-form .btn{min-height:54px;font-size:1.08rem}
-.lead-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.lead-hp{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
 .lead-reassure{display:flex;align-items:center;gap:.45rem;color:var(--muted);
   font-size:.86rem;margin:.15rem 0 0;justify-content:center}
 .lead-reassure svg{width:15px;height:15px;stroke:var(--gold-2);flex:0 0 auto}
@@ -440,23 +446,29 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .lead-success{animation:fadeUp .5s var(--ease)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* הירו במבנה ליד — עמודת טקסט+מוצר | כרטיס טופס */
-.hero-lead .hero-split{grid-template-columns:1.05fr .95fr;align-items:center}
-.hero-lead .hero-col{display:flex;flex-direction:column;gap:1.4rem}
-.hero-lead .hero-media{margin:0}
-.hero-lead .hero-media img{max-width:460px;border-radius:var(--radius-lg);box-shadow:var(--shadow)}
-.hero-lead .lead-card{width:100%;margin-inline-start:auto}
+/* הירו במבנה ליד — פאנל יחיד (טקסט + טופס) מעל תצלום מוצר נקי */
+.hero-lead .hero-split{display:block;min-height:min(74vh,560px);
+  padding-block:clamp(22px,4vw,44px)}
+.hero.hero-lead h1{font-size:clamp(2rem,3.4vw,2.8rem);margin-bottom:.35em}
+.hero.hero-lead .lead{font-size:clamp(1rem,1.35vw,1.12rem);margin-bottom:1rem}
+.hero-panel{max-width:460px}
+.hero-panel .hero-text{margin-bottom:1.1rem}
+.hero-panel .hero-text .feature-list{gap:.5rem;margin-top:.9rem}
+.hero-panel .hero-text .feature-list li{color:#eceae2;font-size:.95rem}
+.hero-panel .lead-card{width:100%}
 @media(max-width:920px){
-  /* מובייל: כותרת → טופס → תמונה → נקודות. הטופס קרוב לראש המסך. */
-  .hero-lead .hero-split{grid-template-columns:1fr;gap:1.4rem}
-  .hero-lead .hero-col{display:contents}
-  .hero-lead .hero-text{order:1;text-align:center}
-  .hero-lead .lead-card{order:2;margin-inline:auto;max-width:440px;width:100%}
-  .hero-lead .hero-media{order:3;max-width:380px;margin-inline:auto}
-  .hero-lead .hero-text .feature-list{display:none} /* חוזרות ב-PILLS מיד מתחת */
+  /* מובייל: תמונת מוצר → כותרת → טופס */
+  .hero-lead .hero-split{min-height:0}
+  .hero-bg-img{position:static;height:auto;aspect-ratio:16/10;object-position:center;
+    border-radius:16px;margin-bottom:1.2rem}
+  .hero-video-overlay{display:none}
+  .hero-panel{max-width:460px;margin-inline:auto}
+  .hero-panel .hero-text{text-align:center}
+  .hero-lead .hero h1,.hero-lead .hero .lead{color:var(--text)}
+  .hero-panel .hero-text .feature-list li{color:var(--text)}
 }
-@media(max-width:920px) and (min-width:560px){
-  .hero-lead .hero-text .feature-list{display:grid;text-align:start;max-width:440px;margin-inline:auto}
+@media(max-width:520px){
+  .hero-panel .hero-text .feature-list{display:none} /* חוזרות ב-PILLS מיד מתחת */
 }
 
 /* ============================================================
@@ -478,7 +490,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .sticky-cta{position:fixed;inset-inline:0;bottom:0;z-index:95;display:none;
   align-items:center;gap:.6rem;padding:.7rem .9rem;
   padding-bottom:calc(.7rem + env(safe-area-inset-bottom,0));
-  background:rgba(8,8,10,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line-2)}
+  background:rgba(17,19,24,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line-2)}
 .sticky-cta .btn{flex:1;min-height:48px}
 .sticky-cta .sc-wa,.sticky-cta .sc-tel{display:grid;place-items:center;width:48px;height:48px;
   border-radius:12px;flex:0 0 auto;border:1px solid var(--line-2);color:var(--gold-2)}
