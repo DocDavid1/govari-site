@@ -9,6 +9,7 @@ supabase/.temp/
 supabase/.branches/
 *.log
 .DS_Store
+_review-shots/
 
 # קבצי מקור כבדים — כבר מעובדים לתוך site/assets/ (תואם ל-.vercelignore)
 19452742-hd_1080_1920_60fps.mp4
