@@ -6,9 +6,7 @@ WhatsApp Image*
 content/
 .claude/
 server/data/
-render.yaml
 CLAUDE.md
 DEPLOY.md
-supabase/
 *.log
 .DS_Store

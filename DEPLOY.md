@@ -20,16 +20,23 @@ vercel.json      ← ניתוב + Cron ל-outbox + כותרות אבטחה
 2. **Project Settings → Database → Connection string → "Connection pooling"** (מצב **Transaction**, פורט **6543**) — חובה ל-serverless.
    מחרוזת בסגנון: `postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.supabase.com:6543/postgres`
    זהו `DATABASE_URL`.
-3. הסכימה (`leads`, `lead_submissions`, `lead_events` + אינדקסים) נוצרת **אוטומטית** ב-cold start הראשון. ליצירה ידנית: **SQL Editor** → הדבק את תוכן `server/migrations/001_init_leads.sql`.
+3. **סכימה על מסד ריק חדש:** Supabase → **SQL Editor** → הדבק את תוכן `server/sql/bootstrap.sql` → Run (מאוחד, אידמפוטנטי, כולל RLS). לאימות: הרץ אחריו את `server/sql/inspect_readonly.sql`.
+   הערה: המיגרציות `server/migrations/001_init_leads.sql` + `002_rls_grants.sql` גם רצות אוטומטית ואידמפוטנטית ב-cold start הראשון — ההרצה הידנית נועדה לוודא שהמבנה תקין לפני הדיפלוי.
 4. **גיבוי:** Supabase → **Database → Backups**. בתוכנית Free יש גיבוי יומי (שמירה 7 ימים). בתוכנית Pro — Point-in-Time Recovery. מומלץ Pro לפני קמפיין בהיקף.
 
 ## שלב 2 — GitHub
 
-הריפו כבר קיים: `github.com/DocDavid1/govari`. דחוף שינויים (`git push`). `.env` ו-`node_modules` לא עולים (`.gitignore`).
+1. GitHub → **New repository** (ריק, בלי README/‏.gitignore).
+2. מהתיקייה המקומית:
+   ```bash
+   git remote add origin https://github.com/<user>/<repo>.git
+   git push -u origin main
+   ```
+3. `.env` ו-`node_modules` לא עולים (`.gitignore`).
 
 ## שלב 3 — Vercel
 
-1. Vercel → **Add New → Project → Import** את `DocDavid1/govari`.
+1. Vercel → **Add New → Project → Import** את ה-repo החדש.
 2. Framework Preset: **Other**. Root Directory: ריק. אין Build Command (`vercel.json` מגדיר הכול).
 3. **Settings → Environment Variables** (ר' טבלה בשלב 8).
 4. **Deploy**.
@@ -124,8 +131,8 @@ node --test test/phone.test.mjs   # בדיקות נירמול טלפון
 - [ ] `IP_HASH_SALT` (מחרוזת אקראית)
 - [ ] `ADMIN_USER` / `ADMIN_PASSWORD` (אם רוצים אדמין מובנה)
 - [ ] **אישור מספר הטלפון 053-6813013** — או המספר הנכון לקמפיין
-- [ ] אישור טענות שיווק (AUDIT.md §4) והכרעת ניסוח התרומה (§3)
-- [ ] השלמת ה-placeholders המשפטיים (AUDIT.md §5) + בדיקת עו"ד
+- [ ] אישור טענות השיווק בדף (מפרט, יתרונות, ניסוח התרומה) מול המציאות
+- [ ] השלמת ה-placeholders המשפטיים ב-`site/terms.html` · `site/privacy.html` · `site/accessibility.html` + בדיקת עו"ד
 
 ## צ'קליסט לפני קמפיין
 

@@ -1,5 +1,14 @@
 # יומן שינויים — אתר גוב ארי מערכות
 
+## 2026-09-11 — ניקוי תשתית: מוכן לחיבור מסד/גיטהאב/Vercel חדשים
+- **ניתוק מהתשתית הישנה**: המסד הישן (Supabase `gevkcslzkeosyrapdglz`) נמחק. הוסרו כל האזכורים שלו, של פרויקט ה-Vercel הישן (`prj_17VON…`, `govari-d7u3.vercel.app`) ושל מסלול הדיפלוי של Render.
+- **נמחקו**: 11 קובצי audit/תכנון מסבבים קודמים (`AUDIT.md`, `CAMPAIGN-READINESS.md`, `HANDOFF.md`, `PRODUCTION-ALIGNMENT-PLAN.md`, `SUPABASE-AUDIT.md`, `INFRASTRUCTURE-INVENTORY.md`, `RESET-BASELINE.md`, `CLEAN-*.md`, `*-CONTRACT.md`); `render.yaml` + `deploy.sh`; נתוני dev מקומיים (`server/data/*.json`).
+- **נוסף למעקב**: `server/sql/bootstrap.sql` — סכימה מאוחדת אידמפוטנטית (טבלאות + אינדקסים + FK + טריגר + RLS) להדבקה במסד Supabase ריק חדש.
+- **`server/.env.example`** — הושלם: נוספו `IP_HASH_SALT`, `META_PIXEL_ID`, `META_CAPI_TOKEN`, `META_TEST_EVENT_CODE`, `ADMIN_USER/PASSWORD`, `OUTBOX_TICK_SECRET`, `SHEET_WEBHOOK_URL`. תבנית מלאה ל-Vercel.
+- **`DEPLOY.md` / `README.md`** — מסלול פריסה אגנוסטי לריפו: repo חדש ב-GitHub → `git remote add origin` → push → Vercel Import.
+- **git remote** `govarisystems` הוסר. הקוד אינו קשור לשום תשתית — מוכן ל-`git remote add origin <url>` חדש.
+- קוד הריצה (`server/src/config.js`, `db.js`) לא נגע — כבר קרא הכול מ-env. אין סודות בהיסטוריית git.
+
 ## 2026-09-10 — צבע: הדר אטום + כפתור CTA אדום
 - **הדר**: `.site-header` עכשיו רקע כהה אטום קבוע (`var(--bg)` #08080a) עם קו תחתון בכל העמודים, במקום שקוף שמתכהה בגלילה. במצב גלילה נשאר אטום עם צל עדין.
 - **כפתור CTA ראשי** (`.btn-primary`): עבר מגרדיאנט זהב לגרדיאנט אדום מותגי (`--red-grad`, טקסט לבן, `--shadow-red` אמיתי). חל על כל כפתורי ה-CTA באתר (הדר, הירו, פסי CTA). `.btn-gold` (קישורי "גלו עוד") נשאר זהב.

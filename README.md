@@ -35,7 +35,6 @@
 ├── api/index.js               ← פונקציית Vercel (עוטפת את השרת)
 ├── vercel.json                ← ניתוב: /api → פונקציה, השאר → site/
 ├── package.json               ← תלויות לפריסה
-├── deploy.sh                  ← פריסה אוטונומית בפקודה אחת
 ├── DEPLOY.md                  ← מדריך פריסה מפורט (Vercel + Supabase + דומיין)
 │
 ├── content/                   ← תוכן וניהול
@@ -69,11 +68,8 @@ cd server && npm install && npm start      # http://localhost:3000
 ```
 (בלי DATABASE_URL — עובד עם קובץ JSON מקומי.)
 
-## פריסה לאוויר — פקודה אחת
-```bash
-bash ~/Desktop/מצלמה/deploy.sh
-```
-הסקריפט מעתיק לתיקייה באנגלית, מנקה, ומעלה ל-Vercel **בלי שאלות** (`--yes`).
-לאחר מכן: להגדיר משתני סביבה ב-Vercel (DATABASE_URL וכו') — פירוט ב-`DEPLOY.md`.
+## פריסה לאוויר
+GitHub → Vercel Import → הגדרת משתני סביבה (`DATABASE_URL` וכו').
+הצעד-אחר-צעד המלא (Supabase + GitHub + Vercel + דומיין) ב-`DEPLOY.md`.
 ```
 
