@@ -12,7 +12,7 @@
     { "source": "/admin/(.*)", "destination": "/api/index" }
   ],
   "crons": [
-    { "path": "/api/outbox/tick", "schedule": "* * * * *" }
+    { "path": "/api/outbox/tick", "schedule": "17 3 * * *" }
   ],
   "headers": [
     {
