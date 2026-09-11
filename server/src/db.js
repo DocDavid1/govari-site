@@ -64,7 +64,7 @@ export async function migrate() {
 
 /** בדיקת חיים למסד — לשימוש ב-/api/health. */
 export async function dbHealth() {
-  if (!usePg()) return { mode: 'json-file', ok: true };
+  if (!usePg()) return { mode: 'json-file', ok: config.env !== 'production' && !process.env.VERCEL };
   try {
     const r = await query('select 1 as ok');
     return { mode: 'postgres', ok: r.rows[0].ok === 1 };

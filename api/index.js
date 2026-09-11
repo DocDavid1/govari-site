@@ -10,10 +10,13 @@ let ready = null;
 export default async function handler(req, res) {
   if (!ready) {
     warnInsecureConfig();
-    ready = Promise.allSettled([initDb(), initLeads()]).then((results) => {
-      results.forEach((r) => r.status === 'rejected' && console.error('[init]', r.reason));
+    ready = Promise.all([initDb(), initLeads()]).catch((error) => {
+      ready = null; // transient cold-start failures must be retried
+      throw error;
     });
   }
-  await ready;
+  try { await ready; } catch {
+    return res.status(503).json({ ok: false, errors: ['לא הצלחנו לשמור את הפרטים כרגע.'], fallback: true });
+  }
   return app(req, res);
 }

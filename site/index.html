@@ -7,14 +7,14 @@
   <meta name="description" content="מצלמת רכב 4 ערוצים עם כיסוי 360°, חיבור 4G ואפליקציה בעברית — צפייה מרחוק, מעקב בזמן אמת ואיתור GPS. בקשת הזמנה ללא תשלום: משאירים שם וטלפון ונחזור אליכם." />
   <meta property="og:title" content="גוב ארי מערכות | הרכב שלך, תמיד בקשר עין" />
   <meta property="og:description" content="4 ערוצים · כיסוי 360° · 4G · אפליקציה בעברית. בקשת הזמנה ללא תשלום — משאירים מספר ונחזור אליכם." />
-  <meta property="og:image" content="assets/images/hero-studio-charcoal.webp" />
+  <meta property="og:image" content="assets/images/camera-studio-v2.webp" />
   <meta name="theme-color" content="#111318" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <link rel="stylesheet" href="css/styles.css" />
-  <script>document.documentElement.setAttribute('data-theme','dark');</script>
+  <script>(function(){try{var t=localStorage.getItem('gav-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <script src="js/config.js"></script>
   <script src="js/track.js"></script>
 </head>
@@ -34,14 +34,18 @@
       <img class="mil-badge" src="assets/images/mil-badge.png" alt="עושה מילואים — גאים לתמוך" title="גאים לתמוך במילואימניקים" />
       <ul class="nav-links">
         <li><a href="index.html" class="active">בית</a></li>
-        <li><a href="features.html">המצלמה</a></li>
+        <li><a href="about.html">עלינו</a></li>
         <li><a href="app.html">האפליקציה</a></li>
+        <li><a href="#faq">שאלות נפוצות</a></li>
+        <li><a href="#donation">תרומה</a></li>
       </ul>
-      <div class="nav-cta">
-        <a class="nav-tel" href="tel:+972536813013"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg>053-6813013</a>
-        <a class="nav-wa" href="https://wa.me/972536813013" target="_blank" rel="noopener" aria-label="שיחת וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.2-.3.2-.5.4-.9.1-.1.1-.3 0-.4l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3A3 3 0 006 8.6c0 1.2.9 2.4 1 2.6.1.2 1.8 2.8 4.4 3.9 1.6.6 2.2.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.1z"/></svg></a>
-        <a class="btn btn-primary btn-sm" href="#lead">בקשת הזמנה</a>
-      </div>
+      <button class="theme-toggle" aria-label="מעבר למצב יום" aria-pressed="false" title="מצב יום/לילה">
+        <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="nav-tel" href="tel:+972536813013"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg>053-6813013</a>
+      <a class="nav-wa" href="https://wa.me/972536813013" target="_blank" rel="noopener" aria-label="שיחת וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.2-.3.2-.5.4-.9.1-.1.1-.3 0-.4l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3A3 3 0 006 8.6c0 1.2.9 2.4 1 2.6.1.2 1.8 2.8 4.4 3.9 1.6.6 2.2.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.1z"/></svg></a>
+      <a class="btn btn-primary btn-sm" href="#lead">בקשת הזמנה</a>
       <button class="burger" aria-label="פתיחת תפריט">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
@@ -49,66 +53,36 @@
   </header>
 
   <main>
-    <!-- HERO — בקשת הזמנה כליד, מעל תצלום מוצר נקי -->
-    <section class="hero hero-lead">
-      <img class="hero-bg-img" src="assets/images/hero-studio-charcoal.webp"
-           srcset="assets/images/hero-studio-charcoal-900.webp 900w, assets/images/hero-studio-charcoal.webp 1600w"
-           sizes="100vw" alt="מערכת מצלמת רכב גוב ארי — יחידה מרכזית ומצלמה אחורית" fetchpriority="high" width="1600" height="900" />
+    <!-- HERO — קולנועי, וידאו רקע, בלי טופס מוטבע -->
+    <section class="hero hero-cinematic">
+      <video class="hero-bg-video" src="assets/videos/highway-editorial.mp4" poster="assets/images/highway-editorial.jpg"
+             autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
       <div class="hero-video-overlay"></div>
       <div class="container hero-split">
-        <div class="hero-panel">
-          <div class="hero-text">
-            <p class="eyebrow">גוב ארי מערכות · מצלמות רכב מחוברות</p>
-            <h1>הרכב שלך.<br><span class="red-text">תמיד בקשר עין.</span></h1>
-            <p class="lead">מערכת 4 מצלמות עם כיסוי 360°, חיבור סלולרי 4G ואפליקציה בעברית — צפייה מרחוק ומעקב בזמן אמת, גם כשאתם לא ליד הרכב.</p>
-            <ul class="feature-list" style="margin-top:1.1rem">
-              <li>כיסוי 360° — קדימה, אחורה ותא הנוסעים</li>
-              <li>הקלטה רציפה בלולאה</li>
-              <li>איתור GPS על מפות גוגל — מסלול והיסטוריית מיקומים</li>
-            </ul>
-          </div>
-
-          <div class="lead-card" id="lead">
-            <h3>בקשת הזמנה — ללא תשלום</h3>
-            <p class="lead-sub">משאירים שם וטלפון, ונחזור אליכם להשלמת ההזמנה. אין תשלום באתר.</p>
-            <form class="lead-form" data-lead-form="hero" action="/api/leads" method="post" novalidate>
-              <div class="field">
-                <label for="lead-name">שם מלא</label>
-                <input id="lead-name" name="full_name" type="text" required autocomplete="name" placeholder="השם שלך" />
-              </div>
-              <div class="field">
-                <label for="lead-phone">טלפון</label>
-                <input id="lead-phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="050-000-0000" />
-              </div>
-              <div class="field">
-                <label for="lead-city">עיר <span style="opacity:.6">(לא חובה)</span></label>
-                <input id="lead-city" name="city" type="text" autocomplete="address-level2" placeholder="עיר מגורים" />
-              </div>
-              <div class="lead-hp" aria-hidden="true">
-                <label>אל תמלא שדה זה<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
-              </div>
-              <button type="submit" class="btn btn-primary btn-block">בקשת הזמנה ללא תשלום</button>
-              <p class="lead-reassure">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
-                אין תשלום באתר · שם וטלפון בלבד
-              </p>
-              <div data-lead-status style="display:none"></div>
-            </form>
-            <p style="text-align:center;color:var(--muted-2);font-size:.86rem;margin:.9rem 0 0">
-              מעדיפים לדבר עכשיו? <a href="https://wa.me/972536813013" target="_blank" rel="noopener" style="color:var(--gold-2)">וואטסאפ</a>
-              · <a href="tel:+972536813013" style="color:var(--gold-2)">053-6813013</a>
-            </p>
+        <div class="hero-text">
+          <p class="eyebrow">גוב ארי מערכות · מצלמות רכב מחוברות</p>
+          <h1>הרכב שלך.<br><span class="gold-text">תמיד בקשר עין.</span></h1>
+          <p class="lead">מערכת 4 מצלמות עם כיסוי 360°, חיבור סלולרי 4G ואפליקציה בעברית — צפייה מרחוק ומעקב בזמן אמת, גם כשאתם לא ליד הרכב.</p>
+          <ul class="feature-list">
+            <li>כיסוי 360° — קדימה, אחורה ותא הנוסעים</li>
+            <li>הקלטה רציפה בלולאה</li>
+            <li>איתור GPS על מפות גוגל — מסלול והיסטוריית מיקומים</li>
+          </ul>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="#lead">בקשת הזמנה ללא תשלום</a>
+            <a class="btn btn-ghost btn-lg" href="#specs">לכל היכולות</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PILLS — יכולות מאומתות בלבד -->
+    <!-- PILLS -->
     <section class="section-2" style="padding:2.2rem 0">
       <div class="container">
         <div class="pills reveal">
           <span class="pill"><b>4</b> ערוצים</span>
           <span class="pill"><b>360°</b> כיסוי</span>
+          <span class="pill"><b>2K</b> Ultra HD</span>
           <span class="pill"><b>4G</b> חיבור מובנה</span>
           <span class="pill"><b>GPS</b> איתור</span>
           <span class="pill"><b>לולאה</b> הקלטה רציפה</span>
@@ -117,7 +91,7 @@
       </div>
     </section>
 
-    <!-- HOW IT WORKS — הדרך לבקשת הזמנה -->
+    <!-- HOW IT WORKS -->
     <section class="section glow-top" id="how">
       <div class="container">
         <div class="section-head center reveal">
@@ -128,7 +102,7 @@
         <div class="steps-3 reveal">
           <div class="step-c">
             <h3>בקשה באתר</h3>
-            <p>משאירים שם וטלפון בטופס למעלה, או שולחים הודעת וואטסאפ. לוקח פחות מדקה, ואין תשלום.</p>
+            <p>משאירים שם וטלפון בטופס למטה, או שולחים הודעת וואטסאפ. לוקח פחות מדקה, ואין תשלום.</p>
           </div>
           <div class="step-c">
             <h3>שיחת התאמה ופרטים</h3>
@@ -139,8 +113,9 @@
             <p>אם מתאים — סוגרים הזמנה יחד ומתאמים מועד התקנה נוח. התשלום מסוכם בשיחה, לא באתר.</p>
           </div>
         </div>
-        <div class="center" style="margin-top:2rem">
+        <div class="center" style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
           <a class="btn btn-primary btn-lg" href="#lead">בקשת הזמנה ללא תשלום</a>
+          <button type="button" class="btn btn-ghost btn-lg" data-info-modal="modal-included">מה בדיוק כלול? ↗</button>
         </div>
       </div>
     </section>
@@ -185,7 +160,6 @@
             <li>קדמי, אחורי ותא נוסעים</li>
             <li>צפייה בכל הערוצים יחד או בנפרד</li>
           </ul>
-          <a class="btn btn-ghost" href="features.html" style="margin-top:1.6rem">לכל היכולות</a>
         </div>
         <div class="media reveal d1">
           <img src="assets/images/coverage-360.webp" alt="כיסוי 360 מעלות סביב הרכב" loading="lazy" />
@@ -222,8 +196,8 @@
           <p class="lead">אפליקציה בעברית ל־iPhone ואנדרואיד: צפייה חיה, איתור הרכב על מפות גוגל, מעקב בזמן אמת וצפייה בהקלטות — מכל מקום, דרך חיבור ה־4G המובנה.</p>
           <a class="btn btn-ghost" href="app.html" style="margin-top:1.4rem">גלו את האפליקציה</a>
         </div>
-        <div class="media reveal d1" style="max-width:360px;margin-inline:auto">
-          <img src="assets/images/app-mockup.webp" alt="אפליקציית גוב ארי בעברית — צפייה חיה ואיתור" loading="lazy" />
+        <div class="media reveal d1" style="max-width:320px;margin-inline:auto;background:transparent;border:0;box-shadow:none">
+          <img src="assets/images/app-mockup-neutral.svg" alt="המחשת מסך האפליקציה — 4 ערוצים ומיקום על מפה" loading="lazy" />
         </div>
       </div>
     </section>
@@ -248,13 +222,40 @@
           <h2>נבנתה כדי להגן. עוצבה כדי להשתלב.</h2>
         </div>
         <div class="showcase reveal">
-          <img src="assets/images/product-showcase.webp" alt="ערכת גוב ארי — יחידה מרכזית ומצלמה אחורית" loading="lazy" />
+          <img src="assets/images/camera-studio-v2.webp" alt="ערכת גוב ארי — יחידה מרכזית ומצלמה אחורית" loading="lazy" />
         </div>
       </div>
     </section>
 
-    <!-- WHAT WE COVER ON THE CALL (replaces price section — no invented figures) -->
-    <section class="section section-2" id="details">
+    <!-- FULL SPEC + REAL PHOTOS -->
+    <section class="section section-2" id="specs">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">המוצר האמיתי</p>
+          <h2>המפרט המרכזי — ולא רק הדמיה</h2>
+          <p class="lead">התמונות למטה הן צילומים אמיתיים של המוצר, לא הדמיות.</p>
+        </div>
+        <dl class="specs reveal">
+          <div class="spec"><dt>ערוצים</dt><dd>4 (ראשי 2K + 3 משניים 1K)</dd></div>
+          <div class="spec"><dt>כיסוי</dt><dd>360° סביב הרכב</dd></div>
+          <div class="spec"><dt>איכות צילום</dt><dd>2K Ultra HD</dd></div>
+          <div class="spec"><dt>מסך תצוגה</dt><dd>3 אינץ' מובנה</dd></div>
+          <div class="spec"><dt>אחסון</dt><dd>כרטיס זיכרון עד 512GB</dd></div>
+          <div class="spec"><dt>הקלטה</dt><dd>רציפה (לולאה)</dd></div>
+          <div class="spec"><dt>תקשורת</dt><dd>4G (SIM מובנה) · Wi-Fi · GPS</dd></div>
+          <div class="spec"><dt>אפליקציה</dt><dd>עברית · iOS ו־Android</dd></div>
+        </dl>
+        <p class="center" style="color:var(--muted-2);font-size:.9rem;margin:1rem 0 2.4rem">* לפי המפרט המודפס על קופסת המוצר. טווח ראייה לעדשה, מתח וממדים יתווספו מתוך קטלוג היצרן לאחר אימות מלא.</p>
+        <div class="gallery reveal">
+          <figure><img src="assets/images/gallery-2.webp" alt="צילום אמיתי של יחידת המצלמה על שולחן" loading="lazy" /></figure>
+          <figure><img src="assets/images/gallery-1.webp" alt="צילום אמיתי — מסך תצוגה מובנה ביחידה" loading="lazy" /></figure>
+          <figure><img src="assets/images/gallery-4.webp" alt="צילום אמיתי — היחידה והמצלמה האחורית יחד" loading="lazy" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE COVER ON THE CALL — הטופס האמיתי היחיד באתר -->
+    <section class="section" id="details">
       <div class="container split">
         <div class="txt reveal">
           <p class="eyebrow">שקיפות מלאה</p>
@@ -265,11 +266,12 @@
             <li>התאמה לרכב שלכם ותיאום התקנה</li>
             <li>מחיר ותנאים מלאים — נמסרים בשיחה</li>
           </ul>
+          <button type="button" class="btn btn-ghost" style="margin-top:1.4rem" data-info-modal="modal-included">מה בדיוק כלול? ↗</button>
         </div>
         <div class="reveal d1" style="align-self:center">
-          <div class="lead-card">
-            <h3>שנחזור אליכם?</h3>
-            <p class="lead-sub">שם וטלפון — ונציג יחזור אליכם להשלמת ההזמנה. אין תשלום באתר.</p>
+          <div class="lead-card" id="lead">
+            <h3>בקשת הזמנה — ללא תשלום</h3>
+            <p class="lead-sub">משאירים שם וטלפון, ונציג יחזור אליכם להשלמת ההזמנה. אין תשלום באתר.</p>
             <form class="lead-form" data-lead-form="details" action="/api/leads" method="post" novalidate>
               <div class="field">
                 <label for="p-name">שם מלא</label>
@@ -279,6 +281,10 @@
                 <label for="p-phone">טלפון</label>
                 <input id="p-phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="050-000-0000" />
               </div>
+              <div class="field">
+                <label for="p-city">עיר <span style="opacity:.6">(לא חובה)</span></label>
+                <input id="p-city" name="city" type="text" autocomplete="address-level2" placeholder="עיר מגורים" />
+              </div>
               <div class="lead-hp" aria-hidden="true"><label>אל תמלא<input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
               <button type="submit" class="btn btn-primary btn-block">בקשת הזמנה ללא תשלום</button>
               <p class="lead-reassure">
@@ -287,6 +293,66 @@
               </p>
               <div data-lead-status style="display:none"></div>
             </form>
+            <p style="text-align:center;color:var(--muted-2);font-size:.86rem;margin:.9rem 0 0">
+              מעדיפים לדבר עכשיו? <a href="https://wa.me/972536813013" target="_blank" rel="noopener" style="color:var(--gold-2)">וואטסאפ</a>
+              · <a href="tel:+972536813013" style="color:var(--gold-2)">053-6813013</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-2" id="faq">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">שאלות נפוצות</p>
+          <h2>לפני שמשאירים פרטים</h2>
+        </div>
+        <div class="faq reveal">
+          <details class="faq-item">
+            <summary>יש עלות או התחייבות בהשארת פרטים?</summary>
+            <p>לא. השארת פרטים היא בקשת יצירת קשר בלבד. אין תשלום באתר, ואין שום התחייבות עד שתסכמו הזמנה מפורשת עם נציג בשיחה.</p>
+          </details>
+          <details class="faq-item">
+            <summary>מתי אדע כמה זה עולה?</summary>
+            <p>המחיר נמסר בשיחת ההתאמה, אחרי שנבין את הרכב שלכם ואת הצרכים שלכם. אנחנו לא מציגים מחיר קבוע באתר כדי לא להטעות לפני שבדקנו התאמה.</p>
+          </details>
+          <details class="faq-item">
+            <summary>איך מתבצעת ההתקנה?</summary>
+            <p>אופן ההתקנה, המיקום והמועד מתואמים איתכם מראש בשיחה, לפי הרכב והזמינות שלכם.</p>
+          </details>
+          <details class="faq-item">
+            <summary>האם האפליקציה בעברית?</summary>
+            <p>כן — האפליקציה בעברית מלאה, זמינה ל־iPhone ולאנדרואיד.</p>
+          </details>
+          <details class="faq-item">
+            <summary>מה אם אני לא ברכב — עדיין אפשר לראות?</summary>
+            <p>כן. חיבור ה־4G המובנה מאפשר צפייה מרחוק, איתור GPS ומעקב בזמן אמת דרך האפליקציה, מכל מקום.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- DONATION -->
+    <section class="section donation-band" id="donation">
+      <div class="container">
+        <div class="donation-card reveal">
+          <div class="donation-grid">
+            <div>
+              <span class="donation-flag">🎗️ גאים לתמוך</span>
+              <h2>קונים מצלמה,<br>תומכים במי ששומר עלינו.</h2>
+              <p class="lead">גוב ארי היא עסק של עושה מילואים פעיל.</p>
+              <div class="donation-stat"><b>10%</b><span>מהרווח על כל רכישה</span></div>
+              <p>נתרמים לפצועי מלחמת חרבות ברזל, דרך עמותות מוכרות התומכות בלוחמים ובמשפחותיהם. כל מצלמה שמותקנת היא גם יד שנשלחת למי שנתן הכל למעננו.</p>
+              <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+                <button type="button" class="btn btn-ghost" data-info-modal="modal-donation">איך זה עובד? ↗</button>
+                <a class="btn btn-ghost" href="about.html">הסיפור שלנו ←</a>
+              </div>
+            </div>
+            <div class="donation-media">
+              <img src="assets/images/mil-badge.png" alt="עושה מילואים — גאים לתמוך" loading="lazy" />
+            </div>
           </div>
         </div>
       </div>
@@ -306,6 +372,32 @@
     </section>
   </main>
 
+  <!-- תוכן חבוי למודלים (data-info-modal) -->
+  <div id="modal-included" hidden>
+    <span class="cta-modal-flag">מה מקבלים</span>
+    <h3>הערכה המלאה</h3>
+    <ul class="cta-modal-list">
+      <li>יחידת מצלמה מרכזית — 3 עדשות (קדמי, ושתי עדשות צד) בכיסוי 360°</li>
+      <li>מצלמה אחורית נפרדת</li>
+      <li>חיבור 4G מובנה לצפייה ושליטה מרחוק</li>
+      <li>אפליקציה בעברית ל־iOS ולאנדרואיד</li>
+      <li>איתור GPS, מסלול נסיעה והיסטוריית מיקומים</li>
+      <li>הקלטה רציפה בלולאה</li>
+    </ul>
+    <p class="cta-modal-sub">מחיר, אחריות ותנאי התקנה מדויקים — נמסרים בשיחת ההתאמה, לפי הרכב שלכם.</p>
+    <div class="cta-modal-actions">
+      <a class="btn btn-primary btn-block btn-lg" href="#lead" data-close>בקשת הזמנה ללא תשלום</a>
+    </div>
+  </div>
+  <div id="modal-donation" hidden>
+    <span class="cta-modal-flag">🎗️ גאים לתמוך</span>
+    <h3>10% מהרווח — לפצועי חרבות ברזל</h3>
+    <p class="cta-modal-sub">גוב ארי היא עסק של עושה מילואים פעיל. על כל רכישה שמושלמת, 10% מהרווח מועברים לעמותות מוכרות התומכות בפצועי מלחמת חרבות ברזל ובמשפחותיהם — בלי קשר למחיר או לתנאים שתסכמו בשיחה.</p>
+    <div class="cta-modal-actions">
+      <a class="btn btn-primary btn-block btn-lg" href="#lead" data-close>בקשת הזמנה ללא תשלום</a>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -314,12 +406,14 @@
             <img class="brand-logo" src="assets/images/logo-govari.png" alt="גוב ארי מערכות" />
           </a>
           <p style="margin-top:1rem;max-width:34ch">מצלמת רכב 4 ערוצים עם כיסוי 360°, חיבור 4G ואפליקציה בעברית.</p>
+          <p style="margin-top:.6rem;font-size:.86rem"><a href="#donation" style="color:var(--gold-2)">🎗️ 10% מהרווח לפצועי חרבות ברזל</a></p>
         </div>
         <div>
           <h4>ניווט</h4>
           <a href="index.html">בית</a>
-          <a href="features.html">המצלמה</a>
+          <a href="about.html">עלינו</a>
           <a href="app.html">האפליקציה</a>
+          <a href="#faq">שאלות נפוצות</a>
           <a href="#lead">בקשת הזמנה</a>
           <a href="terms.html">תנאי שימוש</a>
           <a href="privacy.html">מדיניות פרטיות</a>

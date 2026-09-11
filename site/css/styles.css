@@ -4,7 +4,7 @@
    ============================================================ */
 :root{
   /* פחם — רקע ומשטחים */
-  --bg:#111318; --bg-2:#14171d; --surface:#1b1f26; --surface-2:#222732;
+  --bg:#111318; --bg-2:#14171d; --surface:#1b1f26; --surface-2:#222732; --bg-rgb:17,19,24;
   --line:rgba(231,188,104,.14); --line-2:rgba(231,188,104,.26);
   /* טקסט: ראשי בהיר, משני אפור קריא (נבדק ≥4.5:1 מול הפחם והמשטחים) */
   --text:#f7f4ed; --muted:#c4c7ce; --muted-2:#9aa0aa;
@@ -22,6 +22,32 @@
   --space:clamp(72px,9vw,140px);
   --font:'Heebo',system-ui,'Segoe UI',Arial,sans-serif;
   --ease:cubic-bezier(.2,.7,.2,1);
+}
+/* ============================================================
+   מצב יום — פלטה חמה, אור טבעי. אותם רכיבים, טוקנים חלופיים.
+   כל הצירופים נבדקו ≥4.5:1 (טקסט רגיל) / ≥3:1 (טקסט גדול, כפתורים).
+   ============================================================ */
+:root[data-theme="light"]{
+  --bg:#f7f4ee; --bg-2:#efe9dc; --surface:#ffffff; --surface-2:#f4efe4; --bg-rgb:247,244,238;
+  --line:rgba(150,110,40,.18); --line-2:rgba(150,110,40,.32);
+  --text:#1b1a17; --muted:#4b4a45; --muted-2:#5b5950;
+  --gold:#b8842f; --gold-2:#8a5c15; --gold-3:#6e4a10; --gold-ink:#2a1a05;
+  --gold-grad:linear-gradient(135deg,#cf9b46 0%,#b8842f 55%,#96691f 100%);
+  --wa:#136b39; --ok:#136b39; --err:#a8291f;
+  --shadow:0 24px 60px rgba(40,30,10,.14);
+  --shadow-gold:0 14px 34px rgba(184,132,47,.26);
+}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --bg:#f7f4ee; --bg-2:#efe9dc; --surface:#ffffff; --surface-2:#f4efe4; --bg-rgb:247,244,238;
+    --line:rgba(150,110,40,.18); --line-2:rgba(150,110,40,.32);
+    --text:#1b1a17; --muted:#4b4a45; --muted-2:#5b5950;
+    --gold:#b8842f; --gold-2:#8a5c15; --gold-3:#6e4a10; --gold-ink:#2a1a05;
+    --gold-grad:linear-gradient(135deg,#cf9b46 0%,#b8842f 55%,#96691f 100%);
+    --wa:#136b39; --ok:#136b39; --err:#a8291f;
+    --shadow:0 24px 60px rgba(40,30,10,.14);
+    --shadow-gold:0 14px 34px rgba(184,132,47,.26);
+  }
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -234,7 +260,7 @@ p{margin:0 0 1rem;color:var(--muted)}
 /* ===== Sticky mobile order bar ===== */
 .order-bar{position:fixed;inset-inline:0;bottom:0;z-index:90;display:none;
   gap:.8rem;align-items:center;justify-content:space-between;padding:.8rem 1rem;
-  background:rgba(17,19,24,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+  background:rgba(var(--bg-rgb),.9);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
 .order-bar .op{font-weight:800}.order-bar .op small{color:var(--muted);font-weight:500}
 
 /* ===== Footer ===== */
@@ -283,14 +309,25 @@ p{margin:0 0 1rem;color:var(--muted)}
   .footer-grid{grid-template-columns:1fr}
   body{padding-bottom:72px}
   .mobile-open .nav-links{display:flex;position:absolute;inset-inline:0;top:100%;flex-direction:column;
-    gap:0;background:rgba(17,19,24,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:.5rem 0}
+    gap:0;background:rgba(var(--bg-rgb),.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:.5rem 0}
   .mobile-open .nav-links a{padding:.9rem var(--gutter)}
 }
 
-/* מצב כהה בלבד — פלטת שחור·זהב אחת עקבית */
+/* מעבר חלק בין מצב יום/לילה */
 body{transition:background-color .35s var(--ease),color .35s var(--ease)}
 .brand-footer{display:inline-flex}
-.theme-toggle{display:none !important}
+
+/* ===== מתג יום/לילה ===== */
+.theme-toggle{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;
+  flex:0 0 auto;border:1px solid var(--line-2);background:var(--surface);color:var(--gold-2);
+  cursor:pointer;transition:transform .2s var(--ease),background .2s}
+.theme-toggle:hover{transform:translateY(-1px);background:rgba(231,188,104,.13)}
+.theme-toggle svg{width:19px;height:19px}
+.theme-toggle .ic-sun{display:none}
+.theme-toggle .ic-moon{display:block}
+:root[data-theme="light"] .theme-toggle .ic-sun{display:block}
+:root[data-theme="light"] .theme-toggle .ic-moon{display:none}
+@media(max-width:640px){.theme-toggle{width:36px;height:36px}.theme-toggle svg{width:17px;height:17px}}
 
 /* ===== Cinematic video band ===== */
 .video-band{position:relative;min-height:min(70vh,560px);display:flex;align-items:center;overflow:hidden}
@@ -364,29 +401,71 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .cta-modal-price .cur{font-size:1.1rem;color:var(--gold-2);font-weight:800}
 .cta-modal-actions{display:grid;gap:.55rem}
 .cta-modal-trust{margin-top:.9rem;color:var(--muted-2);font-size:.82rem}
+.cta-modal-list{list-style:none;margin:1rem 0;padding:0;display:grid;gap:.6rem;text-align:start}
+.cta-modal-list li{display:flex;gap:.6rem;align-items:flex-start;color:var(--text);font-size:.95rem}
+.cta-modal-list li::before{content:'';flex:0 0 auto;width:8px;height:8px;margin-top:.5em;border-radius:50%;background:var(--gold)}
+.cta-modal-card.is-plain .cta-modal-banner{display:none}
+.cta-modal-card.is-plain .cta-modal-body{margin-top:0;padding-top:1.8rem}
+
+/* ===== שאלות נפוצות (accordion) ===== */
+.faq{display:grid;gap:.8rem;max-width:760px;margin-inline:auto}
+.faq-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.faq-item summary{cursor:pointer;padding:1.15rem 1.4rem;font-weight:700;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;color:var(--text)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:1.5rem;color:var(--gold-2);flex:0 0 auto;
+  transition:transform .25s var(--ease);line-height:1}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{padding:0 1.4rem 1.2rem;margin:0;color:var(--muted)}
 
 /* ============================================================
-   באדג' "עושה מילואים" + הודעת תרומה צדדית
    ============================================================ */
 .mil-badge{height:38px;width:auto;display:block;flex:0 0 auto;align-self:center;object-fit:contain;
   padding-inline-start:.8rem;margin-inline-start:.15rem;border-inline-start:1px solid var(--line-2)}
 @media(max-width:900px){.mil-badge{height:34px;padding-inline-start:.6rem}}
 @media(max-width:640px){.mil-badge{display:none}}
 
-.donate-toast{position:fixed;bottom:20px;inset-inline-start:20px;z-index:950;max-width:310px;
-  display:flex;align-items:center;gap:.7rem;padding:.8rem 1rem;border-radius:16px;
+/* ============================================================
+   סקשן תרומה — "קונים מצלמה, תומכים במי ששומר עלינו"
+   פלטת זית/פליז — נבדלת בכוונה מהזהב המסחרי, טון "הוקרה" ולא "מבצע"
+   ============================================================ */
+.donation-band{position:relative;overflow:hidden;background:
+  linear-gradient(175deg,var(--bg-2) 0%,var(--bg) 100%)}
+.donation-card{position:relative;border:1px solid var(--line-2);border-radius:var(--radius-lg);
+  padding:clamp(1.8rem,4vw,3rem);overflow:hidden;
+  background:linear-gradient(160deg,rgba(107,90,50,.16),rgba(107,90,50,.04)),var(--surface)}
+.donation-card::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 90% at 100% 0%,rgba(107,122,74,.22),transparent 60%)}
+.donation-grid{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,4vw,56px);align-items:center}
+.donation-flag{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:999px;
+  background:rgba(107,122,74,.16);border:1px solid rgba(107,122,74,.4);color:#a9c17e;
+  font-weight:800;font-size:.82rem;margin-bottom:1rem}
+:root[data-theme="light"] .donation-flag{background:rgba(90,102,60,.12);border-color:rgba(90,102,60,.35);color:#4b5320}
+.donation-card h2{margin-bottom:.6em}
+.donation-stat{display:flex;align-items:baseline;gap:.5rem;margin:1.2rem 0}
+.donation-stat b{font-size:clamp(2.4rem,5vw,3.2rem);font-weight:900;color:var(--gold-2);letter-spacing:-.02em}
+.donation-stat span{color:var(--muted);font-size:1rem}
+.donation-media{display:grid;place-items:center;padding:1.5rem}
+.donation-media img{max-width:230px;width:70%}
+@media(max-width:820px){.donation-grid{grid-template-columns:1fr}.donation-media{order:-1;padding:.5rem}}
+
+/* ===== הודעת תרומה צדדית (טוסט) ===== */
+.donate-toast{position:fixed;bottom:20px;inset-inline-start:20px;z-index:950;max-width:320px;
+  display:flex;align-items:center;gap:.7rem;padding:.85rem 1.05rem;border-radius:16px;
   background:linear-gradient(135deg,#4b5320,#616e2c);color:#fff;
-  box-shadow:0 18px 44px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 44px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);
   transform:translateY(150%);opacity:0;transition:transform .55s var(--ease),opacity .55s;
   font-size:.9rem;line-height:1.5}
 .donate-toast.show{transform:none;opacity:1}
-.donate-toast .heart{width:22px;height:22px;flex:0 0 auto;fill:#ff5a5f}
+.donate-toast .heart{width:22px;height:22px;flex:0 0 auto;fill:#ff8a80}
 .donate-toast b{color:#fff;font-weight:800}
-.donate-toast .dt-close{margin-inline-start:auto;background:none;border:0;color:#fff;opacity:.7;
-  cursor:pointer;font-size:1.1rem;line-height:1;flex:0 0 auto;padding:2px}
+.donate-toast a{color:#fff;text-decoration:underline}
+.donate-toast .dt-close{margin-inline-start:auto;background:none;border:0;color:#fff;opacity:.75;
+  cursor:pointer;font-size:1.1rem;line-height:1;flex:0 0 auto;padding:2px;align-self:flex-start}
 .donate-toast .dt-close:hover{opacity:1}
 @media(max-width:480px){.donate-toast{inset-inline:14px;bottom:14px;max-width:none}}
 @media(prefers-reduced-motion:reduce){.donate-toast{transition:opacity .4s}}
+
 
 /* מניעת צפיפות בהיידר בטאבלט — מסתיר את הטלפון הטקסטואלי (וואטסאפ+CTA+רצועה עדיין מכסים) */
 @media(max-width:920px){.nav-tel{display:none}}
@@ -472,6 +551,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 
 /* ============================================================
+   הירו הקולנועי — וידאו רקע, טקסט ממורכז, בלי טופס מוטבע.
+   בקשת ההזמנה מגיעה כחלון קופץ בגלילה (main.js) או בסקשן הליד למטה.
+   ============================================================ */
+.hero-cinematic .hero-split{display:flex;align-items:center;justify-content:center;
+  min-height:min(92vh,760px);text-align:center;padding-block:clamp(90px,10vw,140px) clamp(40px,6vw,64px)}
+.hero-cinematic .hero-text{max-width:720px;margin-inline:auto}
+.hero-cinematic .hero-text .feature-list{justify-content:center;text-align:start;
+  max-width:460px;margin-inline:auto;margin-top:1.3rem}
+.hero-cinematic .hero-cta{justify-content:center;margin-top:1.6rem}
+.hero-cinematic h1{font-size:clamp(2.6rem,6vw,4.6rem)}
+@media(max-width:640px){
+  .hero-cinematic .hero-split{min-height:88vh;padding-block:104px 40px}
+}
+
+/* ============================================================
    3 צעדים — מה קורה אחרי שמשאירים פרטים
    ============================================================ */
 .steps-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;counter-reset:step}
@@ -490,7 +584,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .sticky-cta{position:fixed;inset-inline:0;bottom:0;z-index:95;display:none;
   align-items:center;gap:.6rem;padding:.7rem .9rem;
   padding-bottom:calc(.7rem + env(safe-area-inset-bottom,0));
-  background:rgba(17,19,24,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line-2)}
+  background:rgba(var(--bg-rgb),.92);backdrop-filter:blur(14px);border-top:1px solid var(--line-2)}
 .sticky-cta .btn{flex:1;min-height:48px}
 .sticky-cta .sc-wa,.sticky-cta .sc-tel{display:grid;place-items:center;width:48px;height:48px;
   border-radius:12px;flex:0 0 auto;border:1px solid var(--line-2);color:var(--gold-2)}

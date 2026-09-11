@@ -59,6 +59,7 @@ export async function sendAdminEmail(lead, submission) {
     html,
   });
   if (error) throw new Error(`Resend: ${error.message || JSON.stringify(error)}`);
+  if (!data?.id) throw new Error('Resend did not confirm receipt');
   return { id: data?.id };
 }
 
@@ -81,6 +82,7 @@ export async function sendEmergencyAdminEmail({ fullName, phoneRaw, city, notes,
       </table></div>`,
   });
   if (error) throw new Error(`Resend: ${error.message || JSON.stringify(error)}`);
+  if (!data?.id) throw new Error('Resend did not confirm receipt');
   return { id: data?.id, emergency: true };
 }
 
@@ -120,6 +122,7 @@ export async function sendMetaCapi(lead, submission) {
   try {
     res = await fetch(url, {
       method: 'POST',
+      signal: AbortSignal.timeout(15000),
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
@@ -140,6 +143,7 @@ export async function sendSheetBackup(lead, submission) {
   if (!sheetBackupEnabled()) throw new Error('SHEET_WEBHOOK_URL not configured');
   const res = await fetch(config.sheetWebhookUrl, {
     method: 'POST',
+    signal: AbortSignal.timeout(15000),
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       id: lead.id, created_at: submission?.created_at || lead.created_at,

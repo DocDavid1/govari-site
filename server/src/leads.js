@@ -14,7 +14,7 @@ import { query, tx, hashIp } from './db.js';
 import { normalizeILPhone, isPlausiblePhone } from './phone.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.join(__dirname, '..', 'data');
+const DATA_DIR = process.env.LEAD_DATA_DIR || path.join(__dirname, '..', 'data');
 const F = {
   leads: path.join(DATA_DIR, 'leads.json'),
   subs: path.join(DATA_DIR, 'lead_submissions.json'),
@@ -54,6 +54,7 @@ export async function initLeads() {
     const { migrate } = await import('./db.js');
     await migrate();
   } else {
+    if (config.env === 'production' || process.env.VERCEL) throw new Error('Production requires DATABASE_URL');
     await fs.mkdir(DATA_DIR, { recursive: true });
     console.log('[leads] אחסון: קובץ JSON מקומי (ללא DATABASE_URL) — לא לפרודקשן');
   }
@@ -66,6 +67,8 @@ export function cleanLeadInput(body = {}) {
   const fullName = clip(b.full_name ?? b.fullName ?? b.name, 120) || '';
   const phoneRaw = String(b.phone ?? b.phone_raw ?? '').trim().slice(0, 40);
 
+  if (typeof (b.full_name ?? b.fullName ?? b.name) !== 'string') errors.push('שם לא תקין');
+  if (b.email && (typeof b.email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email))) errors.push('כתובת אימייל לא תקינה');
   if (fullName.length < 2) errors.push('חסר שם מלא');
   if (!isPlausiblePhone(phoneRaw)) errors.push('מספר טלפון לא תקין');
 
@@ -112,11 +115,15 @@ export async function createLead(clean, meta = {}) {
   const userAgent = clip(meta.userAgent, 400);
 
   if (usePg()) return createLeadPg(clean, { ipHash, userAgent });
+  if (config.env === 'production' || process.env.VERCEL) throw new Error('Production requires DATABASE_URL');
   return createLeadJson(clean, { ipHash, userAgent });
 }
 
 async function createLeadPg(c, { ipHash, userAgent }) {
   return tx(async (db) => {
+    // Transaction locks serialize both network retries and simultaneous new-phone submissions.
+    if (c.idempotencyKey) await db.query('select pg_advisory_xact_lock(hashtextextended($1, 0))', ['idem:' + c.idempotencyKey]);
+    await db.query('select pg_advisory_xact_lock(hashtextextended($1, 0))', ['phone:' + c.phoneNormalized]);
     // idempotency — הגשה שכבר נקלטה
     if (c.idempotencyKey) {
       const dup = await db.query(
@@ -256,10 +263,10 @@ async function createLeadJsonUnlocked(c, { ipHash, userAgent }) {
 export async function claimDueEvents(limit = 10) {
   if (usePg()) {
     const r = await query(
-      `update lead_events e set status = 'processing'
+      `update lead_events e set status = 'processing', next_attempt_at = now() + interval '10 minutes'
          where e.id in (
            select id from lead_events
-            where status in ('pending')
+            where status in ('pending', 'processing')
               and next_attempt_at <= now()
             order by next_attempt_at
             limit $1
@@ -272,8 +279,8 @@ export async function claimDueEvents(limit = 10) {
   }
   return withJsonLock(async () => {
     const events = await jread(F.events);
-    const due = events.filter((e) => e.status === 'pending' && new Date(e.next_attempt_at) <= new Date()).slice(0, limit);
-    due.forEach((e) => { e.status = 'processing'; });
+    const due = events.filter((e) => ['pending', 'processing'].includes(e.status) && new Date(e.next_attempt_at) <= new Date()).slice(0, limit);
+    due.forEach((e) => { e.status = 'processing'; e.next_attempt_at = new Date(Date.now() + 600000).toISOString(); });
     if (due.length) await jwrite(F.events, events);
     return due;
   });
@@ -300,7 +307,7 @@ export async function failEvent(id, errMsg) {
          status = case when attempts + 1 >= $2 then 'failed' else 'pending' end,
          next_attempt_at = now() + (make_interval(mins => (case
              when attempts + 1 >= array_length($3::int[],1) then $3[array_length($3::int[],1)]
-             else $3[attempts + 1] end))),
+             else $3[attempts + 2] end))),
          last_error = $4
        where id = $1`,
       [id, MAX_ATTEMPTS, BACKOFF_MIN, msg]
@@ -363,7 +370,7 @@ export async function countLeads() {
       `select
          count(*)::int as total,
          count(*) filter (where status = 'new')::int as new,
-         count(*) filter (where created_at > now() - interval '24 hours')::int as last24h`
+         count(*) filter (where created_at > now() - interval '24 hours')::int as last24h from leads`
     );
     return r.rows[0];
   }

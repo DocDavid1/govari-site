@@ -9,7 +9,7 @@ import { claimDueEvents, completeEvent, failEvent, getLead } from './leads.js';
 import { HANDLERS } from './notify.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const SUBS_FILE = path.join(__dirname, '..', 'data', 'lead_submissions.json');
+const SUBS_FILE = path.join(process.env.LEAD_DATA_DIR || path.join(__dirname, '..', 'data'), 'lead_submissions.json');
 
 async function loadSubmission(id) {
   if (!id) return null;
@@ -70,7 +70,7 @@ export async function outboxHealth() {
            count(*) filter (where status = 'pending')::int  as pending,
            count(*) filter (where status = 'processing')::int as processing,
            count(*) filter (where status = 'failed')::int    as failed,
-           count(*) filter (where status = 'pending' and next_attempt_at < now() - interval '15 minutes')::int as stuck
+           count(*) filter (where status in ('pending', 'processing') and next_attempt_at < now() - interval '15 minutes')::int as stuck
          from lead_events`
       );
       return r.rows[0];
@@ -79,12 +79,12 @@ export async function outboxHealth() {
     }
   }
   try {
-    const rows = JSON.parse(await fs.readFile(path.join(__dirname, '..', 'data', 'lead_events.json'), 'utf8'));
+    const rows = JSON.parse(await fs.readFile(path.join(process.env.LEAD_DATA_DIR || path.join(__dirname, '..', 'data'), 'lead_events.json'), 'utf8'));
     return {
       pending: rows.filter((e) => e.status === 'pending').length,
       processing: rows.filter((e) => e.status === 'processing').length,
       failed: rows.filter((e) => e.status === 'failed').length,
-      stuck: rows.filter((e) => e.status === 'pending' && Date.now() - new Date(e.next_attempt_at) > 9e5).length,
+      stuck: rows.filter((e) => ['pending', 'processing'].includes(e.status) && Date.now() - new Date(e.next_attempt_at) > 9e5).length,
     };
   } catch { return { pending: 0, processing: 0, failed: 0, stuck: 0 }; }
 }

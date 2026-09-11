@@ -35,7 +35,7 @@ export const config = {
   },
 
   // סוד להפעלת ה-outbox מבחוץ (Vercel Cron / cron-job.org). ריק בפרודקשן = הגנה רק דרך Cron header.
-  outboxTickSecret: process.env.OUTBOX_TICK_SECRET || '',
+  outboxTickSecret: process.env.OUTBOX_TICK_SECRET || process.env.CRON_SECRET || '',
 
   // גיבוי אופציונלי ל-Google Sheet (Apps Script Web App URL). לעולם לא מקור אמת.
   sheetWebhookUrl: process.env.SHEET_WEBHOOK_URL || '',

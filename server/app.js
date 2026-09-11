@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -41,7 +42,7 @@ const ipOf = (req) => (req.headers['x-forwarded-for'] || '').split(',')[0].trim(
 // ============================================================
 app.get(['/health', '/api/health'], async (req, res) => {
   const [db, ob] = await Promise.all([dbHealth(), outboxHealth()]);
-  const healthy = db.ok !== false && (ob.stuck == null || ob.stuck === 0);
+  const healthy = db.ok !== false && !ob.error && !ob.failed && (ob.stuck == null || ob.stuck === 0);
   res.status(healthy ? 200 : 503).json({
     ok: healthy,
     time: new Date().toISOString(),
@@ -78,11 +79,9 @@ a{color:#e7c877}.c{max-width:420px}</style></head><body><div class="c">${body}</
 app.post('/api/leads', leadLimiter, async (req, res) => {
   const asHtml = wantsHtml(req);
 
-  // honeypot — שדה נסתר שבוט ממלא. מחזירים "הצלחה" בלי לשמור.
+  // Autofill can populate hidden fields: never silently discard a real request.
   if (req.body && (req.body.company || req.body.website || req.body.fax)) {
-    return asHtml
-      ? res.send(htmlPage('תודה', '<h1>קיבלנו את הפרטים 👍</h1><p><a href="/">חזרה לאתר</a></p>'))
-      : res.json({ ok: true, leadId: 'skipped', spam: true });
+    return res.status(400).json({ ok: false, errors: ['לא הצלחנו לאמת את הטופס. נסו שוב או התקשרו אלינו.'] });
   }
 
   const { ok, errors, clean } = cleanLeadInput(req.body);
@@ -129,9 +128,17 @@ app.post('/api/leads', leadLimiter, async (req, res) => {
     }
 
     if (rescued) {
+      const emergencyLeadId = randomUUID();
+      const emergencySubmissionId = randomUUID();
       return asHtml
         ? res.send(htmlPage('תודה', '<h1>קיבלנו את הפרטים 👍</h1><p>נחזור אליך בהקדם.</p><p><a href="/">חזרה לאתר</a></p>'))
-        : res.status(200).json({ ok: true, degraded: true, leadId: 'emergency' });
+        : res.status(200).json({
+          ok: true,
+          degraded: true,
+          leadId: emergencyLeadId,
+          submissionId: emergencySubmissionId,
+          eventId: emergencySubmissionId,
+        });
     }
     // מצב C — גם המסד וגם החירום נכשלו. אומרים אמת ומציעים ערוצים ישירים.
     const waMsg = encodeURIComponent(`היי, ניסיתי להשאיר פרטים באתר וזה לא עבר. שם: ${clean.fullName} · טלפון: ${clean.phoneRaw}`);
@@ -153,13 +160,16 @@ app.post('/api/leads', leadLimiter, async (req, res) => {
 // ============================================================
 app.all(['/api/outbox/tick', '/api/cron/outbox'], async (req, res) => {
   const secret = config.outboxTickSecret;
-  const provided = req.query.key || req.get('x-outbox-key') || '';
-  const isVercelCron = Boolean(req.get('x-vercel-cron'));
-  if (secret && provided !== secret && !isVercelCron) {
+  const provided = req.get('x-outbox-key') || (req.get('authorization') || '').replace(/^Bearer /, '');
+  if (!secret || provided !== secret) {
     return res.status(403).json({ ok: false });
   }
-  const summary = await processOutbox({ max: 40 });
-  res.json({ ok: true, ...summary });
+  try {
+    const summary = await processOutbox({ max: 40 });
+    res.status(summary.errors.length ? 503 : 200).json({ ok: !summary.errors.length, ...summary });
+  } catch (error) {
+    res.status(503).json({ ok: false });
+  }
 });
 
 // ============================================================

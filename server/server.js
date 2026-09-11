@@ -6,9 +6,8 @@ import { initDb } from './src/orders.js';
 import { initLeads } from './src/leads.js';
 
 warnInsecureConfig();
-Promise.allSettled([initDb(), initLeads()])
-  .then((results) => {
-    results.forEach((r) => r.status === 'rejected' && console.error('[init]', r.reason));
+Promise.all([initDb(), initLeads()])
+  .then(() => {
     app.listen(config.port, () => {
       console.log(`\n גוב ארי — שרת פועל`);
       console.log(` http://localhost:${config.port}`);
