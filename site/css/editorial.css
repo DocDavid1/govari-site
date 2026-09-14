@@ -288,8 +288,8 @@ body{font-weight:400}h1,h2,h3{font-weight:500;letter-spacing:-.045em}.btn{border
     overflow:hidden;
   }
   .lead-orbit__card{
-    width:100%;
-    max-width:430px;
+    width:calc(100vw - 24px)!important;
+    max-width:calc(100vw - 24px)!important;
     max-height:calc(100svh - 24px);
     overflow:auto;
     border-radius:26px;
@@ -360,10 +360,11 @@ body{font-weight:400}h1,h2,h3{font-weight:500;letter-spacing:-.045em}.btn{border
 }
 @media(max-width:520px){
   .lead-orbit{
-    padding-inline:10px;
+    padding-inline:0;
   }
   .lead-orbit__card{
-    max-width:calc(100vw - 20px);
+    width:calc(100vw - 16px)!important;
+    max-width:calc(100vw - 16px)!important;
   }
 }
 .lead-orbit__card:focus{outline:1px solid rgba(183,151,91,.42);outline-offset:4px}

@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { config, paymentEnabled, emailEnabled, usePg, metaCapiEnabled, adminEnabled } from './src/config.js';
+import { config, paymentEnabled, emailEnabled, usePg, metaCapiEnabled, adminEnabled, sheetBackupEnabled } from './src/config.js';
 import { validateOrderInput } from './src/validate.js';
 import { createOrder, getOrder, markPaid } from './src/orders.js';
 import { getCoupon } from './src/coupons.js';
@@ -42,7 +42,9 @@ const ipOf = (req) => (req.headers['x-forwarded-for'] || '').split(',')[0].trim(
 // ============================================================
 app.get(['/health', '/api/health'], async (req, res) => {
   const [db, ob] = await Promise.all([dbHealth(), outboxHealth()]);
-  const healthy = db.ok !== false && !ob.error && !ob.failed && (ob.stuck == null || ob.stuck === 0);
+  const outboxEnabled = emailEnabled() || metaCapiEnabled() || sheetBackupEnabled();
+  const outboxHealthy = !outboxEnabled || (!ob.error && !ob.failed && (ob.stuck == null || ob.stuck === 0));
+  const healthy = db.ok !== false && outboxHealthy;
   res.status(healthy ? 200 : 503).json({
     ok: healthy,
     time: new Date().toISOString(),
@@ -50,6 +52,7 @@ app.get(['/health', '/api/health'], async (req, res) => {
     outbox: ob,
     email: emailEnabled() ? 'on' : 'off',
     metaCapi: metaCapiEnabled() ? 'on' : 'off',
+    sheetBackup: sheetBackupEnabled() ? 'on' : 'off',
     admin: adminEnabled() ? 'on' : 'off',
     payment: paymentEnabled() ? config.payment.provider : 'none',
   });
