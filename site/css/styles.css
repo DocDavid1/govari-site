@@ -419,10 +419,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .faq-item p{padding:0 1.4rem 1.2rem;margin:0;color:var(--muted)}
 
 /* ============================================================
-   ============================================================ */
-  padding-inline-start:.8rem;margin-inline-start:.15rem;border-inline-start:1px solid var(--line-2)}
-
-/* ============================================================
    באנר עוגיות (הסכמה)
    ============================================================ */
 .cookie-bar{position:fixed;bottom:20px;inset-inline-end:20px;z-index:960;max-width:380px;

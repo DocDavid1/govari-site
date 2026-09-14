@@ -64,3 +64,91 @@
 .app-feature-scroll{background:linear-gradient(180deg,#171918 0%,#20231f 54%,#f0eee8 100%);color:#f0eee8;padding-block:40px 90px}.app-feature-panel{min-height:92svh;display:grid;grid-template-columns:1fr .86fr;gap:clamp(42px,7vw,110px);align-items:center;padding-block:70px;position:sticky;top:0}.app-feature-panel.is-reverse{grid-template-columns:.86fr 1fr}.app-feature-panel.is-reverse .app-feature-copy{order:2}.app-feature-copy{max-width:620px}.app-feature-copy h2{font-size:clamp(3rem,6vw,6.2rem);line-height:1.02;color:#f4f1e8;margin:0 0 24px}.app-feature-copy p{color:#c9ccc4}.app-feature-copy ul{list-style:none;padding:0;margin:30px 0 0;display:grid;gap:14px}.app-feature-copy li{border-top:1px solid rgba(240,238,232,.16);padding-top:13px;color:#e7e4da;font-size:1.05rem}.app-feature-copy li::before{content:'—';margin-inline-end:10px;color:#ded7c8}.app-phone-frame{margin:0;justify-self:center;position:relative}.app-phone-frame::before{content:'';position:absolute;inset:9% -10%;background:radial-gradient(circle,rgba(222,215,200,.34),transparent 60%);filter:blur(34px)}.app-phone-frame img{position:relative;z-index:1;max-height:74svh;border-radius:26px;filter:drop-shadow(0 38px 52px rgba(0,0,0,.32))}.app-feature-panel:nth-child(2) .app-phone-frame img{transform:rotate(-1.5deg)}
 @media(max-width:860px){.secondary-editorial .reserve-badge{display:none}.secondary-editorial .theme-toggle{width:42px;height:36px}.app-feature-panel,.app-feature-panel.is-reverse{position:relative;min-height:auto;grid-template-columns:1fr;gap:34px;padding-block:64px}.app-feature-panel.is-reverse .app-feature-copy{order:0}.app-phone-frame img{max-height:none}.app-feature-copy h2{font-size:46px}}
 @media(prefers-reduced-motion:reduce){.app-feature-panel{position:relative}.app-feature-panel:nth-child(2) .app-phone-frame img{transform:none}}
+
+/* Shared premium CTA/stamp language for inner pages */
+.secondary-editorial .btn-primary,
+.secondary-editorial .ed-button{
+  position:relative;
+  overflow:hidden;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ffe2a6 0%,#efc66f 42%,#d7a244 100%);
+  color:#12140f;
+  border:1px solid rgba(255,230,174,.55);
+  box-shadow:0 18px 46px rgba(215,162,68,.2),inset 0 1px 0 rgba(255,255,255,.62);
+  font-weight:850;
+}
+.secondary-editorial .btn-free strong{
+  font-weight:950;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(255,255,255,.58);
+  border-radius:999px;
+  padding:.16em .55em;
+  margin-inline:.08em;
+  white-space:nowrap;
+}
+.secondary-editorial .btn-primary:hover,
+.secondary-editorial .ed-button:hover{
+  transform:translateY(-2px);
+  filter:saturate(1.08) brightness(1.02);
+}
+.secondary-editorial .miluim-stamp{
+  --stamp:#d9c070;
+  position:relative;
+  display:inline-grid;
+  place-items:center;
+  width:66px;
+  height:48px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:var(--stamp);
+  font-weight:950;
+  font-size:13px;
+  line-height:.9;
+  letter-spacing:-.045em;
+  text-align:center;
+  transform:rotate(-9deg);
+  filter:drop-shadow(0 7px 14px rgba(0,0,0,.22));
+  box-shadow:none;
+}
+.secondary-editorial .miluim-stamp::before{
+  content:'';
+  position:absolute;
+  inset:5px 2px 2px 4px;
+  border:5px solid currentColor;
+  clip-path:polygon(50% 0,100% 91%,0 91%);
+  transform:skew(-7deg) rotate(2deg);
+}
+.secondary-editorial .miluim-stamp::after{
+  content:'';
+  position:absolute;
+  left:12px;
+  right:8px;
+  bottom:8px;
+  height:4px;
+  background:currentColor;
+  transform:rotate(-3deg) skew(-18deg);
+}
+.secondary-editorial .miluim-stamp>span{
+  position:relative;
+  z-index:1;
+  transform:translateY(7px) rotate(3deg);
+}
+.secondary-editorial .ed-actions .ed-link[href^="https://wa.me"]{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:10px 18px;
+  border-radius:999px;
+  color:#092a18;
+  background:linear-gradient(135deg,#35e277,#18b957 58%,#0f8f42 100%);
+  border:1px solid rgba(127,255,179,.5);
+  box-shadow:0 14px 34px rgba(24,185,87,.18),inset 0 1px 0 rgba(255,255,255,.42);
+  font-weight:900;
+  text-decoration:none;
+}
+@media(max-width:820px){
+  .secondary-editorial .miluim-stamp{display:none}
+  .secondary-editorial .nav{gap:10px}.secondary-editorial .btn-sm{padding:.58rem .85rem;font-size:.84rem}
+}
