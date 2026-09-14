@@ -5,7 +5,20 @@
   function updateHeader(){ if(header) header.classList.toggle('scrolled', window.scrollY>18); }
   updateHeader(); window.addEventListener('scroll', updateHeader, {passive:true});
   var burger=document.querySelector('.burger');
-  if(burger&&header){burger.setAttribute('aria-expanded','false');burger.addEventListener('click',function(){var open=header.classList.toggle('mobile-open');burger.setAttribute('aria-expanded',open?'true':'false');});}
+  var navLinks=document.querySelector('.nav-links');
+  if(navLinks && !navLinks.id) navLinks.id='primary-nav';
+  if(burger&&header){
+    if(navLinks) burger.setAttribute('aria-controls',navLinks.id);
+    burger.setAttribute('aria-expanded','false');
+    function setMenu(open){
+      header.classList.toggle('mobile-open',open);
+      burger.setAttribute('aria-expanded',open?'true':'false');
+      burger.setAttribute('aria-label',open?'סגירת תפריט':'פתיחת תפריט');
+    }
+    burger.addEventListener('click',function(){setMenu(!header.classList.contains('mobile-open'));});
+    if(navLinks){navLinks.addEventListener('click',function(e){if(e.target.closest('a')) setMenu(false);});}
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&header.classList.contains('mobile-open')){setMenu(false);burger.focus();}});
+  }
   document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var target=document.querySelector(id);if(!target)return;e.preventDefault();target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});});});
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){var video=entry.target;var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;var save=navigator.connection&&navigator.connection.saveData;if(entry.isIntersecting&&!reduce&&!save&&video.dataset.userPaused!=='true') video.play().catch(function(){}); else video.pause();});},{threshold:.35});

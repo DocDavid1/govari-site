@@ -1236,3 +1236,103 @@ body.light .miluim-stamp,
     min-height:54px;
   }
 }
+
+/* Mobile safe-area CTA fitting — keep hero and sticky buttons away from viewport edges. */
+@media(max-width:760px){
+  .road-copy .btn,
+  .road-copy .btn-primary{
+    width:min(318px,calc(100vw - 48px))!important;
+    max-width:calc(100vw - 48px)!important;
+    margin-inline:auto!important;
+    justify-content:center;
+    padding-inline:16px!important;
+    box-sizing:border-box;
+  }
+  .mobile-contact{
+    width:auto;
+    max-width:calc(100vw - 20px);
+    box-sizing:border-box;
+  }
+  .mobile-contact a:last-child{
+    white-space:normal;
+    text-align:center;
+    line-height:1.2;
+  }
+}
+@media(max-width:380px){
+  .road-copy .btn,
+  .road-copy .btn-primary{
+    width:calc(100vw - 40px)!important;
+    max-width:calc(100vw - 40px)!important;
+    font-size:13px;
+  }
+}
+
+/* Final mobile hero CTA centering override after older RTL alignment layers. */
+@media(max-width:760px){
+  .road-copy{
+    justify-items:center!important;
+    align-items:center!important;
+  }
+  .road-copy .btn,
+  .road-copy .btn-primary{
+    display:inline-flex!important;
+    justify-self:center!important;
+    place-self:center!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    margin-inline:auto!important;
+    transform:none;
+  }
+}
+
+/* Physical RTL safety margin for the hero CTA on narrow screens. */
+@media(max-width:760px){
+  .road-copy .btn,
+  .road-copy .btn-primary{
+    width:min(294px,calc(100vw - 88px))!important;
+    max-width:calc(100vw - 88px)!important;
+    margin-right:24px!important;
+    margin-left:auto!important;
+  }
+}
+
+/* Correct visual centering in RTL mobile screenshots after legacy hero positioning. */
+@media(max-width:760px){
+  .road-copy .btn,
+  .road-copy .btn-primary{
+    transform:translateX(-38px)!important;
+  }
+}
+@media(max-width:420px){
+  .road-copy .btn,
+  .road-copy .btn-primary{
+    transform:translateX(-44px)!important;
+  }
+}
+
+/* Narrow mobile hero CTA fallback: readable, premium, never clipped. */
+@media(max-width:760px){
+  .road-copy .btn,
+  .road-copy .btn-primary{
+    width:248px!important;
+    max-width:248px!important;
+    min-width:0!important;
+    font-size:12.5px!important;
+    gap:8px!important;
+  }
+  .road-copy .btn strong,
+  .road-copy .btn-primary strong{
+    padding:.14em .44em!important;
+  }
+}
+
+/* Physical position correction for legacy RTL hero CTA anchoring. */
+@media(max-width:760px){
+  .road-copy .btn,
+  .road-copy .btn-primary{
+    position:relative!important;
+    right:42px!important;
+    left:auto!important;
+  }
+}
