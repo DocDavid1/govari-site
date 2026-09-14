@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /order-success.html
+Disallow: /preorder.html
+Disallow: /checkout.html
 Sitemap: https://govari-site.vercel.app/sitemap.xml
