@@ -152,3 +152,97 @@
   .secondary-editorial .miluim-stamp{display:none}
   .secondary-editorial .nav{gap:10px}.secondary-editorial .btn-sm{padding:.58rem .85rem;font-size:.84rem}
 }
+
+/* Mobile overflow guardrails for the editorial product/app pages. */
+@media(max-width:760px){
+  .secondary-editorial,
+  .secondary-editorial body,
+  .secondary-editorial .editorial-page{
+    max-width:100%;
+    overflow-x:hidden;
+  }
+  .secondary-editorial *,
+  .secondary-editorial *::before,
+  .secondary-editorial *::after{
+    box-sizing:border-box;
+  }
+  .secondary-editorial .container{
+    width:min(calc(100vw - 40px),350px);
+    max-width:350px;
+    margin-left:20px;
+    margin-right:auto;
+  }
+  .secondary-editorial .ed-intro{
+    padding-block:58px 42px;
+    text-align:center;
+  }
+  .secondary-editorial .ed-intro>*,
+  .secondary-editorial .ed-intro-bottom>*,
+  .secondary-editorial .ed-app-intro>*,
+  .secondary-editorial .ed-chapter>*,
+  .secondary-editorial .ed-chapter-heading,
+  .secondary-editorial .ed-chapter-body{
+    min-width:0;
+    max-width:100%;
+  }
+  .secondary-editorial .editorial-page h1,
+  .secondary-editorial .editorial-page h2{
+    max-width:100%;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+  .secondary-editorial .editorial-page h1{
+    font-size:clamp(2.45rem,11.2vw,3.05rem);
+    line-height:1.08;
+    margin-bottom:24px;
+    margin-inline:auto;
+  }
+  .secondary-editorial .editorial-page h2{
+    font-size:clamp(2.1rem,9.8vw,2.7rem);
+    line-height:1.12;
+  }
+  .secondary-editorial .ed-intro-bottom p,
+  .secondary-editorial .ed-chapter-body p,
+  .secondary-editorial .ed-app-intro p{
+    max-width:100%;
+    margin-inline:auto;
+  }
+  .secondary-editorial .ed-intro-bottom{
+    text-align:center;
+  }
+  .secondary-editorial .ed-app-intro,
+  .secondary-editorial .ed-chapter{
+    text-align:center;
+  }
+  .secondary-editorial .ed-chapter-heading h2,
+  .secondary-editorial .ed-chapter-body p{
+    margin-inline:auto;
+  }
+  .secondary-editorial .ed-link{
+    white-space:normal;
+    line-height:1.45;
+  }
+  .secondary-editorial .ed-seo-pills{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    max-width:100%;
+    overflow:hidden;
+  }
+  .secondary-editorial .ed-seo-pills span{
+    min-width:0;
+    max-width:100%;
+    white-space:normal;
+  }
+  .secondary-editorial .ed-product{
+    width:min(calc(100vw - 40px),350px);
+    max-width:350px;
+    margin-left:20px;
+    margin-right:auto;
+  }
+  .secondary-editorial .ed-product img{
+    display:block;
+    width:100%;
+    max-width:100%;
+  }
+}
