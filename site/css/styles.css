@@ -420,65 +420,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 /* ============================================================
    ============================================================ */
-.mil-badge{height:38px;width:auto;display:block;flex:0 0 auto;align-self:center;object-fit:contain;
   padding-inline-start:.8rem;margin-inline-start:.15rem;border-inline-start:1px solid var(--line-2)}
-@media(max-width:900px){.mil-badge{height:34px;padding-inline-start:.6rem}}
-@media(max-width:640px){.mil-badge{display:none}}
-
-/* ============================================================
-   סקשן תרומה — "קונים מצלמה, תומכים במי ששומר עלינו"
-   פלטת זית/פליז — נבדלת בכוונה מהזהב המסחרי, טון "הוקרה" ולא "מבצע"
-   ============================================================ */
-.donation-band{position:relative;overflow:hidden;background:
-  linear-gradient(175deg,var(--bg-2) 0%,var(--bg) 100%)}
-.donation-card{position:relative;border:1px solid var(--line-2);border-radius:var(--radius-lg);
-  padding:clamp(1.8rem,4vw,3rem);overflow:hidden;
-  background:linear-gradient(160deg,rgba(107,90,50,.16),rgba(107,90,50,.04)),var(--surface)}
-.donation-card::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(60% 90% at 100% 0%,rgba(107,122,74,.22),transparent 60%)}
-.donation-grid{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,4vw,56px);align-items:center}
-.donation-flag{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:999px;
-  background:rgba(107,122,74,.16);border:1px solid rgba(107,122,74,.4);color:#a9c17e;
-  font-weight:800;font-size:.82rem;margin-bottom:1rem}
-:root[data-theme="light"] .donation-flag{background:rgba(90,102,60,.12);border-color:rgba(90,102,60,.35);color:#4b5320}
-.donation-card h2{margin-bottom:.6em}
-.donation-stat{display:flex;align-items:baseline;gap:.5rem;margin:1.2rem 0}
-.donation-stat b{font-size:clamp(2.4rem,5vw,3.2rem);font-weight:900;color:var(--gold-2);letter-spacing:-.02em}
-.donation-stat span{color:var(--muted);font-size:1rem}
-.donation-media{display:grid;place-items:center;padding:1.5rem}
-.donation-media img{max-width:230px;width:70%}
-@media(max-width:820px){.donation-grid{grid-template-columns:1fr}.donation-media{order:-1;padding:.5rem}}
-
-/* ===== הודעת תרומה צדדית (טוסט) ===== */
-.donate-toast{position:fixed;bottom:20px;inset-inline-start:20px;z-index:950;max-width:320px;
-  display:flex;align-items:center;gap:.7rem;padding:.85rem 1.05rem;border-radius:16px;
-  background:linear-gradient(135deg,#4b5320,#616e2c);color:#fff;
-  box-shadow:0 18px 44px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);
-  transform:translateY(150%);opacity:0;transition:transform .55s var(--ease),opacity .55s;
-  font-size:.9rem;line-height:1.5}
-.donate-toast.show{transform:none;opacity:1}
-.donate-toast .heart{width:22px;height:22px;flex:0 0 auto;fill:#ff8a80}
-.donate-toast b{color:#fff;font-weight:800}
-.donate-toast a{color:#fff;text-decoration:underline}
-.donate-toast .dt-close{margin-inline-start:auto;background:none;border:0;color:#fff;opacity:.75;
-  cursor:pointer;font-size:1.1rem;line-height:1;flex:0 0 auto;padding:2px;align-self:flex-start}
-.donate-toast .dt-close:hover{opacity:1}
-@media(max-width:480px){.donate-toast{inset-inline:14px;bottom:14px;max-width:none}}
-@media(prefers-reduced-motion:reduce){.donate-toast{transition:opacity .4s}}
-
-
-/* מניעת צפיפות בהיידר בטאבלט — מסתיר את הטלפון הטקסטואלי (וואטסאפ+CTA+רצועה עדיין מכסים) */
-@media(max-width:920px){.nav-tel{display:none}}
-
-/* הירו וידאו — כהות אחידה יותר במובייל (טקסט ממורכז) */
-@media(max-width:920px){
-  .hero-video-overlay{background:linear-gradient(0deg,rgba(17,19,24,.82),rgba(17,19,24,.55))}
-}
-
-/* תצוגת מוצר יחידה (רקע שחור) במקום גלריית שולחן */
-.showcase{max-width:920px;margin-inline:auto;border-radius:var(--radius-lg);overflow:hidden;
-  border:1px solid var(--line);box-shadow:var(--shadow);background:#000}
-.showcase img{width:100%;display:block}
 
 /* ============================================================
    באנר עוגיות (הסכמה)
