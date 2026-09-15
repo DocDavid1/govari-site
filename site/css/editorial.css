@@ -2075,251 +2075,8 @@ body.light .editorial-home .nav .miluim-stamp{
   .road-copy>p{font-size:17px!important;max-width:430px!important}
 }
 
-/* Mobile header brand recovery: keep logo, CTA and menu visible as three clear anchors. */
-@media(max-width:980px){
-  .editorial-home .nav{
-    grid-template-columns:64px minmax(132px,1fr) 64px!important;
-    direction:ltr!important;
-  }
-  .editorial-home .brand{
-    grid-column:3!important;
-    justify-self:center!important;
-    display:flex!important;
-    align-items:center!important;
-  }
-  .editorial-home .nav-order-btn{
-    grid-column:2!important;
-    justify-self:center!important;
-  }
-  .editorial-home .burger{
-    grid-column:1!important;
-    justify-self:center!important;
-  }
-  .editorial-home .brand-logo{
-    height:42px!important;
-    max-width:58px!important;
-    opacity:1!important;
-    filter:drop-shadow(0 6px 12px rgba(0,0,0,.28))!important;
-  }
-}
-@media(max-width:420px){
-  .editorial-home .nav{
-    grid-template-columns:56px minmax(126px,1fr) 52px!important;
-  }
-  .editorial-home .brand-logo{
-    height:34px!important;
-    max-width:48px!important;
-  }
-  .editorial-home .nav-order-btn{
-    width:150px!important;
-    max-width:150px!important;
-  }
-}
-
-/* Mobile header hard reset: simple, stable flex row instead of accumulated grid overrides. */
-@media(max-width:760px){
-  .editorial-home .site-header{
-    top:10px!important;
-    inset-inline:10px!important;
-    height:72px!important;
-    border-radius:22px!important;
-    overflow:visible!important;
-  }
-  .editorial-home .nav{
-    width:100%!important;
-    height:72px!important;
-    min-height:72px!important;
-    display:flex!important;
-    flex-direction:row!important;
-    align-items:center!important;
-    justify-content:space-between!important;
-    gap:8px!important;
-    padding:0 12px!important;
-    direction:rtl!important;
-  }
-  .editorial-home .brand{
-    order:1!important;
-    flex:0 0 54px!important;
-    display:flex!important;
-    justify-content:flex-start!important;
-    align-items:center!important;
-  }
-  .editorial-home .brand-logo{
-    display:block!important;
-    height:38px!important;
-    width:auto!important;
-    max-width:54px!important;
-    object-fit:contain!important;
-    opacity:1!important;
-    visibility:visible!important;
-  }
-  .editorial-home .nav-order-btn{
-    order:2!important;
-    flex:0 1 168px!important;
-    width:168px!important;
-    max-width:168px!important;
-    min-height:48px!important;
-    margin:0!important;
-    padding:8px 14px!important;
-    transform:none!important;
-  }
-  .editorial-home .burger{
-    order:3!important;
-    flex:0 0 52px!important;
-    width:52px!important;
-    height:52px!important;
-    margin:0!important;
-    display:grid!important;
-    place-items:center!important;
-    position:static!important;
-  }
-}
-@media(max-width:390px){
-  .editorial-home .nav{gap:6px!important;padding-inline:10px!important}
-  .editorial-home .brand{flex-basis:44px!important}.editorial-home .brand-logo{height:32px!important;max-width:44px!important}
-  .editorial-home .nav-order-btn{flex-basis:150px!important;width:150px!important;max-width:150px!important;font-size:10.5px!important}
-  .editorial-home .burger{flex-basis:48px!important;width:48px!important;height:48px!important}
-}
-
-/* Mobile brand fallback: full logo mark is too detailed at 40px, use readable gold wordmark. */
-@media(max-width:760px){
-  .editorial-home .brand-logo{
-    display:none!important;
-  }
-  .editorial-home .brand::after{
-    content:'גובארי';
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-width:58px;
-    color:#f0d39d;
-    font-weight:950;
-    font-size:18px;
-    letter-spacing:-.06em;
-    text-shadow:0 2px 12px rgba(0,0,0,.34);
-  }
-}
-@media(max-width:390px){
-  .editorial-home .brand::after{font-size:16px;min-width:48px}
-}
-
-/* Independent mobile wordmark avoids legacy brand/logo overrides. */
-.mobile-wordmark{display:none}
-@media(max-width:760px){
-  .editorial-home .mobile-wordmark{
-    order:1!important;
-    flex:0 0 58px!important;
-    display:inline-flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-    color:#f0d39d!important;
-    font-size:18px!important;
-    font-weight:950!important;
-    letter-spacing:-.06em!important;
-    text-decoration:none!important;
-    text-shadow:0 2px 12px rgba(0,0,0,.34)!important;
-  }
-  .editorial-home .brand{
-    display:none!important;
-  }
-  .editorial-home .nav-order-btn{order:2!important}
-  .editorial-home .burger{order:3!important}
-}
-@media(max-width:390px){
-  .editorial-home .mobile-wordmark{flex-basis:48px!important;font-size:16px!important}
-}
-
-/* Absolute mobile wordmark: immune to RTL flex ordering. */
-@media(max-width:760px){
-  .editorial-home .site-header{position:absolute!important}
-  .editorial-home .mobile-wordmark{
-    position:absolute!important;
-    inset-inline-end:16px!important;
-    top:50%!important;
-    transform:translateY(-50%)!important;
-    z-index:8!important;
-    display:flex!important;
-    width:auto!important;
-    min-width:54px!important;
-    height:40px!important;
-    pointer-events:auto!important;
-  }
-  .editorial-home .nav-order-btn{
-    margin-inline:auto!important;
-  }
-  .editorial-home .burger{
-    position:absolute!important;
-    left:12px!important;
-    top:50%!important;
-    transform:translateY(-50%)!important;
-    z-index:8!important;
-  }
-}
-
-/* Physical mobile header positions: menu left, wordmark right. */
-@media(max-width:760px){
-  .editorial-home .mobile-wordmark{
-    right:16px!important;
-    left:auto!important;
-    inset-inline-start:auto!important;
-    inset-inline-end:auto!important;
-  }
-  .editorial-home .burger{
-    left:12px!important;
-    right:auto!important;
-    inset-inline-start:auto!important;
-    inset-inline-end:auto!important;
-  }
-}
-
-/* Final mobile header simplification: pseudo wordmark + visible menu button. */
-@media(max-width:760px){
-  .editorial-home .mobile-wordmark,
-  .editorial-home .brand{
-    display:none!important;
-  }
-  .editorial-home .nav::after{
-    content:'גובארי';
-    position:absolute;
-    right:18px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#f0d39d;
-    font-size:18px;
-    font-weight:950;
-    letter-spacing:-.06em;
-    z-index:9;
-    pointer-events:none;
-  }
-  .editorial-home .burger{
-    display:flex!important;
-    position:absolute!important;
-    left:12px!important;
-    top:50%!important;
-    transform:translateY(-50%)!important;
-    width:52px!important;
-    height:52px!important;
-    align-items:center!important;
-    justify-content:center!important;
-    color:#fff!important;
-    font-size:0!important;
-    z-index:10!important;
-  }
-  .editorial-home .burger::before{
-    content:'☰'!important;
-    display:block!important;
-    color:#fff!important;
-    font-size:25px!important;
-    line-height:1!important;
-    transform:none!important;
-  }
-}
-@media(max-width:390px){
-  .editorial-home .nav::after{right:14px;font-size:16px}
-  .editorial-home .burger{left:10px!important;width:48px!important;height:48px!important}
-}
-
-/* Mobile header contract: fixed physical zones, no overlap. */
+/* Mobile header final contract: brand right, CTA center, menu left — no overlapping legacy layers. */
+.header-mobile-brand{display:none}
 @media(max-width:760px){
   .editorial-home .site-header{
     position:absolute!important;
@@ -2327,6 +2084,7 @@ body.light .editorial-home .nav .miluim-stamp{
     left:10px!important;
     right:10px!important;
     height:72px!important;
+    border-radius:22px!important;
     overflow:visible!important;
   }
   .editorial-home .nav{
@@ -2337,57 +2095,12 @@ body.light .editorial-home .nav .miluim-stamp{
     min-height:72px!important;
     padding:0!important;
   }
+  .editorial-home .brand,
+  .editorial-home .mobile-wordmark,
   .editorial-home .nav::after{
-    content:'גובארי'!important;
-    display:block!important;
-    position:absolute!important;
-    right:16px!important;
-    top:50%!important;
-    transform:translateY(-50%)!important;
-    color:#f0d39d!important;
-    font-size:18px!important;
-    font-weight:950!important;
-    letter-spacing:-.06em!important;
-    line-height:1!important;
-    z-index:12!important;
-    pointer-events:none!important;
+    display:none!important;
+    content:none!important;
   }
-  .editorial-home .nav-order-btn{
-    position:absolute!important;
-    left:50%!important;
-    top:50%!important;
-    transform:translate(-50%,-50%)!important;
-    width:136px!important;
-    max-width:136px!important;
-    min-width:0!important;
-    min-height:48px!important;
-    padding:8px 10px!important;
-    margin:0!important;
-    font-size:10.5px!important;
-    line-height:1.08!important;
-    z-index:11!important;
-  }
-  .editorial-home .burger{
-    position:absolute!important;
-    left:12px!important;
-    right:auto!important;
-    top:50%!important;
-    transform:translateY(-50%)!important;
-    width:52px!important;
-    height:52px!important;
-    z-index:12!important;
-  }
-}
-@media(max-width:390px){
-  .editorial-home .nav::after{right:12px!important;font-size:15.5px!important}
-  .editorial-home .nav-order-btn{width:128px!important;max-width:128px!important;font-size:10px!important}
-  .editorial-home .burger{left:10px!important;width:48px!important;height:48px!important}
-}
-
-/* Real mobile brand element outside the nav, immune to pseudo/flow conflicts. */
-.header-mobile-brand{display:none}
-@media(max-width:760px){
-  .editorial-home .nav::after{content:none!important;display:none!important}
   .editorial-home .header-mobile-brand{
     display:flex!important;
     position:absolute!important;
@@ -2406,5 +2119,47 @@ body.light .editorial-home .nav .miluim-stamp{
     text-decoration:none!important;
     text-shadow:0 2px 12px rgba(0,0,0,.42)!important;
   }
+  .editorial-home .nav-order-btn{
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    transform:translate(-50%,-50%)!important;
+    width:136px!important;
+    max-width:136px!important;
+    min-width:0!important;
+    min-height:48px!important;
+    padding:8px 10px!important;
+    margin:0!important;
+    font-size:10.5px!important;
+    line-height:1.08!important;
+    z-index:11!important;
+  }
+  .editorial-home .burger{
+    display:flex!important;
+    position:absolute!important;
+    left:12px!important;
+    right:auto!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    width:52px!important;
+    height:52px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    color:#fff!important;
+    font-size:0!important;
+    z-index:12!important;
+  }
+  .editorial-home .burger::before{
+    content:'☰'!important;
+    display:block!important;
+    color:#fff!important;
+    font-size:25px!important;
+    line-height:1!important;
+    transform:none!important;
+  }
 }
-@media(max-width:390px){.editorial-home .header-mobile-brand{right:12px!important;font-size:15.5px!important}}
+@media(max-width:390px){
+  .editorial-home .header-mobile-brand{right:12px!important;font-size:15.5px!important}
+  .editorial-home .nav-order-btn{width:128px!important;max-width:128px!important;font-size:10px!important}
+  .editorial-home .burger{left:10px!important;width:48px!important;height:48px!important}
+}
