@@ -342,3 +342,6 @@ Added independent mount/rear-camera hero layers controlled by scroll and reduced
 
 ## 2026-09-15 — explicit day/night control
 Replaced ambiguous theme icons with a labeled 44px day/night button, retained local preference, resolved system theme explicitly, and adapted original reservist badge contrast for light/dark. Browser checks passed at 390/820/1440. No database schema or lead-flow changes required.
+
+## 2026-09-15 — whole-site themes and stale asset recovery
+Added shared semantic theme stylesheet to all HTML pages: header, hero/video overlay, sections, forms, footer, dialogs, secondary pages and electronics stage. Added versioned CSS/JS URLs and changed CSS/JS cache to immediate revalidation to prevent new markup using stale layout code for an hour. Original badge receives theme-specific blending. Live screenshot complaint is consistent with stale pre-kit stylesheet; origin CSS itself matched current repo.
