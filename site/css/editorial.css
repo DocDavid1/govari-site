@@ -1979,3 +1979,52 @@ html,body.editorial-home,body.editorial-home main{overflow-x:clip!important}
 @media(max-width:760px){.assembly-heading h2{font-size:28px!important}.assembly-heading p:last-child{font-size:13px!important}.assembly-stage{height:46%!important;bottom:20%!important}.assembly-foot{bottom:90px!important}}
 .assembly-story{overflow:clip!important}
 @media(max-width:760px){.assembly-stage{transform:translateX(-50%) scale(.78)!important;transform-origin:center center!important}.assembly-stage .part-label{font-size:12px!important}.assembly-stage .tech-board,.assembly-stage .circuit-layer{background-color:#193c31!important;border-color:#b79b57!important;background-image:repeating-linear-gradient(0deg,transparent 0 9px,#b69a5033 10px 11px),repeating-linear-gradient(90deg,transparent 0 13px,#b69a5033 14px 15px)!important}}
+/* Camera kit: independent transparent parts follow the scroll. */
+.hero-kit{aspect-ratio:1.5!important;--kit-scroll:0}
+.hero-kit img{position:absolute!important;animation:none!important;object-fit:contain!important}
+.hero-kit .hero-kit-main{width:100%!important;top:17%!important;left:0!important;transform:translateY(calc(var(--kit-scroll)*18px))!important}
+.hero-kit .hero-kit-mount{width:23%!important;top:0!important;left:38.5%!important;transform:translateY(calc(var(--kit-scroll)*-75px)) rotate(calc(var(--kit-scroll)*-5deg))!important}
+.hero-kit .hero-kit-rear{width:33%!important;bottom:0!important;left:2%!important;transform:translate(calc(var(--kit-scroll)*-30px),calc(var(--kit-scroll)*35px)) rotate(calc(var(--kit-scroll)*4deg))!important}
+.reservist-original,.nav-reservist{object-fit:contain;background:#fff;border-radius:10px;display:block;box-shadow:0 2px 12px #0002}
+.hero-trust-row{display:flex!important;align-items:center;gap:18px;margin-bottom:22px;flex-wrap:wrap}
+.hero-trust-row .reservist-original{width:96px;height:auto}.hero-trust-row .kicker{margin:0!important}
+.nav-reservist{width:70px;height:45px}
+.lead-section .whatsapp-link{background:#087f43!important;color:#fff!important;box-shadow:none!important;gap:10px!important;text-decoration:none!important}
+.lead-section .whatsapp-link .wa-icon{width:25px;height:25px;flex:0 0 25px;transform:none!important}
+.lead-section .whatsapp-link::before,.lead-section .whatsapp-link::after{display:none!important}
+.lead-section .whatsapp-link:hover{background:#066534!important}
+@media(max-width:980px){.nav-reservist{display:none!important}.hero-trust-row{justify-content:center}.hero-kit{max-width:520px!important}.hero-trust-row .reservist-original{width:82px}}
+@media(prefers-reduced-motion:reduce){.hero-kit img{transform:none!important}}
+.nav-policy{display:none}
+@media(max-width:980px){.nav-policy{display:block}.nav-policy a{font-size:14px!important;color:#c5cbbf!important}}
+/* Photographic electronics storyboard; replaces the legacy CSS chips. */
+.electronics-story{height:230svh!important;background:#06130f!important;color:#f2f4ed!important}
+.electronics-story .assembly-sticky{height:100svh!important;min-height:680px!important;background:#06130f!important}
+.electronics-story .assembly-sticky::before{display:none!important}
+.electronics-story .assembly-heading{z-index:3!important;padding-top:40px!important}
+.electronics-story .assembly-heading h2{color:#f2f4ed!important;line-height:1.2!important}
+.electronics-story .assembly-heading p{color:#bacbbf!important}
+.electronics-story .electronics-stage{position:absolute!important;inset:210px 0 75px!important;transform:none!important;width:100%!important;height:auto!important;--reveal:0;--pan:0;direction:ltr}
+.electronics-camera{position:absolute!important;width:min(32vw,410px)!important;height:auto!important;left:50%!important;top:0!important;transform:translateX(-50%)!important;opacity:calc(1 - var(--reveal)*.5)}
+.exploded-window{position:absolute;inset:30% 0 10%;overflow:hidden}
+.exploded-strip{position:relative;width:100%;height:100%;display:flex;align-items:stretch;direction:ltr}
+.exploded-slice{position:relative!important;display:block!important;width:10%;height:100%;flex:0 0 10%;background-image:url('../assets/product/exploded/electronics-v1.webp');background-size:1000% 100%;background-repeat:no-repeat;transform:translateX(calc((1 - var(--reveal))*var(--travel)));opacity:calc(.1 + var(--reveal)*.9);will-change:transform}
+.electronics-labels{position:absolute;bottom:3%;width:100%;display:flex;justify-content:space-evenly;gap:16px;padding:0 24px;direction:ltr;color:#b9d4bb;font-size:13px}
+.electronics-labels span{position:static!important;direction:rtl;border-top:1px solid #668669;padding-top:10px}
+.electronics-story .assembly-foot{background:#0a2019!important;border-color:#2e4837!important;color:#c5d5ca!important;bottom:18px!important;border-radius:14px!important}
+.electronics-story .assembly-progress{background:#314e3d}.electronics-story .assembly-progress i{background:#a7cf80}
+@media(max-width:760px){
+.electronics-story{height:240svh!important}
+.electronics-story .assembly-heading{padding-inline:22px!important;padding-top:35px!important}
+.electronics-story .electronics-stage{inset:220px 0 120px!important}
+.electronics-camera{width:72vw!important}
+.exploded-window{inset:32% 0 8%}
+.exploded-strip{width:900px;transform:translateX(calc(var(--pan)*(100vw - 900px)))}
+.electronics-labels{font-size:11px;gap:10px;flex-wrap:wrap;bottom:0}
+.electronics-story .assembly-foot{bottom:86px!important;font-size:10px!important}.electronics-story .assembly-foot>span:last-child{display:none}
+}
+@media(prefers-reduced-motion:reduce){.electronics-story{height:auto!important}.electronics-story .assembly-sticky{position:relative!important}.electronics-stage{--reveal:1!important}.exploded-window{overflow-x:auto}.exploded-strip{transform:none!important}.exploded-slice{transform:none!important;opacity:1!important}}
+.exploded-slice{background-size:1000% auto!important}
+@media(min-width:981px){.electronics-story .assembly-heading{padding-top:110px!important}.electronics-story .electronics-stage{top:280px!important}}
+@media(max-width:760px){.electronics-story .electronics-stage{bottom:155px!important}.electronics-labels{bottom:0!important}}
+.exploded-window{mask-image:linear-gradient(0deg,transparent,#000 12%,#000 88%,transparent)}

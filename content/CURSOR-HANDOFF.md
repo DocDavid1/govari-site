@@ -22,8 +22,8 @@ Production health before deployment: DB healthy, email configured, outbox pendin
 ## Remaining launch gates — do not claim these are complete
 - Confirm an actual notification arrives in davidazulay75@gmail.com after production deployment; configured email is not proof of inbox delivery.
 - Fallback retry cron is daily. Fast retry SLA requires a verified more frequent scheduler/appropriate plan. Do not silently change paid plans.
-- Exploded internal electronics are an illustrative CSS visualization, not an engineering teardown or photorealistic asset matching the user's reference. That art-direction request remains incomplete.
-- Reservist stamp is a CSS approximation, not the supplied original mark. Replace with authorized original artwork if exact matching remains required.
+- Updated: photographic electronics artwork based on the supplied reference now replaces CSS chips, with scroll reveal and mobile pan. It remains a conceptual visualization, not verified internal engineering.
+- Updated: reservist badge now uses the original screenshot supplied by the owner, displayed on a white plate in both themes.
 - Qualified Israeli privacy/accessibility/consumer-law review remains unverified. Source checked: https://www.gov.il/BlobFolder/legalinfo/duty_to_notify/he/notify13.pdf . Do not claim legal certification.
 - No full performance/Lighthouse audit completed in this pass.
 - CSS still has legacy rules outside hero/header; refactor with visual regression coverage, not another pile of overrides.

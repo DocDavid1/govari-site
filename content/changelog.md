@@ -336,3 +336,6 @@
 
 ## 2026-09-15 — browser-verified handoff corrections
 Hero now uses transparent camera with separate responsive copy, tablet/desktop navigation repaired, mobile pause/theme controls visible. Fixed sticky assembly overflow blank space and dialog keyboard focus. Customer copy and form disclosure polished. Vercel notification lifecycle and cron/admin reliability fixed; 17 backend tests pass. Remaining unverified launch gates documented in CURSOR-HANDOFF.md.
+
+## 2026-09-15 — complete hero kit and photographic exploded story
+Added independent mount/rear-camera hero layers controlled by scroll and reduced-motion support. Replaced CSS electronics with generated reference-based photographic artwork, scroll reveal and mobile pan. Original supplied reservist image now appears in hero/header, WhatsApp uses recognizable SVG and accessible green, policy pages are linked in the mobile navigation. Assets and generation prompt saved in owner's materials folder.
