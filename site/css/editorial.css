@@ -2049,6 +2049,64 @@ html,body.editorial-home,body.editorial-home main{overflow-x:clip!important}
 @media(max-width:760px){.electronics-story .radial-stage{inset:215px 3vw 155px!important;width:94vw!important}.radial-part{width:30%}.radial-art{width:78px}.radial-part h3{font-size:12px!important}.radial-part p{font-size:10px!important}.radial-body{width:73%!important}.radial-connectors{display:none}}
 @media(prefers-reduced-motion:reduce){.radial-stage{--reveal:1!important}.radial-part{will-change:auto}}
 
+/* Final mobile controls and conversion modal: one calm, deliberate surface at every viewport size. */
+@media(max-width:980px){
+  .editorial-home .nav>.theme-toggle{
+    position:absolute!important;
+    top:calc(100% + 14px)!important;
+    left:18px!important;
+    right:auto!important;
+    width:44px!important;
+    min-width:44px!important;
+    height:44px!important;
+    min-height:44px!important;
+    padding:0!important;
+    border-radius:50%!important;
+    background:rgba(19,32,25,.90)!important;
+    border:1px solid rgba(231,200,132,.58)!important;
+    box-shadow:0 10px 26px rgba(0,0,0,.24)!important;
+  }
+  .editorial-home .nav>.theme-toggle .theme-label{display:none!important}
+}
+.lead-orbit__card{
+  width:min(480px,calc(100vw - 36px))!important;
+  max-width:calc(100vw - 36px)!important;
+  padding:30px!important;
+  border-radius:30px!important;
+}
+.lead-orbit__card h2{
+  max-width:11ch!important;
+  font-size:clamp(2.1rem,4.2vw,3rem)!important;
+  line-height:1.08!important;
+}
+.lead-orbit__actions{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:12px!important;
+}
+.lead-orbit__actions .btn{
+  width:100%!important;
+  min-height:58px!important;
+  white-space:nowrap!important;
+}
+.lead-orbit__link{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:44px!important;
+  margin:0!important;
+  border:1px solid color-mix(in srgb,var(--edge) 85%,transparent)!important;
+  border-radius:999px!important;
+  text-decoration:none!important;
+}
+@media(max-width:520px){
+  .lead-orbit__card{width:calc(100vw - 28px)!important;max-width:calc(100vw - 28px)!important;padding:25px 22px!important}
+  .lead-orbit__card h2{max-width:none!important;font-size:clamp(2rem,9vw,2.55rem)!important}
+  .lead-orbit__card p{font-size:.98rem!important;line-height:1.58!important}
+  .lead-orbit__actions .btn{white-space:normal!important}
+}
+
 /* Meaningful feature icons replace the old serial numbers. */
 .benefit-grid .benefit-icon{width:48px;height:48px;display:grid;place-items:center;margin-bottom:22px;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:16px;color:var(--gold)}
 .benefit-grid .benefit-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
