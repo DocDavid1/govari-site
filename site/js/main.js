@@ -29,9 +29,9 @@
   function initTheme(){
     var root=document.documentElement;
     var saved=null; try{saved=localStorage.getItem('gav-theme');}catch(_){ }
-    if(saved==='light'||saved==='dark') root.setAttribute('data-theme',saved);
+    root.setAttribute('data-theme',saved==='light'||saved==='dark'?saved:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
     function isLight(){return root.getAttribute('data-theme')==='light'||(!root.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: light)').matches);}
-    function sync(){document.querySelectorAll('.theme-toggle').forEach(function(btn){var light=isLight();btn.setAttribute('aria-pressed',light?'true':'false');btn.setAttribute('aria-label',light?'מעבר למצב לילה':'מעבר למצב יום');});}
+    function sync(){document.querySelectorAll('.theme-toggle').forEach(function(btn){var light=isLight();btn.setAttribute('aria-pressed',light?'true':'false');btn.setAttribute('aria-label',light?'מעבר למצב לילה':'מעבר למצב יום');btn.title=light?'מעבר למצב לילה':'מעבר למצב יום';btn.innerHTML='<span aria-hidden="true">'+(light?'☾':'☀')+'</span><span class="theme-label">'+(light?'מצב לילה':'מצב יום')+'</span>';});}
     document.querySelectorAll('.theme-toggle').forEach(function(btn){btn.addEventListener('click',function(){var next=isLight()?'dark':'light';root.setAttribute('data-theme',next);try{localStorage.setItem('gav-theme',next);}catch(_){ }sync();});});
     sync();
   }

@@ -2029,3 +2029,9 @@ html,body.editorial-home,body.editorial-home main{overflow-x:clip!important}
 @media(max-width:760px){.electronics-story .electronics-stage{bottom:155px!important}.electronics-labels{bottom:0!important}}
 .exploded-window{mask-image:linear-gradient(0deg,transparent,#000 12%,#000 88%,transparent)}
 @media(prefers-reduced-motion:reduce){.hero-kit .hero-kit-main,.hero-kit .hero-kit-mount,.hero-kit .hero-kit-rear{transform:none!important}}
+/* Theme control and original badge adapt without obscuring the header actions. */
+.editorial-home .nav>.theme-toggle{display:flex!important;width:112px!important;min-width:112px!important;min-height:44px!important;height:44px!important;padding:8px 12px!important;gap:8px!important;color:#f7f4eb!important;background:#243129!important;border:1px solid #647263!important}
+[data-theme="light"] .editorial-home .nav>.theme-toggle{background:#f5f2e9!important;color:#1b2920!important;border-color:#ddd6c5!important}
+[data-theme="dark"] .reservist-original,[data-theme="dark"] .nav-reservist{filter:invert(1) hue-rotate(180deg);box-shadow:0 0 0 1px #bbb6a2}
+[data-theme="light"] .reservist-original,[data-theme="light"] .nav-reservist{filter:none;box-shadow:0 0 0 1px #d8d6cc,0 3px 10px #0001}
+@media(max-width:980px){.editorial-home .nav>.theme-toggle{top:82px!important;right:0!important;left:auto!important;width:112px!important;min-width:112px!important;z-index:5!important;border-radius:14px!important}.editorial-home .hero-trust-row{margin-top:38px!important}}

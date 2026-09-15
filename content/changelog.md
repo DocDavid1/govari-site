@@ -339,3 +339,6 @@ Hero now uses transparent camera with separate responsive copy, tablet/desktop n
 
 ## 2026-09-15 — complete hero kit and photographic exploded story
 Added independent mount/rear-camera hero layers controlled by scroll and reduced-motion support. Replaced CSS electronics with generated reference-based photographic artwork, scroll reveal and mobile pan. Original supplied reservist image now appears in hero/header, WhatsApp uses recognizable SVG and accessible green, policy pages are linked in the mobile navigation. Assets and generation prompt saved in owner's materials folder.
+
+## 2026-09-15 — explicit day/night control
+Replaced ambiguous theme icons with a labeled 44px day/night button, retained local preference, resolved system theme explicitly, and adapted original reservist badge contrast for light/dark. Browser checks passed at 390/820/1440. No database schema or lead-flow changes required.
