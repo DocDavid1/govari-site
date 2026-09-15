@@ -6,3 +6,31 @@ function update(){ticking=false;const heroKit=document.querySelector('.hero-kit'
 function schedule(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
 addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);motion.addEventListener('change',schedule);update();
 })();
+
+/* Supplied product reel: a short, one-time pause lets the story land before scrolling continues. */
+(function(){'use strict';
+const video=document.getElementById('materialFour'),frame=document.querySelector('.material-reel__frame'),sound=document.querySelector('[data-video-sound="materialFour"]');
+if(!video||!frame)return;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+let seen=false,unlocked=Boolean(navigator.userActivation&&navigator.userActivation.hasBeenActive);
+function setSound(on){if(sound){sound.hidden=on;sound.setAttribute('aria-pressed',on?'true':'false');}}
+function play(){
+  video.muted=!unlocked;
+  video.volume=.82;
+  return video.play().then(function(){setSound(!video.muted);}).catch(function(){video.muted=true;return video.play().catch(function(){}).then(function(){setSound(false);});});
+}
+function release(){document.body.classList.remove('material-reel-lock');frame.classList.remove('is-featured');}
+function feature(){
+  if(seen||reduce.matches)return;
+  seen=true;
+  frame.classList.add('is-featured');
+  document.body.classList.add('material-reel-lock');
+  play();
+  setTimeout(release,2100);
+}
+['pointerdown','touchstart','keydown','wheel'].forEach(function(type){addEventListener(type,function(){unlocked=true;},{passive:true,once:true});});
+if(sound)sound.addEventListener('click',function(){unlocked=true;video.muted=false;video.volume=.82;video.play().then(function(){setSound(true);}).catch(function(){video.muted=true;setSound(false);});});
+if('IntersectionObserver' in window){new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting&&entry.intersectionRatio>.72)feature();});},{threshold:[.72]}).observe(frame);}else{feature();}
+function inFocus(){var r=frame.getBoundingClientRect();return r.top<innerHeight*.28&&r.bottom>innerHeight*.72;}
+addEventListener('scroll',function(){if(inFocus())feature();},{passive:true});
+})();
