@@ -13,13 +13,18 @@ function timingSafeEqual(a, b) {
 }
 
 export function basicAuth(req, res, next) {
+  res.set('Cache-Control', 'private, no-store');
+  res.set('X-Robots-Tag', 'noindex, nofollow');
   if (!adminEnabled()) {
     return res.status(404).send('admin disabled');
   }
   const h = req.headers.authorization || '';
   const [scheme, encoded] = h.split(' ');
   if (scheme === 'Basic' && encoded) {
-    const [user, pass] = Buffer.from(encoded, 'base64').toString('utf8').split(':');
+    const decoded = Buffer.from(encoded, 'base64').toString('utf8');
+    const separator = decoded.indexOf(':');
+    const user = decoded.slice(0, separator);
+    const pass = separator < 0 ? '' : decoded.slice(separator + 1);
     if (timingSafeEqual(user, config.admin.user) && timingSafeEqual(pass, config.admin.password)) {
       return next();
     }

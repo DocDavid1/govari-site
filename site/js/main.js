@@ -40,11 +40,11 @@
     var modal=document.querySelector('[data-lead-modal]'); if(!modal) return;
     var card=modal.querySelector('.lead-orbit__card'); var closes=modal.querySelectorAll('[data-lead-modal-close]');
     var key='govari:lead-modal:v2'; var shown=0; try{shown=Number(sessionStorage.getItem(key)||0)||0;}catch(_){ }
-    var opened=false; var max=1;
-    function open(){ if(opened||shown>=max||location.hash==='#lead') return; opened=true; shown+=1; try{sessionStorage.setItem(key,String(shown));}catch(_){ } modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); setTimeout(function(){ if(card) card.focus(); },30); if(window.govariTrack) try{window.govariTrack('lead_modal_view',{count:shown});}catch(_){ }}
-    function close(){ opened=false; modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); }
+    var opened=false; var max=1; var previousFocus=null;
+    function open(){ if(opened||shown>=max||location.hash==='#lead') return; previousFocus=document.activeElement; opened=true; shown+=1; try{sessionStorage.setItem(key,String(shown));}catch(_){ } modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); setTimeout(function(){ if(card) card.focus(); },30); if(window.govariTrack) try{window.govariTrack('lead_modal_view',{count:shown});}catch(_){ }}
+    function close(){ opened=false; modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); if(previousFocus&&previousFocus.isConnected) previousFocus.focus({preventScroll:true}); }
     closes.forEach(function(el){el.addEventListener('click',close);});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&opened) close();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&opened) close(); if(e.key==='Tab'&&opened&&card){var items=Array.from(card.querySelectorAll('a[href],button,input,[tabindex="0"]')).filter(function(el){return el.getClientRects().length;});var first=items[0],last=items[items.length-1];if(e.shiftKey&&(document.activeElement===first||document.activeElement===card)){e.preventDefault();last.focus();}else if(!e.shiftKey&&(document.activeElement===last||document.activeElement===card)){e.preventDefault();first.focus();}} });
     var scrollArmed=false;
     window.addEventListener('scroll',function(){ if(scrollArmed) return; if(window.scrollY>Math.max(760,innerHeight*.9)){scrollArmed=true; setTimeout(open,650);} },{passive:true});
     document.addEventListener('mouseleave',function(e){ if(e.clientY<=0) open(); });

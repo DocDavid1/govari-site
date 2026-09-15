@@ -333,3 +333,6 @@
 - נוקה שכבת CSS כפולה בהדר המובייל כדי לשמור על פריסה אחת ברורה: תפריט משמאל, הזמנה במרכז ומותג מימין.
 - אומת חיבור חי של האתר בפרודקשן: PostgreSQL פעיל, Resend פעיל, אדמין פעיל, ואין אירועי ליד תקועים בתור.
 - נשלחה הגשת QA חיה דרך `/api/leads` ואומתה תשובת הצלחה עם מזהי ליד והגשה.
+
+## 2026-09-15 — browser-verified handoff corrections
+Hero now uses transparent camera with separate responsive copy, tablet/desktop navigation repaired, mobile pause/theme controls visible. Fixed sticky assembly overflow blank space and dialog keyboard focus. Customer copy and form disclosure polished. Vercel notification lifecycle and cron/admin reliability fixed; 17 backend tests pass. Remaining unverified launch gates documented in CURSOR-HANDOFF.md.

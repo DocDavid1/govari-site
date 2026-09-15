@@ -1,4 +1,5 @@
 import express from 'express';
+import { waitUntil } from '@vercel/functions';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import { randomUUID } from 'node:crypto';
@@ -100,7 +101,7 @@ app.post('/api/leads', leadLimiter, async (req, res) => {
     const result = await createLead(clean, meta);
 
     // best-effort — הנתיב האמין הוא ה-Cron על /api/outbox/tick
-    processOutbox({ max: 6 }).catch((e) => console.error('[outbox inline]', e.message));
+    waitUntil(processOutbox({ max: 6 }).catch((e) => console.error('[outbox inline]', e.message)));
 
     if (asHtml) {
       return res.send(htmlPage('תודה',
@@ -162,9 +163,9 @@ app.post('/api/leads', leadLimiter, async (req, res) => {
 //  Outbox tick — Vercel Cron / cron-job.org
 // ============================================================
 app.all(['/api/outbox/tick', '/api/cron/outbox'], async (req, res) => {
-  const secret = config.outboxTickSecret;
+  const secrets = [config.outboxTickSecret, config.cronSecret].filter(Boolean);
   const provided = req.get('x-outbox-key') || (req.get('authorization') || '').replace(/^Bearer /, '');
-  if (!secret || provided !== secret) {
+  if (!secrets.includes(provided)) {
     return res.status(403).json({ ok: false });
   }
   try {

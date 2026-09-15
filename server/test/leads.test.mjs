@@ -57,3 +57,61 @@ test('production refuses ephemeral JSON and health signals not ready', async () 
     assert.equal((await fetch(url + '/api/health')).status, 503);
   } finally { config.env = 'test'; }
 });
+
+test('Vercel cron token works alongside a distinct external scheduler token', async () => {
+  const oldTick = config.outboxTickSecret;
+  const oldCron = config.cronSecret;
+  config.outboxTickSecret = 'external-scheduler-test';
+  config.cronSecret = 'vercel-cron-test';
+  try {
+    const response = await fetch(url + '/api/outbox/tick', { headers: { authorization: 'Bearer vercel-cron-test' } });
+    assert.equal(response.status, 200);
+  } finally { config.outboxTickSecret = oldTick; config.cronSecret = oldCron; }
+});
+
+test('admin accepts colon in password and prevents private page caching', async () => {
+  const { basicAuth } = await import('../src/admin.js');
+  const old = { ...config.admin };
+  Object.assign(config.admin, { user: 'owner', password: 'long:password:test' });
+  try {
+    const headers = {};
+    let accepted = false;
+    basicAuth({ headers: { authorization: 'Basic ' + Buffer.from('owner:long:password:test').toString('base64') } }, { set(k, v) { headers[k] = v; } }, () => { accepted = true; });
+    assert.equal(accepted, true);
+    assert.equal(headers['Cache-Control'], 'private, no-store');
+  } finally { Object.assign(config.admin, old); }
+});
+
+test('queued notifications retain the submitted name after a repeat lead updates it', async () => {
+  const { HANDLERS } = await import('../src/notify.js');
+  const { processOutbox } = await import('../src/outbox.js');
+  const original = HANDLERS.ADMIN_EMAIL;
+  const names = [];
+  HANDLERS.ADMIN_EMAIL = async lead => { names.push(lead.full_name); };
+  try {
+    for (const name of ['שם ראשון', 'שם שני']) {
+      const { clean } = cleanLeadInput({ full_name: name, phone: '0521234567' });
+      await createLead(clean);
+    }
+    const result = await processOutbox();
+    assert.equal(result.failed, 0);
+    assert.deepEqual(names, ['שם ראשון', 'שם שני']);
+  } finally { HANDLERS.ADMIN_EMAIL = original; }
+});
+
+test('lead HTTP response registers notification work with the Vercel lifecycle', async () => {
+  const key = Symbol.for('@vercel/request-context');
+  const previous = globalThis[key];
+  const jobs = [];
+  const { HANDLERS } = await import('../src/notify.js');
+  const original = HANDLERS.ADMIN_EMAIL;
+  HANDLERS.ADMIN_EMAIL = async () => {};
+  globalThis[key] = { get: () => ({ waitUntil: promise => jobs.push(promise) }) };
+  try {
+    const response = await fetch(url + '/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ full_name: 'בדיקת מחזור חיים', phone: '0541234567' }) });
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).ok, true);
+    assert.equal(jobs.length, 1);
+    await Promise.all(jobs);
+  } finally { globalThis[key] = previous; HANDLERS.ADMIN_EMAIL = original; }
+});

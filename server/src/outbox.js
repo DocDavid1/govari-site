@@ -1,5 +1,5 @@
 // מעבד ה-outbox: לוקח אירועים שהגיע זמנם, מפעיל את המטפל, מסמן done/מתזמן שוב.
-// נקרא: (א) best-effort אחרי כתיבת ליד, (ב) ע"י Cron כל דקה — הנתיב האמין.
+// נקרא: (א) best-effort אחרי כתיבת ליד, (ב) ע"י Cron לפי התזמון ב-vercel.json.
 import { usePg } from './config.js';
 import { query } from './db.js';
 import { promises as fs } from 'node:fs';
@@ -49,7 +49,9 @@ export async function processOutbox({ max = 20 } = {}) {
       const lead = await getLead(ev.lead_id);
       if (!lead) throw new Error('lead not found');
       const submission = await loadSubmission(ev.submission_id);
-      await handler(lead, submission);
+      // Deliver the actual submission, even if the canonical lead was updated later.
+      const snapshot = submission ? { ...lead, ...submission, id: lead.id } : lead;
+      await handler(snapshot, submission);
       await completeEvent(ev.id);
       summary.done++;
     } catch (e) {
