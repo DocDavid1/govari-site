@@ -345,3 +345,6 @@ Replaced ambiguous theme icons with a labeled 44px day/night button, retained lo
 
 ## 2026-09-15 — whole-site themes and stale asset recovery
 Added shared semantic theme stylesheet to all HTML pages: header, hero/video overlay, sections, forms, footer, dialogs, secondary pages and electronics stage. Added versioned CSS/JS URLs and changed CSS/JS cache to immediate revalidation to prevent new markup using stale layout code for an hour. Original badge receives theme-specific blending. Live screenshot complaint is consistent with stale pre-kit stylesheet; origin CSS itself matched current repo.
+
+## 2026-09-15 — spatial product teardown and benefit icons
+Reworked the scroll story so six conceptual components begin at the camera and separate along individual vectors: optics, image sensor, image processing, GPS, cellular 4G and enclosure. Added visible connector lines and component captions, including a reduced-motion final state. Replaced the eight benefit sequence numbers with purpose-built SVG icons. Updated the supplied reservist mark to a transparent asset and muted the red mount accent in the hero.

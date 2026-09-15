@@ -2035,3 +2035,21 @@ html,body.editorial-home,body.editorial-home main{overflow-x:clip!important}
 [data-theme="dark"] .reservist-original,[data-theme="dark"] .nav-reservist{filter:invert(1) hue-rotate(180deg);box-shadow:0 0 0 1px #bbb6a2}
 [data-theme="light"] .reservist-original,[data-theme="light"] .nav-reservist{filter:none;box-shadow:0 0 0 1px #d8d6cc,0 3px 10px #0001}
 @media(max-width:980px){.editorial-home .nav>.theme-toggle{top:82px!important;right:0!important;left:auto!important;width:112px!important;min-width:112px!important;z-index:5!important;border-radius:14px!important}.editorial-home .hero-trust-row{margin-top:38px!important}}
+/* Spatial exploded assembly: every part starts in the product and follows its own vector. */
+.electronics-story .radial-stage{inset:260px 4vw 90px!important;width:92vw!important;max-width:1200px!important;margin-inline:auto;height:auto!important;overflow:visible!important}
+.radial-body{position:absolute!important;left:50%!important;top:50%!important;width:52%!important;height:auto!important;transform:translate(-50%,-50%) scale(calc(1 - var(--reveal)*.12))!important;opacity:calc(1 - var(--reveal)*.3);z-index:2}
+.radial-part{position:absolute;left:calc(50% + var(--dx)*var(--reveal));top:calc(50% + var(--dy)*var(--reveal));width:21%;transform:translate(-50%,-50%) scale(calc(.28 + var(--reveal)*.72));opacity:var(--reveal);z-index:3;text-align:center;direction:rtl;will-change:transform,left,top}
+.radial-art{width:clamp(60px,9vw,130px);aspect-ratio:1;margin:auto;background-image:url('../assets/product/exploded/components-clean.webp');background-size:300% 200%;background-position:var(--sprite-x) var(--sprite-y);background-repeat:no-repeat;filter:drop-shadow(0 8px 12px #0004)}
+.radial-part h3{font-size:15px!important;line-height:1.3!important;letter-spacing:0!important;margin:5px 0!important;color:var(--ink,#f3f4ed)!important;font-weight:600!important}
+.radial-part p{font-size:12px!important;line-height:1.45!important;margin:0!important;color:var(--quiet,#becabc)!important}
+.radial-connectors{position:absolute;inset:0;opacity:calc(var(--reveal)*.45);pointer-events:none}
+.radial-connectors i{position:absolute;left:50%;top:50%;width:30%;height:1px;background:var(--quiet,#becabc);transform-origin:left center;transform:rotate(-145deg)}
+.radial-connectors i:nth-child(2){transform:rotate(-90deg);width:15%}.radial-connectors i:nth-child(3){transform:rotate(-35deg)}.radial-connectors i:nth-child(4){transform:rotate(145deg)}.radial-connectors i:nth-child(5){transform:rotate(90deg);width:15%}.radial-connectors i:nth-child(6){transform:rotate(35deg)}
+.hero-kit .hero-kit-mount{top:5%!important;filter:grayscale(1) brightness(.72) drop-shadow(0 8px 9px #0004)!important}
+@media(max-width:760px){.electronics-story .radial-stage{inset:215px 3vw 155px!important;width:94vw!important}.radial-part{width:30%}.radial-art{width:78px}.radial-part h3{font-size:12px!important}.radial-part p{font-size:10px!important}.radial-body{width:73%!important}.radial-connectors{display:none}}
+@media(prefers-reduced-motion:reduce){.radial-stage{--reveal:1!important}.radial-part{will-change:auto}}
+
+/* Meaningful feature icons replace the old serial numbers. */
+.benefit-grid .benefit-icon{width:48px;height:48px;display:grid;place-items:center;margin-bottom:22px;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:16px;color:var(--gold)}
+.benefit-grid .benefit-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.benefit-grid article>span:not(.benefit-icon){display:none}

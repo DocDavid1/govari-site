@@ -40,3 +40,6 @@ html[data-theme="dark"] :is(.reservist-original,.nav-reservist){filter:invert(1)
 html[data-theme] .ed-button{background:var(--ink)!important;color:var(--page)!important;border-radius:16px}
 html[data-theme] .editorial-home .burger::before{color:var(--ink)!important}
 html[data-theme] .nav-tel,html[data-theme] .header-mobile-brand{text-shadow:none!important}
+html[data-theme] :is(.reservist-original,.nav-reservist){mix-blend-mode:normal!important;background:none!important}
+html[data-theme="dark"] :is(.reservist-original,.nav-reservist){filter:brightness(1.9) saturate(.6)!important}
+html[data-theme="light"] :is(.reservist-original,.nav-reservist){filter:none!important}
