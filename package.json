@@ -2,8 +2,10 @@
   "name": "govari-site",
   "private": true,
   "type": "module",
-  "description": "גוב ארי מערכות — אתר + שרת הזמנות (Vercel + Supabase)",
-  "engines": { "node": ">=18" },
+  "description": "גוב ארי מערכות — אתר ומשפך לידים ללא תשלום באתר, עם שמירה למסד והתראות מייל דרך Resend",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
