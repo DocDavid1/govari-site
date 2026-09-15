@@ -19,8 +19,9 @@ html[data-theme] .site-header :is(.nav-links,.nav-tel,.burger){background:var(--
 html[data-theme] .site-header.mobile-open .nav-links a{color:var(--ink)!important}
 html[data-theme] .site-header.mobile-open .nav-links{background:var(--panel)!important}
 html[data-theme] .road-hero{background:var(--page)!important}
-html[data-theme="light"] .road-film{filter:saturate(.65) brightness(1.12)!important;opacity:.65!important}
-html[data-theme="light"] .road-shade{background:linear-gradient(270deg,#f7f5efe8,#f7f5ef70),linear-gradient(0deg,#f7f5ef,transparent 65%)!important}
+/* Keep the driving footage present in day mode: it is the hero's atmosphere, not a faint background texture. */
+html[data-theme="light"] .road-film{filter:saturate(.82) contrast(1.08) brightness(.86)!important;opacity:.92!important}
+html[data-theme="light"] .road-shade{background:linear-gradient(270deg,rgba(247,245,239,.82) 0%,rgba(247,245,239,.42) 49%,rgba(247,245,239,.12) 100%),linear-gradient(0deg,rgba(247,245,239,.70),transparent 57%)!important}
 html[data-theme="light"] :is(.road-copy h1,.road-copy>p,.road-copy .kicker,.film-bottom){color:var(--ink)!important}
 html[data-theme="light"] .film-bottom button{border-color:#5c6a5c!important;background:#ffffff88!important}
 html[data-theme="dark"] :is(.road-copy h1,.road-copy>p,.road-copy .kicker,.film-bottom){color:var(--ink)!important}
