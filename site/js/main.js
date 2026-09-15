@@ -12,6 +12,7 @@
     burger.setAttribute('aria-expanded','false');
     function setMenu(open){
       header.classList.toggle('mobile-open',open);
+      document.body.classList.toggle('mobile-open',open);
       burger.setAttribute('aria-expanded',open?'true':'false');
       burger.setAttribute('aria-label',open?'סגירת תפריט':'פתיחת תפריט');
     }
@@ -51,5 +52,17 @@
   }
   initLeadModal();
 
-  document.querySelectorAll('[data-video-toggle]').forEach(function(button){var video=document.getElementById(button.dataset.videoToggle);if(!video)return;function label(){button.textContent=video.paused?'הפעלת הסרטון':'השהיית הסרטון';}button.addEventListener('click',function(){if(video.paused){video.dataset.userPaused='false';video.play().catch(function(){});}else{video.dataset.userPaused='true';video.pause();}label();});video.addEventListener('play',label);video.addEventListener('pause',label);label();});
+  document.querySelectorAll('[data-video-toggle]').forEach(function(button){
+    if(button.dataset.videoBound==='true') return;
+    button.dataset.videoBound='true';
+    var video=document.getElementById(button.dataset.videoToggle);
+    if(!video)return;
+    function label(){var text=video.paused?'הפעלת הסרטון':'השהיית הסרטון';button.textContent=text;button.setAttribute('aria-label',text);}
+    button.addEventListener('click',function(){
+      if(video.paused){video.dataset.userPaused='false';video.play().catch(function(){});}
+      else{video.dataset.userPaused='true';video.pause();}
+      label();
+    });
+    video.addEventListener('play',label);video.addEventListener('pause',label);label();
+  });
 })();
