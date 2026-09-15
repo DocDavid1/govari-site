@@ -1839,6 +1839,106 @@ body.light .editorial-home .nav .miluim-stamp{
 
 /* Mobile and tablet header contract: brand right, CTA center, menu left — no overlapping legacy layers. */
 .header-mobile-brand{display:none}
+
+/* Mobile brand and navigation: keep the real mark visible without squeezing the CTA. */
+@media (max-width:980px){
+  html body .editorial-home .site-header{
+    top:max(10px, env(safe-area-inset-top))!important;
+    background:rgba(12,24,18,.76)!important;
+    border-color:rgba(220,196,132,.34)!important;
+    -webkit-backdrop-filter:blur(18px) saturate(1.15);
+    backdrop-filter:blur(18px) saturate(1.15);
+    box-shadow:0 14px 34px rgba(0,0,0,.22)!important;
+  }
+  html[data-theme="light"] body .editorial-home .site-header{
+    background:rgba(252,250,244,.82)!important;
+    border-color:rgba(42,56,44,.20)!important;
+    box-shadow:0 14px 34px rgba(31,40,31,.12)!important;
+  }
+  html body .editorial-home .header-mobile-brand{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    position:absolute!important;
+    z-index:3!important;
+    right:14px!important;
+    top:50%!important;
+    width:92px!important;
+    height:54px!important;
+    transform:translateY(-50%)!important;
+    color:inherit!important;
+  }
+  html body .editorial-home .header-mobile-brand img{
+    display:block!important;
+    width:88px!important;
+    max-width:100%!important;
+    height:54px!important;
+    object-fit:contain!important;
+    object-position:center!important;
+  }
+  html body .editorial-home .nav-order-btn{
+    left:50%!important;
+    width:126px!important;
+    min-width:126px!important;
+    height:52px!important;
+    padding:6px 10px!important;
+    border-radius:26px!important;
+    line-height:1.04!important;
+    box-shadow:0 8px 20px rgba(201,145,35,.22)!important;
+  }
+  html body .editorial-home .nav-order-btn span{font-size:0!important;}
+  html body .editorial-home .nav-order-btn span::after{content:"הזמנה";font-size:14px!important;font-weight:800!important;}
+  html body .editorial-home .nav-order-btn strong{font-size:14px!important;white-space:nowrap!important;}
+  html body .editorial-home .burger{
+    left:14px!important;
+    width:48px!important;
+    height:48px!important;
+    min-width:48px!important;
+    border-radius:50%!important;
+    background:rgba(21,37,28,.72)!important;
+    border-color:rgba(225,220,198,.30)!important;
+  }
+  html[data-theme="light"] body .editorial-home .burger{background:rgba(255,255,255,.66)!important;border-color:rgba(28,46,35,.22)!important;}
+  html body .editorial-home .nav>.theme-toggle{
+    left:70px!important;
+    width:42px!important;
+    min-width:42px!important;
+    height:42px!important;
+    min-height:42px!important;
+    background:rgba(18,33,25,.74)!important;
+  }
+  html[data-theme="light"] body .editorial-home .nav>.theme-toggle{background:rgba(255,255,255,.68)!important;}
+  html body .editorial-home .site-header.mobile-open .nav-links{
+    top:calc(100% + 10px)!important;
+    padding:14px!important;
+    gap:5px!important;
+    border:1px solid rgba(225,207,156,.30)!important;
+    background:rgba(13,25,19,.94)!important;
+    -webkit-backdrop-filter:blur(22px) saturate(1.18);
+    backdrop-filter:blur(22px) saturate(1.18);
+    box-shadow:0 20px 48px rgba(0,0,0,.32)!important;
+  }
+  html[data-theme="light"] body .editorial-home .site-header.mobile-open .nav-links{background:rgba(252,250,244,.96)!important;}
+  html body .editorial-home .site-header.mobile-open .nav-links a{
+    min-height:48px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border-radius:14px!important;
+  }
+}
+
+@media (max-width:600px){
+  html body .editorial-home .road-hero{
+    min-height:100svh!important;
+    padding:calc(108px + env(safe-area-inset-top)) 18px 60px!important;
+    gap:14px!important;
+  }
+  html body .editorial-home .road-copy{max-width:100%!important;}
+  html body .editorial-home .road-copy h1{font-size:clamp(42px,11.5vw,54px)!important;line-height:1.04!important;letter-spacing:-.045em!important;}
+  html body .editorial-home .road-copy>p{font-size:16px!important;line-height:1.58!important;max-width:32ch!important;margin-inline:auto!important;}
+  html body .editorial-home .hero-product-visual{max-width:430px!important;margin:-2px auto 0!important;}
+}
 @media(max-width:980px){
   .editorial-home .site-header{
     position:absolute!important;
@@ -2133,3 +2233,31 @@ html[data-theme="light"] .impact-note{background:rgba(255,253,248,.88);border-co
 .benefit-grid .benefit-icon{width:48px;height:48px;display:grid;place-items:center;margin-bottom:22px;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:16px;color:var(--gold)}
 .benefit-grid .benefit-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .benefit-grid article>span:not(.benefit-icon){display:none}
+
+/* Final mobile composition — the original logo, one compact action and a touch-friendly menu. */
+@media(max-width:980px){
+  .editorial-home .site-header{
+    top:max(10px,env(safe-area-inset-top))!important;
+    background:rgba(12,24,18,.76)!important;
+    border-color:rgba(220,196,132,.34)!important;
+    -webkit-backdrop-filter:blur(18px) saturate(1.15);
+    backdrop-filter:blur(18px) saturate(1.15);
+    box-shadow:0 14px 34px rgba(0,0,0,.22)!important;
+  }
+  html[data-theme="light"] .editorial-home .site-header{background:rgba(252,250,244,.82)!important;border-color:rgba(42,56,44,.20)!important;box-shadow:0 14px 34px rgba(31,40,31,.12)!important}
+  .editorial-home .header-mobile-brand{display:flex!important;align-items:center!important;justify-content:flex-end!important;right:14px!important;top:50%!important;width:92px!important;height:54px!important;transform:translateY(-50%)!important;color:inherit!important}
+  .editorial-home .header-mobile-brand img{display:block!important;width:88px!important;max-width:100%!important;height:54px!important;object-fit:contain!important;object-position:center!important}
+  .editorial-home .nav-order-btn{left:50%!important;width:126px!important;min-width:126px!important;height:52px!important;padding:6px 10px!important;border-radius:26px!important;line-height:1.04!important;box-shadow:0 8px 20px rgba(201,145,35,.22)!important}
+  .editorial-home .nav-order-btn span{font-size:0!important}.editorial-home .nav-order-btn span::after{content:"הזמנה";font-size:14px!important;font-weight:800!important}.editorial-home .nav-order-btn strong{font-size:14px!important;white-space:nowrap!important}
+  .editorial-home .burger{left:14px!important;width:48px!important;height:48px!important;min-width:48px!important;border-radius:50%!important;background:rgba(21,37,28,.72)!important;border-color:rgba(225,220,198,.30)!important}
+  html[data-theme="light"] .editorial-home .burger{background:rgba(255,255,255,.66)!important;border-color:rgba(28,46,35,.22)!important}
+  .editorial-home .nav>.theme-toggle{left:70px!important;width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;background:rgba(18,33,25,.74)!important}
+  html[data-theme="light"] .editorial-home .nav>.theme-toggle{background:rgba(255,255,255,.68)!important}
+  .editorial-home .site-header.mobile-open .nav-links{top:calc(100% + 10px)!important;padding:14px!important;gap:5px!important;border:1px solid rgba(225,207,156,.30)!important;background:rgba(13,25,19,.94)!important;-webkit-backdrop-filter:blur(22px) saturate(1.18);backdrop-filter:blur(22px) saturate(1.18);box-shadow:0 20px 48px rgba(0,0,0,.32)!important}
+  html[data-theme="light"] .editorial-home .site-header.mobile-open .nav-links{background:rgba(252,250,244,.96)!important}
+  .editorial-home .site-header.mobile-open .nav-links a{min-height:48px!important;display:flex!important;align-items:center!important;justify-content:center!important;border-radius:14px!important}
+}
+@media(max-width:600px){
+  .editorial-home .road-hero{min-height:100svh!important;padding:calc(108px + env(safe-area-inset-top)) 18px 60px!important;gap:14px!important}
+  .editorial-home .road-copy{max-width:100%!important}.editorial-home .road-copy h1{font-size:clamp(42px,11.5vw,54px)!important;line-height:1.04!important;letter-spacing:-.045em!important}.editorial-home .road-copy>p{font-size:16px!important;line-height:1.58!important;max-width:32ch!important;margin-inline:auto!important}.editorial-home .hero-product-visual{max-width:430px!important;margin:-2px auto 0!important}
+}
