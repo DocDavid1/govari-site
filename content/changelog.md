@@ -355,3 +355,6 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 - Added direct two-field popup form using existing reliable handler; delayed interruption and suppressed it during form interaction.
 - Fixed light-theme form labels; clarified app/installation FAQ and optional WhatsApp contact.
 - Missing owner evidence remains: app-store identity and actual screen recording, installation/customer testimonials, warranty details, response hours, donation reporting. No claims invented.
+
+## 2026-09-16 — Popup feature badges
+- Replaced repeated feature paragraph with four readable, theme-aware badges in a two-column grid. Separated price, benefits and form and shortened introductory copy.

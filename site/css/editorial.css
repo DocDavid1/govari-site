@@ -2284,3 +2284,12 @@ html[data-theme="light"] .lead-form label span,html[data-theme="light"] .lead-fo
 .lead-form .btn{white-space:normal!important;line-height:1.35!important;min-height:52px!important;padding:14px 20px!important;gap:8px!important}
 @media(max-width:980px){.editorial-home .nav-order-btn span::after{content:"קבלת הצעה"!important}.editorial-home .nav-order-btn strong{font-size:12px!important}}
 @media(max-width:600px){.road-copy .price-summary{margin:12px 0}.road-copy .price-summary strong{font-size:26px}.road-copy .price-summary small{font-size:12px}.lead-orbit__card{padding:24px 20px!important}.offer-strip{padding-block:36px!important}.benefit-grid{gap:12px!important}.benefit-grid article{padding:22px!important}}
+
+/* Feature badges: compact, readable and distinct from the form controls. */
+.lead-orbit__features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;list-style:none;padding:0;margin:18px 0!important;direction:rtl}
+.lead-orbit__features li{display:flex;align-items:center;justify-content:center;min-height:36px;padding:7px 8px;border-radius:12px;border:1px solid var(--edge);background:color-mix(in srgb,var(--gold) 9%,var(--panel));color:var(--ink);font-size:12px;font-weight:600;line-height:1.45;text-align:center}
+.lead-orbit__card .lead-orbit__intro{margin:12px 0 0!important;text-align:center}
+.lead-orbit__card .price-summary{padding:12px 0;border-bottom:1px solid var(--edge)}
+.lead-orbit__card .price-summary small{font-size:12px!important;line-height:1.5!important}
+.lead-orbit__card .lead-orbit__eyebrow{padding-inline:26px;font-size:12px!important}
+@media(max-width:380px){.lead-orbit__features{gap:6px}.lead-orbit__features li{font-size:11px;padding:6px}}
