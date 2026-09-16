@@ -13,7 +13,7 @@ const video=document.getElementById('materialFour'),frame=document.querySelector
 if(!video||!frame)return;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)');
 let seen=false,unlocked=Boolean(navigator.userActivation&&navigator.userActivation.hasBeenActive);
-function setSound(on){if(sound){sound.hidden=on;sound.setAttribute('aria-pressed',on?'true':'false');}}
+function setSound(on){if(sound){sound.hidden=false;sound.textContent=on?'השתקת קול':'הפעלת קול';sound.setAttribute('aria-pressed',on?'true':'false');}}
 function play(){
   video.muted=!unlocked;
   video.volume=.82;
@@ -24,12 +24,12 @@ function feature(){
   if(seen||reduce.matches)return;
   seen=true;
   frame.classList.add('is-featured');
-  document.body.classList.add('material-reel-lock');
+
   play();
   setTimeout(release,2100);
 }
 ['pointerdown','touchstart','keydown','wheel'].forEach(function(type){addEventListener(type,function(){unlocked=true;},{passive:true,once:true});});
-if(sound)sound.addEventListener('click',function(){unlocked=true;video.muted=false;video.volume=.82;video.play().then(function(){setSound(true);}).catch(function(){video.muted=true;setSound(false);});});
+if(sound)sound.addEventListener('click',function(){unlocked=true;video.muted=!video.muted;video.volume=.82;video.play().then(function(){setSound(!video.muted);}).catch(function(){video.muted=true;setSound(false);});});
 if('IntersectionObserver' in window){new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting&&entry.intersectionRatio>.72)feature();});},{threshold:[.72]}).observe(frame);}else{feature();}
 function inFocus(){var r=frame.getBoundingClientRect();return r.top<innerHeight*.28&&r.bottom>innerHeight*.72;}
 addEventListener('scroll',function(){if(inFocus())feature();},{passive:true});

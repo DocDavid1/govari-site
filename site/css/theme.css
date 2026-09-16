@@ -44,3 +44,32 @@ html[data-theme] .nav-tel,html[data-theme] .header-mobile-brand{text-shadow:none
 html[data-theme] :is(.reservist-original,.nav-reservist){mix-blend-mode:normal!important;background:none!important}
 html[data-theme="dark"] :is(.reservist-original,.nav-reservist){filter:brightness(1.9) saturate(.6)!important}
 html[data-theme="light"] :is(.reservist-original,.nav-reservist){filter:none!important}
+
+/* Shared navigation and softer secondary-page surfaces. */
+html[data-theme] .unified-header{position:relative!important;z-index:100;background:var(--panel)!important;border-bottom:1px solid var(--edge);padding:8px 0}
+html[data-theme] .unified-header .nav{display:flex!important;align-items:center;gap:18px;min-height:64px;padding:0 20px;position:relative}
+.unified-header .brand{display:block!important;margin:0!important}.unified-header .brand-logo{width:78px!important;height:52px!important;object-fit:contain}
+.unified-header .nav-links{display:flex!important;gap:24px;margin-inline:auto!important;list-style:none}
+html[data-theme] .unified-header .nav-links a{color:var(--ink)!important;text-decoration:none}
+.unified-header .unified-order{display:flex;align-items:center;justify-content:center;border-radius:999px;background:#e7c36c;color:#17251c!important;padding:12px 20px;font-size:14px;font-weight:700;white-space:nowrap}
+html[data-theme] .unified-header .theme-toggle,html[data-theme] .unified-header .burger{position:static!important;display:flex!important;align-items:center;justify-content:center;flex:none;width:44px!important;height:44px!important;min-width:44px!important;padding:0!important;border:1px solid var(--edge)!important;background:var(--alternate)!important;color:var(--ink)!important;border-radius:50%!important}
+.unified-header .theme-label{display:none!important}.unified-header .burger{display:none!important}
+.ed-seo-pills span{border-radius:999px!important;background:var(--panel)!important;border-color:var(--edge)!important;color:var(--ink)!important}
+.ed-product img,.ed-app-intro figure img,.ed-app-frame img{border-radius:22px}
+@media(min-width:981px){html[data-theme] .unified-header .burger{display:none!important}}
+@media(max-width:980px){
+.unified-header .nav{gap:10px!important}.unified-header .brand{margin-inline-end:auto!important}.unified-header .brand-logo{width:66px!important}.unified-header .unified-order{padding:11px 14px;font-size:13px}
+html[data-theme] .unified-header .nav-links{display:none!important}
+html[data-theme] .unified-header.mobile-open .nav-links{display:grid!important;position:absolute!important;top:calc(100% + 10px)!important;inset-inline:12px!important;margin:0!important;padding:12px!important;gap:4px!important;background:var(--panel)!important;border:1px solid var(--edge);border-radius:20px;z-index:110}
+.unified-header.mobile-open .nav-links a{display:block;padding:14px;text-align:center;border-radius:12px}.unified-header.mobile-open .nav-links a[aria-current]{background:var(--alternate)}
+.ed-intro,.ed-app-intro{padding-top:42px!important;padding-bottom:36px!important}.ed-chapter,.ed-specs,.ed-app-seo{padding-block:40px!important}.ed-app-intro figure{max-width:340px!important;margin-inline:auto!important}.ed-app-intro figure img{max-height:480px!important;object-fit:contain!important}.ed-task{padding-block:40px!important}.ed-task figure img{max-height:460px!important;object-fit:contain!important}
+}
+
+html[data-theme="dark"] body .unified-header{background:#1a241d!important}
+html[data-theme="light"] body .unified-header{background:#fffdf8!important}
+html[data-theme="dark"] body .unified-header :is(.nav-links a,.theme-toggle,.theme-toggle span,.burger){color:#f3f4ed!important;opacity:1!important}
+html[data-theme="light"] body .unified-header :is(.nav-links a,.theme-toggle,.theme-toggle span,.burger){color:#18251d!important;opacity:1!important}
+html[data-theme="dark"] body .unified-header :is(.theme-toggle,.burger){background:#26372b!important}
+html[data-theme="light"] body .unified-header :is(.theme-toggle,.burger){background:#ecefe7!important}
+html[data-theme] body .unified-header .nav-links a{visibility:visible!important;opacity:1!important}
+html[data-theme] body .unified-header .theme-toggle span:not(.theme-label){font-size:20px!important;display:inline!important}

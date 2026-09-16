@@ -364,3 +364,8 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 
 ## 2026-09-16 — Follow-up popup usability
 - Reduced offer dialog spacing and repeated copy while retaining 46px inputs and 44px close control. Prevented donation notice from opening while a form is being completed or the main lead section is visible.
+
+## 2026-09-16 — Unified design and interaction repairs
+- Shared branded navigation with working mobile menu and theme controls on all secondary pages. Rounded feature tags, condensed secondary-page spacing, bounded app illustrations.
+- Fixed RTL price ranges and stale price disclaimer/about CTA. Removed internal accessibility drafting note without asserting compliance.
+- Modal now preserves and locks background position. Video retains mute/unmute control and no longer blocks scrolling.
