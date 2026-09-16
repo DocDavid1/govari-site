@@ -2293,3 +2293,12 @@ html[data-theme="light"] .lead-form label span,html[data-theme="light"] .lead-fo
 .lead-orbit__card .price-summary small{font-size:12px!important;line-height:1.5!important}
 .lead-orbit__card .lead-orbit__eyebrow{padding-inline:26px;font-size:12px!important}
 @media(max-width:380px){.lead-orbit__features{gap:6px}.lead-orbit__features li{font-size:11px;padding:6px}}
+
+/* Footer action and a smaller social commitment note. */
+html[data-theme] .premium-footer .footer-cta .footer-offer-button{display:inline-flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:12px!important;width:max-content!important;max-width:100%!important;min-width:0!important;height:auto!important;min-height:52px!important;padding:14px 24px!important;box-sizing:border-box!important;color:#17251c!important;font-size:16px!important;line-height:1.4!important;text-align:center!important;white-space:normal!important}
+html[data-theme] .footer-offer-button span{color:#17251c!important;font-size:inherit!important;line-height:inherit!important;min-width:0}
+.footer-offer-button span[aria-hidden]{flex:none}
+.impact-note{box-sizing:border-box;width:min(320px,calc(100vw - 24px));padding:14px 36px 14px 14px;gap:8px;border-radius:18px;grid-template-columns:24px minmax(0,1fr)}
+.impact-note__heart{width:24px;height:24px;font-size:15px}
+.impact-note strong{font-size:12px;line-height:1.5}.impact-note p{font-size:11px;line-height:1.45}.impact-note__eyebrow{font-size:10px}.impact-note a{font-size:12px;max-width:100%}
+@media(max-width:760px){.impact-note{width:min(300px,calc(100vw - 24px));right:12px;bottom:82px;padding:12px 34px 12px 12px}.impact-note strong{font-size:12px}.impact-note p{font-size:11px}}

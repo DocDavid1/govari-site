@@ -358,3 +358,6 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 
 ## 2026-09-16 — Popup feature badges
 - Replaced repeated feature paragraph with four readable, theme-aware badges in a two-column grid. Separated price, benefits and form and shortened introductory copy.
+
+## 2026-09-16 — Footer CTA and compact impact notice
+- Fixed footer button sizing, centered text and dark contrast in both themes. Reduced social notice width and removed duplicate product badges.
