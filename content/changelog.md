@@ -361,3 +361,6 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 
 ## 2026-09-16 — Footer CTA and compact impact notice
 - Fixed footer button sizing, centered text and dark contrast in both themes. Reduced social notice width and removed duplicate product badges.
+
+## 2026-09-16 — Follow-up popup usability
+- Reduced offer dialog spacing and repeated copy while retaining 46px inputs and 44px close control. Prevented donation notice from opening while a form is being completed or the main lead section is visible.

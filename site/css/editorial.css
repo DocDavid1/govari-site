@@ -2302,3 +2302,23 @@ html[data-theme] .footer-offer-button span{color:#17251c!important;font-size:inh
 .impact-note__heart{width:24px;height:24px;font-size:15px}
 .impact-note strong{font-size:12px;line-height:1.5}.impact-note p{font-size:11px;line-height:1.45}.impact-note__eyebrow{font-size:10px}.impact-note a{font-size:12px;max-width:100%}
 @media(max-width:760px){.impact-note{width:min(300px,calc(100vw - 24px));right:12px;bottom:82px;padding:12px 34px 12px 12px}.impact-note strong{font-size:12px}.impact-note p{font-size:11px}}
+
+/* Compact dialog rhythm, keeping comfortable input and close targets. */
+.lead-orbit__card{width:min(440px,calc(100vw - 28px))!important;padding:24px!important}
+.lead-orbit__card .lead-orbit__eyebrow{margin:0 24px 10px!important;padding:0!important}
+.lead-orbit__card h2{margin:0 0 10px!important;font-size:26px!important;line-height:1.15!important}
+.lead-orbit__card .price-summary{gap:4px;margin:8px 0!important;padding:8px 0 12px!important}
+.lead-orbit__card .price-summary strong{font-size:28px!important}
+.lead-orbit__features{margin:12px 0!important;gap:6px}
+.lead-orbit__card .lead-form{margin-top:12px!important}
+.lead-orbit__card .lead-form label{margin-bottom:10px!important}
+.lead-orbit__card .form-note{margin:10px 0!important}
+.lead-orbit__card>small{font-size:11px!important}
+.lead-orbit__close{min-width:44px;min-height:44px;top:10px;inset-inline-end:10px;z-index:2}
+@media(max-width:420px){.lead-orbit__card{padding:20px!important}.lead-orbit__card h2{font-size:24px!important}.lead-orbit__card .lead-orbit__intro{font-size:13px!important}}
+
+.lead-orbit__card .lead-form{gap:8px!important}
+.lead-orbit__card .lead-form label{margin:0!important}
+.lead-orbit__card .form-note{max-width:none!important;width:100%!important;text-align:start!important}
+.lead-orbit__card .price-summary small{max-width:none!important}
+.lead-orbit__card>small{margin:0!important}
