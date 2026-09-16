@@ -2261,3 +2261,26 @@ html[data-theme="light"] .impact-note{background:rgba(255,253,248,.88);border-co
   .editorial-home .road-hero{min-height:100svh!important;padding:calc(108px + env(safe-area-inset-top)) 18px 60px!important;gap:14px!important}
   .editorial-home .road-copy{max-width:100%!important}.editorial-home .road-copy h1{font-size:clamp(42px,11.5vw,54px)!important;line-height:1.04!important;letter-spacing:-.045em!important}.editorial-home .road-copy>p{font-size:16px!important;line-height:1.58!important;max-width:32ch!important;margin-inline:auto!important}.editorial-home .hero-product-visual{max-width:430px!important;margin:-2px auto 0!important}
 }
+
+/* Clear pricing, readable forms and a compact conversion path. */
+.price-summary{display:grid;gap:6px;margin:18px 0;color:var(--ink);font-size:15px;line-height:1.5}
+.price-summary strong{font-size:clamp(25px,4vw,34px);font-weight:750;letter-spacing:0}
+.price-summary small{font-size:13px;line-height:1.5}
+html[data-theme] .lead-form label{color:var(--ink)!important;font-weight:650}
+html[data-theme] .lead-form label span,html[data-theme] .lead-form .form-note{color:var(--quiet)!important}
+html[data-theme="light"] .lead-form label{color:#21392a!important}
+html[data-theme="light"] .lead-form label span,html[data-theme="light"] .lead-form .form-note{color:#48584c!important}
+.lead-form::before{display:none!important}
+.lead-orbit__card{max-height:calc(100dvh - 24px)!important;overflow-y:auto!important;overscroll-behavior:contain}
+.lead-orbit__card h2{font-size:clamp(24px,5vw,32px)!important;max-width:none!important}
+.lead-orbit__card .lead-form{padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important;margin:18px 0 0!important}
+.lead-orbit__card .lead-form label{display:grid!important;gap:6px!important;margin-bottom:12px!important;font-size:14px!important}
+.lead-orbit__card .lead-form input{min-height:46px!important;height:46px!important;padding:10px 14px!important;width:100%!important;box-sizing:border-box!important}
+.lead-orbit__card .lead-form .lead-hp{position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+.lead-orbit__card .form-note{font-size:11px!important;line-height:1.5!important}
+.lead-orbit__card .lead-orbit__points{display:none!important}
+.lead-orbit__card .price-summary{margin:12px 0}
+.lead-orbit__card>p:not(.lead-orbit__eyebrow){font-size:14px!important;line-height:1.5!important}
+.lead-form .btn{white-space:normal!important;line-height:1.35!important;min-height:52px!important;padding:14px 20px!important;gap:8px!important}
+@media(max-width:980px){.editorial-home .nav-order-btn span::after{content:"קבלת הצעה"!important}.editorial-home .nav-order-btn strong{font-size:12px!important}}
+@media(max-width:600px){.road-copy .price-summary{margin:12px 0}.road-copy .price-summary strong{font-size:26px}.road-copy .price-summary small{font-size:12px}.lead-orbit__card{padding:24px 20px!important}.offer-strip{padding-block:36px!important}.benefit-grid{gap:12px!important}.benefit-grid article{padding:22px!important}}

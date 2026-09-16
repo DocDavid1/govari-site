@@ -348,3 +348,10 @@ Added shared semantic theme stylesheet to all HTML pages: header, hero/video ove
 
 ## 2026-09-15 — spatial product teardown and benefit icons
 Reworked the scroll story so six conceptual components begin at the camera and separate along individual vectors: optics, image sensor, image processing, GPS, cellular 4G and enclosure. Added visible connector lines and component captions, including a reduced-motion final state. Replaced the eight benefit sequence numbers with purpose-built SVG icons. Updated the supplied reservist mark to a transparent asset and muted the red mount accent in the hero.
+
+## 2026-09-16 — Conversion clarity
+- Published owner-approved 899–1,499 ILS range, qualified by exact product and specifications; optional annual SIM separately priced.
+- Changed homepage CTA to request an offer, moved pricing near opening, removed repeated app/trust sections.
+- Added direct two-field popup form using existing reliable handler; delayed interruption and suppressed it during form interaction.
+- Fixed light-theme form labels; clarified app/installation FAQ and optional WhatsApp contact.
+- Missing owner evidence remains: app-store identity and actual screen recording, installation/customer testimonials, warranty details, response hours, donation reporting. No claims invented.
