@@ -369,3 +369,6 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 - Shared branded navigation with working mobile menu and theme controls on all secondary pages. Rounded feature tags, condensed secondary-page spacing, bounded app illustrations.
 - Fixed RTL price ranges and stale price disclaimer/about CTA. Removed internal accessibility drafting note without asserting compliance.
 - Modal now preserves and locks background position. Video retains mute/unmute control and no longer blocks scrolling.
+
+## 2026-09-17 — App story layout
+- Replaced oversized mobile app images with bounded contain-fit media; reduced panel spacing and title scale, removed sticky panel overlap, and applied semantic day/night colors. Added narrow-header gutters.

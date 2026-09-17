@@ -73,3 +73,12 @@ html[data-theme="dark"] body .unified-header :is(.theme-toggle,.burger){backgrou
 html[data-theme="light"] body .unified-header :is(.theme-toggle,.burger){background:#ecefe7!important}
 html[data-theme] body .unified-header .nav-links a{visibility:visible!important;opacity:1!important}
 html[data-theme] body .unified-header .theme-toggle span:not(.theme-label){font-size:20px!important;display:inline!important}
+
+/* Responsive app story: bounded media and readable themed panels. */
+html[data-theme] .app-feature-scroll{background:var(--alternate)!important;color:var(--ink)!important;padding-block:24px!important}
+html[data-theme] .app-feature-panel{position:relative!important;min-height:0!important;padding-block:40px!important;border-bottom:1px solid var(--edge)}
+html[data-theme] .app-feature-copy :is(h2,p,li){color:var(--ink)!important}
+html[data-theme] .app-feature-copy li{border-color:var(--edge)!important}
+.app-phone-frame{width:100%;max-width:360px;min-width:0}
+.app-phone-frame img{display:block;width:100%!important;height:auto!important;max-height:520px!important;object-fit:contain!important;margin:auto;transform:none!important}
+@media(max-width:860px){.app-feature-panel,.app-feature-panel.is-reverse{gap:20px!important;padding-block:30px!important}.app-feature-copy h2{font-size:clamp(28px,8vw,36px)!important;line-height:1.15!important;margin-bottom:16px!important}.app-feature-copy ul{margin-top:16px!important;gap:8px!important}.app-phone-frame{max-width:280px!important}.app-phone-frame img{max-height:360px!important}.app-feature-copy p{font-size:16px!important;line-height:1.6!important}.unified-header .nav{width:calc(100% - 16px)!important;padding-inline:8px!important;box-sizing:border-box!important;gap:8px!important}}
