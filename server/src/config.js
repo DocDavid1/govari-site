@@ -40,6 +40,7 @@ export const config = {
 
   // גיבוי אופציונלי ל-Google Sheet (Apps Script Web App URL). לעולם לא מקור אמת.
   sheetWebhookUrl: process.env.SHEET_WEBHOOK_URL || '',
+  sheetWebhookSecret: process.env.SHEET_WEBHOOK_SECRET || '',
 
   payment: {
     provider: process.env.PAYMENT_PROVIDER || 'none',

@@ -372,3 +372,8 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 
 ## 2026-09-17 — App story layout
 - Replaced oversized mobile app images with bounded contain-fit media; reduced panel spacing and title scale, removed sticky panel overlap, and applied semantic day/night colors. Added narrow-header gutters.
+
+## 2026-09-17 — Email verification and independent backup preparation
+- Submitted labeled owner-authorized production test; verified persisted submission, completed email event and Resend opened status.
+- Added authenticated Google Sheets receiver and exact per-submission receipt validation, with duplicate protection and formula neutralization. 18 tests pass.
+- External backup remains inactive pending owner destination access and production configuration; historical backfill and scheduling must be verified after activation.

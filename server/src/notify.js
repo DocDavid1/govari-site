@@ -141,11 +141,15 @@ export async function sendMetaCapi(lead, submission) {
 // ---------- SHEET_BACKUP ----------
 export async function sendSheetBackup(lead, submission) {
   if (!sheetBackupEnabled()) throw new Error('SHEET_WEBHOOK_URL not configured');
+  if (!config.sheetWebhookSecret) throw new Error('SHEET_WEBHOOK_SECRET not configured');
+  if (!submission?.id) throw new Error('Backup requires submission id');
   const res = await fetch(config.sheetWebhookUrl, {
     method: 'POST',
     signal: AbortSignal.timeout(15000),
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
+      secret: config.sheetWebhookSecret,
+      submission_id: submission.id,
       id: lead.id, created_at: submission?.created_at || lead.created_at,
       full_name: lead.full_name, phone: formatILDisplay(lead.phone_normalized),
       city: lead.city || '', email: lead.email || '', notes: lead.notes || '',
@@ -155,6 +159,10 @@ export async function sendSheetBackup(lead, submission) {
     }),
   });
   if (!res.ok) throw new Error(`Sheet backup ${res.status}`);
+  const receipt = await res.json().catch(() => null);
+  if (receipt?.ok !== true || receipt.submission_id !== submission.id) {
+    throw new Error('Sheet backup did not confirm durable storage');
+  }
   return { ok: true };
 }
 
