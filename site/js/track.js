@@ -7,6 +7,14 @@
   'use strict';
   var G = window.GOVARI || {};
   var LS_KEY = 'govari_attribution';
+  var DEBUG_KEY = 'govari_debug';
+
+  /* ---------- מצב דיבאג מדידה: ?ga_debug=1 (נשמר לכל הביקור) ----------
+     מדפיס כל אירוע לקונסול ומפעיל GA4 DebugView, כדי לוודא בפועל שאירועים נשלחים. */
+  try {
+    if (new URLSearchParams(location.search).get('ga_debug') === '1') sessionStorage.setItem(DEBUG_KEY, '1');
+    if (sessionStorage.getItem(DEBUG_KEY) === '1') window.__govariDebug = true;
+  } catch (e) {}
 
   /* ---------- לכידת ייחוס (UTM / fbclid / gclid / referrer) ---------- */
   function captureAttribution() {
@@ -63,6 +71,43 @@
     } catch (e) { /* מדידה לא קריטית */ }
   }
 
+  /* ---------- Google Analytics 4 (Google tag) — נטען רק אם יש מזהה מדידה ---------- */
+  var gaReady = false;
+  function loadGA() {
+    if (gaReady || !G.ga4Id || window.gtag) return;
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + G.ga4Id;
+      document.head.appendChild(s);
+      window.gtag('js', new Date());
+      window.gtag('config', G.ga4Id, window.__govariDebug ? { debug_mode: true } : undefined);
+      gaReady = true;
+    } catch (e) { /* מדידה לא קריטית */ }
+  }
+
+  /* ---------- מיפוי אירועים פנימיים לאירועי משפך של GA4 ----------
+     שם פנימי -> שם/שמות אירוע ב-GA4. אירוע ללא מיפוי נשלח תחת שמו המקורי,
+     חוץ מ-page_view שכבר נשלח אוטומטית ע"י gtag('config', ...) ולא כפול. */
+  var GA_EVENT_MAP = {
+    lead_modal_view: ['start_process'],
+    lead_form_view: ['start_process'],
+    lead_form_started: ['form_start'],
+    lead_submit_attempt: ['form_submit'],
+    lead_submit_success: ['lead', 'generate_lead', 'funnel_complete']
+  };
+  var STEP_META = {
+    lead_modal_view: { step_name: 'view_offer_modal', funnel_step: 1 },
+    lead_form_view: { step_name: 'view_offer_form', funnel_step: 1 },
+    lead_form_started: { step_name: 'form_start', funnel_step: 2 },
+    lead_submit_attempt: { step_name: 'form_submit', funnel_step: 3 },
+    lead_submit_success: { step_name: 'lead_complete', funnel_step: 4 },
+    cta_click: { step_name: 'cta_click', funnel_step: 0 }
+  };
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
   /* ---------- אירוע משפך אחיד ---------- */
   window.govariTrack = function (name, params, opts) {
     params = params || {};
@@ -82,10 +127,48 @@
         }
       }
     } catch (e) {}
+    try {
+      if (window.gtag && name !== 'page_view') {
+        var attribution = captureAttribution();
+        var gaParams = { page_path: location.pathname };
+        UTM_KEYS.forEach(function (k) { if (attribution[k]) gaParams[k] = attribution[k]; });
+        Object.assign(gaParams, STEP_META[name], params);
+        (GA_EVENT_MAP[name] || [name]).forEach(function (gaName) {
+          var eventParams = gaParams;
+          if (gaName === 'lead' || gaName === 'generate_lead') {
+            eventParams = Object.assign({ currency: 'ILS', value: 0 }, gaParams);
+            if (opts.eventId) eventParams.transaction_id = opts.eventId;
+          }
+          window.gtag('event', gaName, eventParams);
+        });
+      }
+    } catch (e) {}
     if (window.__govariDebug) console.log('[track]', name, params, opts);
   };
 
+  /* ---------- cta_click — לחיצה על CTA אמיתי (טלפון / וואטסאפ / קישור להצעה),
+     מזוהה לפי href ולא לפי class, כדי לעבוד בכל תבניות העמודים בלי לגעת ב-HTML ---------- */
+  function ctaLocation(el) {
+    var host = el.closest('header, footer, .lead-orbit, .impact-note, .mobile-contact, section[id], section[class], nav[aria-label]');
+    if (!host) return 'body';
+    return host.id || (host.className && String(host.className).split(' ')[0]) || host.tagName.toLowerCase();
+  }
+  document.addEventListener('click', function (e) {
+    try {
+      var el = e.target.closest('a[href]');
+      if (!el) return;
+      var href = el.getAttribute('href') || '';
+      var name;
+      if (/^tel:/.test(href)) name = 'call';
+      else if (/^https:\/\/wa\.me\//.test(href)) name = 'whatsapp';
+      else if (/#lead$/.test(href)) name = 'lead_link';
+      else return;
+      window.govariTrack('cta_click', { button_name: name, location: ctaLocation(el), href: href });
+    } catch (err) {}
+  }, true);
+
   captureAttribution();
   loadPixel();
+  loadGA();
   window.govariTrack('page_view', { path: location.pathname });
 })();

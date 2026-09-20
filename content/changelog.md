@@ -377,3 +377,10 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 - Submitted labeled owner-authorized production test; verified persisted submission, completed email event and Resend opened status.
 - Added authenticated Google Sheets receiver and exact per-submission receipt validation, with duplicate protection and formula neutralization. 18 tests pass.
 - External backup remains inactive pending owner destination access and production configuration; historical backfill and scheduling must be verified after activation.
+
+## 2026-09-20 — Google Analytics 4 funnel measurement
+- Added the Google tag (gtag.js, ID G-NGEPF775BK) via `js/config.js` (`ga4Id`) and `js/track.js`, loaded on every real page (including 404 and the redirect stubs). Single load per page, guarded against double-init.
+- Reused the existing `govariTrack` funnel pipeline (already firing for the real lead flow) and mapped it to GA4 events instead of inventing new ones: `lead_form_view`/`lead_modal_view` → `start_process`, `lead_form_started` → `form_start`, `lead_submit_attempt` → `form_submit`, `lead_submit_success` → `lead` + `generate_lead` + `funnel_complete`. Every mapped event carries `step_name`/`funnel_step` and, when present, the session's `utm_source/medium/campaign/content/term` (already captured/persisted by `track.js`).
+- Added a new `cta_click` event via one delegated, href-based click listener in `track.js` (tel:/wa.me/#lead links) — works across every page template with no HTML changes.
+- Did not add `begin_checkout`/`purchase`/`sign_up`: the site has no real checkout or account flow (`checkout.html`/`preorder.html`/`order-success.html` are redirect stubs to the lead form; price is intentionally not sold online). Adding those would be inventing steps that don't occur.
+- Added a `?ga_debug=1` switch (persists for the session) that turns on GA4 DebugView + console logging of every tracked event, for verifying real delivery.

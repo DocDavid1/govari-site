@@ -28,6 +28,9 @@
     // --- Meta Pixel (הדבק כאן את מזהה הפיקסל; ריק = הפיקסל כבוי, האתר עובד רגיל) ---
     metaPixelId: '',
 
+    // --- Google Analytics 4 (Measurement ID; ריק = GA4 כבוי, האתר עובד רגיל) ---
+    ga4Id: 'G-NGEPF775BK',
+
     // --- נקודת קצה ללידים ---
     leadEndpoint: '/api/leads',
 
