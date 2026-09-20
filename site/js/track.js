@@ -83,7 +83,8 @@
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + G.ga4Id;
       document.head.appendChild(s);
       window.gtag('js', new Date());
-      window.gtag('config', G.ga4Id, window.__govariDebug ? { debug_mode: true } : undefined);
+      if (window.__govariDebug) window.gtag('config', G.ga4Id, { debug_mode: true });
+      else window.gtag('config', G.ga4Id);
       gaReady = true;
     } catch (e) { /* מדידה לא קריטית */ }
   }

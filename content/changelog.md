@@ -378,6 +378,14 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 - Added authenticated Google Sheets receiver and exact per-submission receipt validation, with duplicate protection and formula neutralization. 18 tests pass.
 - External backup remains inactive pending owner destination access and production configuration; historical backfill and scheduling must be verified after activation.
 
+## 2026-09-20 — Mobile conversion route and GA4 measurement
+- Moved the primary two-field lead form directly after the offer, reducing its mobile position from roughly 11,800px to roughly 1,250px.
+- Added a mobile-specific layout pass for the hero, header, CTA, offer cards, form, product media, FAQ and footer; verified 320px, 390px and 430px widths in light and dark themes without horizontal overflow.
+- Disabled the automatic lead modal on touch-sized viewports so it does not interrupt the primary inline form; desktop exit/scroll behavior remains available.
+- Replaced legal links in the mobile menu with direct price, FAQ and WhatsApp routes; legal pages remain available in the footer.
+- Added GA4 funnel measurement for `G-NGEPF775BK`, including CTA clicks, form view/start/submit and a confirmed lead event only after a valid server receipt. No name or phone value is sent to analytics.
+- Aligned the browser-side content configuration with the approved price range and lead wording.
+
 ## 2026-09-20 — Google Analytics 4 funnel measurement
 - Added the Google tag (gtag.js, ID G-NGEPF775BK) via `js/config.js` (`ga4Id`) and `js/track.js`, loaded on every real page (including 404 and the redirect stubs). Single load per page, guarded against double-init.
 - Reused the existing `govariTrack` funnel pipeline (already firing for the real lead flow) and mapped it to GA4 events instead of inventing new ones: `lead_form_view`/`lead_modal_view` → `start_process`, `lead_form_started` → `form_start`, `lead_submit_attempt` → `form_submit`, `lead_submit_success` → `lead` + `generate_lead` + `funnel_complete`. Every mapped event carries `step_name`/`funnel_step` and, when present, the session's `utm_source/medium/campaign/content/term` (already captured/persisted by `track.js`).
