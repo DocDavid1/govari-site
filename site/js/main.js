@@ -69,11 +69,11 @@
     var note=document.querySelector('[data-impact-note]'); if(!note)return;
     var key='govari:impact-note:v1',shown=false,timer=0;
     try{shown=sessionStorage.getItem(key)==='1';}catch(_){ }
-    function close(){note.hidden=true;try{sessionStorage.setItem(key,'1');}catch(_){ }}
+    function close(){note.hidden=true;document.body.classList.remove('impact-open');try{sessionStorage.setItem(key,'1');}catch(_){ }}
     function open(){
       if(shown||!note.hidden)return;
       var lead=document.getElementById('lead');if(document.querySelector('[data-lead-modal].is-open')||document.activeElement.matches('input,textarea,select')||(lead&&lead.getBoundingClientRect().top<innerHeight&&lead.getBoundingClientRect().bottom>0)){timer=0;return;}
-      note.hidden=false; note.classList.add('is-visible'); shown=true;
+      note.hidden=false; note.classList.add('is-visible'); document.body.classList.add('impact-open'); shown=true;
     }
     note.querySelectorAll('[data-impact-close]').forEach(function(control){control.addEventListener('click',close);});
     addEventListener('scroll',function(){
