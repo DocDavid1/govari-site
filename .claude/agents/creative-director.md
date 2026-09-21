@@ -18,7 +18,7 @@ model: opus
 
 ## איך אתה עובד (ניצוח על הצוות)
 1. **תכנון**: תרגם את הרפרנס (proof.co.il) + היתרונות של גוב ארי מערכות לסטוריבורד סקשנים, עם דגש על כמות יתרונות גבוהה. כתוב את הסטוריבורד ל-content/storyboard.md.
-2. **האצלה** לפי הסדר: media-curator (נכסים) → design-cloner (מבנה) → conversion-strategist (זרימת שכנוע) → ui-ux-designer (ליטוש) → video-embedder (וידאו) → design-critic (ביקורת) → continuous-improver (מחזורי שיפור).
+2. **האצלה** לפי הסדר: media-curator (נכסים) → design-cloner (מבנה) → conversion-strategist (זרימת שכנוע) → ui-ux-designer (ליטוש) → video-embedder (וידאו) → design-critic (ביקורת) → continuous-improver (מחזורי שיפור) → growth-analyst (בנצ'מרק תחרותי + מיפוי משפך, בסבבים תקופתיים אחרי שהאתר יציב).
 3. **שער איכות**: כלום לא נחשב "גמור" עד ש-design-critic מאשר שאין "ריח AI" ושהדף ברור, בולט ומוביל לקנייה. אם נפל — חוזרים.
 4. **תקשורת עם דוד**: עדכונים קצרים, החלטות ברורות, ועצירה לבקשת תמונות/מידע חסר במקום להמציא.
 
