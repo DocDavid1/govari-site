@@ -17,7 +17,7 @@ import { cleanLeadInput, createLead } from './src/leads.js';
 import { processOutbox, outboxHealth } from './src/outbox.js';
 import { dbHealth } from './src/db.js';
 import { sendEmergencyAdminEmail } from './src/notify.js';
-import { basicAuth, renderLeadsPage, handleStatusUpdate, handleCsv } from './src/admin.js';
+import { basicAuth, renderLeadsPage, handleStatusUpdate, handleCsv, handleBackup } from './src/admin.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -179,9 +179,11 @@ app.all(['/api/outbox/tick', '/api/cron/outbox'], async (req, res) => {
 // ============================================================
 //  אדמין לידים (Basic Auth; כבוי ללא ADMIN_USER/PASSWORD)
 // ============================================================
-app.get('/admin/leads.csv', basicAuth, handleCsv);
-app.get('/admin/leads', basicAuth, renderLeadsPage);
-app.post('/admin/leads/:id', basicAuth, handleStatusUpdate);
+const adminAsync = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
+app.get('/admin/leads-backup.json', basicAuth, adminAsync(handleBackup));
+app.get('/admin/leads.csv', basicAuth, adminAsync(handleCsv));
+app.get('/admin/leads', basicAuth, adminAsync(renderLeadsPage));
+app.post('/admin/leads/:id', basicAuth, adminAsync(handleStatusUpdate));
 
 // ============================================================
 //  הזמנה מלאה (משני — נשאר לתאימות; ה-CTA הקר הוא ליד)

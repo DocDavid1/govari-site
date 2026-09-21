@@ -415,14 +415,34 @@ export async function updateLead(id, patch = {}) {
 }
 
 export async function leadsCsv() {
-  const rows = await listLeads({ limit: 5000 });
+  const rows = usePg()
+    ? (await query('select * from leads order by created_at desc, id desc')).rows
+    : await jread(F.leads);
   const cols = ['created_at', 'full_name', 'phone_normalized', 'phone_raw', 'city', 'email',
     'status', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid', 'notes'];
   const esc = (v) => {
-    const s = v == null ? '' : String(v);
-    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    let s = v == null ? '' : String(v);
+    // Spreadsheet programs must treat user input as text, never formulas.
+    if (/^[\s]*[=+@-]/.test(s) || /^[\t\r\n]/.test(s)) s = "'" + s;
+    return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
   const head = cols.join(',');
   const body = rows.map((r) => cols.map((c) => esc(r[c])).join(',')).join('\n');
   return '﻿' + head + '\n' + body + '\n'; // BOM לפתיחה תקינה ב-Excel עברית
+}
+
+// Full lead-domain export, including repeated submissions and notification history.
+// PostgreSQL uses one read-only snapshot so all three collections agree.
+export async function exportLeadBackup() {
+  const read = async (db) => {
+    await db.query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY');
+    const leads = (await db.query('select * from leads order by created_at, id')).rows;
+    const submissions = (await db.query('select * from lead_submissions order by created_at, id')).rows;
+    const events = (await db.query('select * from lead_events order by created_at, id')).rows;
+    return { leads, submissions, events };
+  };
+  const data = usePg() ? await tx(read) : await withJsonLock(async () => ({
+    leads: await jread(F.leads), submissions: await jread(F.subs), events: await jread(F.events),
+  }));
+  return { schemaVersion: 1, exportedAt: nowIso(), ...data };
 }

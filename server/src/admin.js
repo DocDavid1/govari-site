@@ -2,7 +2,7 @@
 // כבוי אם ADMIN_USER / ADMIN_PASSWORD לא הוגדרו (אפשר להשתמש בדשבורד Supabase).
 import crypto from 'node:crypto';
 import { config, adminEnabled } from './config.js';
-import { listLeads, updateLead, countLeads, leadsCsv, STATUSES } from './leads.js';
+import { listLeads, updateLead, countLeads, leadsCsv, exportLeadBackup, STATUSES } from './leads.js';
 import { formatILDisplay, toWaNumber } from './phone.js';
 
 function timingSafeEqual(a, b) {
@@ -39,11 +39,14 @@ const esc = (s) => String(s == null ? '' : s)
 export async function renderLeadsPage(req, res) {
   const status = String(req.query.status || '');
   const q = String(req.query.q || '').slice(0, 80);
-  const [rows, counts] = await Promise.all([
-    listLeads({ limit: 300, status, q }),
+  const offset = Math.max(0, Math.min(100000000, parseInt(req.query.offset, 10) || 0));
+  const [pageRows, counts] = await Promise.all([
+    listLeads({ limit: 101, offset, status, q }),
     countLeads(),
   ]);
 
+  const rows = pageRows.slice(0, 100);
+  const pageHref = (n) => '/admin/leads?offset=' + n + '&status=' + encodeURIComponent(status) + '&q=' + encodeURIComponent(q);
   const statusChips = ['', ...STATUSES].map((s) => {
     const label = s || 'הכל';
     const on = s === status ? 'background:#c9a24e;color:#1a1408' : 'background:#1c1c22;color:#a2a2ad';
@@ -97,12 +100,19 @@ export async function renderLeadsPage(req, res) {
       ${status ? `<input type="hidden" name="status" value="${esc(status)}">` : ''}
     </form>
     <div>${statusChips}</div>
-    <a href="/admin/leads.csv" style="margin-inline-start:auto">⬇ ייצוא CSV</a>
+    <a href="/admin/leads.csv" style="margin-inline-start:auto">ייצוא כל הלידים ל־CSV</a>
+    <a href="/admin/leads-backup.json">גיבוי מלא: לידים, הגשות והתראות</a>
   </div>
+  <p class="muted">הלידים נשמרים במסד גם כאשר התראת דוא״ל נכשלת. הגיבוי מכיל פרטי לקוחות; שמרו אותו במקום פרטי.</p>
   <table>
     <thead><tr><th>זמן</th><th>שם</th><th>טלפון</th><th>עיר</th><th>מקור</th><th>סטטוס</th></tr></thead>
     <tbody>${tr || '<tr><td colspan="6" class="muted">אין לידים עדיין</td></tr>'}</tbody>
   </table>
+  <nav class="bar" aria-label="עמודי לידים">
+    ${offset > 0 ? `<a href="${pageHref(Math.max(0, offset - 100))}">הקודמים</a>` : ''}
+    <span>עמוד ${Math.floor(offset / 100) + 1}</span>
+    ${pageRows.length > 100 ? `<a href="${pageHref(offset + 100)}">הבאים</a>` : ''}
+  </nav>
 </body></html>`);
 }
 
@@ -116,4 +126,11 @@ export async function handleCsv(req, res) {
   res.set('Content-Type', 'text/csv; charset=utf-8');
   res.set('Content-Disposition', `attachment; filename="govari-leads-${new Date().toISOString().slice(0, 10)}.csv"`);
   res.send(await leadsCsv());
+}
+
+export async function handleBackup(req, res) {
+  const data = await exportLeadBackup();
+  res.set('Content-Type', 'application/json; charset=utf-8');
+  res.set('Content-Disposition', `attachment; filename="govari-leads-backup-${new Date().toISOString().slice(0, 10)}.json"`);
+  res.json(data);
 }

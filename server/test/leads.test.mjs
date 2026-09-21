@@ -115,3 +115,34 @@ test('lead HTTP response registers notification work with the Vercel lifecycle',
     await Promise.all(jobs);
   } finally { globalThis[key] = previous; HANDLERS.ADMIN_EMAIL = original; }
 });
+
+test('full backup is authenticated and includes submissions and notification history', async () => {
+  const previous = { ...config.admin };
+  Object.assign(config.admin, { user: 'test-owner', password: 'test-export-only' });
+  try {
+    assert.equal((await fetch(url + '/admin/leads-backup.json')).status, 401);
+    const response = await fetch(url + '/admin/leads-backup.json', { headers: { authorization: 'Basic ' + Buffer.from('test-owner:test-export-only').toString('base64') } });
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('cache-control'), 'private, no-store');
+    const data = await response.json();
+    assert.equal(data.schemaVersion, 1);
+    assert.ok(data.leads.length > 0);
+    assert.ok(data.submissions.length > data.leads.length);
+    assert.equal(data.events.length, data.submissions.length);
+  } finally { Object.assign(config.admin, previous); }
+});
+
+test('CSV exports beyond 5000 records and neutralizes spreadsheet formulas', async () => {
+  const file = path.join(dir, 'leads.json');
+  const original = await readFile(file, 'utf8');
+  const rows = Array.from({ length: 5001 }, (_, i) => ({ id: String(i), full_name: i === 0 ? '=1+1' : 'person-' + i, phone_normalized: '+972501234567', notes: 'line\rbreak' }));
+  try {
+    await writeFile(file, JSON.stringify(rows));
+    const { leadsCsv } = await import('../src/leads.js');
+    const csv = await leadsCsv();
+    assert.ok(csv.includes('person-5000'));
+    assert.ok(csv.includes("'=1+1"));
+    assert.ok(csv.includes("'+972501234567"));
+    assert.ok(csv.includes('"line\rbreak"'));
+  } finally { await writeFile(file, original); }
+});
