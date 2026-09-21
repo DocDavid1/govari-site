@@ -97,6 +97,7 @@
     lead_form_view: ['start_process'],
     lead_form_started: ['form_start'],
     lead_submit_attempt: ['form_submit'],
+    lead_validation_error: ['form_validation_error'],
     lead_submit_success: ['lead', 'generate_lead', 'funnel_complete']
   };
   var STEP_META = {
@@ -104,6 +105,8 @@
     lead_form_view: { step_name: 'view_offer_form', funnel_step: 1 },
     lead_form_started: { step_name: 'form_start', funnel_step: 2 },
     lead_submit_attempt: { step_name: 'form_submit', funnel_step: 3 },
+    /* כשל ולידציה בצד לקוח: המשתמש ניסה לשלוח אך נעצר לפני השרת — עדיין בשלב 2 */
+    lead_validation_error: { step_name: 'form_validation_error', funnel_step: 2 },
     lead_submit_success: { step_name: 'lead_complete', funnel_step: 4 },
     cta_click: { step_name: 'cta_click', funnel_step: 0 }
   };

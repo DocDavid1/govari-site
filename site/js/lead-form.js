@@ -75,11 +75,19 @@
       link(box, 'שמירת המספר שלנו בוואטסאפ', waHref('היי, השארתי פרטים באתר גוב ארי ואשמח שתחזרו אליי.'), true);
       form.replaceWith(box); box.focus();
     }
+    /* מדידה בלבד: מדווח איזה שדה/סיבה עצרו את ההגשה בצד לקוח. לא משנה התנהגות. */
+    function invalid(reason, field) { track('lead_validation_error', { form: form.dataset.leadForm || 'lead', reason: reason, field: field || 'form' }); }
     function valid(v) {
       var digits = v.phone.replace(/[^\d]/g, '');
       var el = v.full_name.length < 2 ? nameEl : digits.length < 7 || digits.length > 15 ? phoneEl : null;
-      if (el) { message(el === nameEl ? 'נא למלא שם מלא' : 'נא למלא מספר טלפון תקין', true); el.focus(); return false; }
-      return !!nameEl && !!phoneEl;
+      if (el) {
+        message(el === nameEl ? 'נא למלא שם מלא' : 'נא למלא מספר טלפון תקין', true); el.focus();
+        if (el === nameEl) invalid(v.full_name ? 'name_too_short' : 'name_missing', 'full_name');
+        else invalid(digits ? 'phone_invalid' : 'phone_missing', 'phone');
+        return false;
+      }
+      if (!nameEl || !phoneEl) { invalid('fields_missing', nameEl ? 'phone' : 'full_name'); return false; }
+      return true;
     }
     function sameValues(a, b) { return a.full_name === b.full_name && a.phone === b.phone && (a.city || '') === (b.city || ''); }
     function receipt(data) { return data && data.ok === true && !data.spam && typeof data.leadId === 'string' && typeof data.submissionId === 'string' && /^[0-9a-f-]{36}$/i.test(data.leadId) && /^[0-9a-f-]{36}$/i.test(data.submissionId); }
@@ -126,11 +134,11 @@
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       if (submitting || complete) return;
-      if (Date.now() < blockedUntil) { message('נא להמתין מעט לפני ניסיון נוסף. הפרטים נשארו בטופס.', true); return; }
+      if (Date.now() < blockedUntil) { message('נא להמתין מעט לפני ניסיון נוסף. הפרטים נשארו בטופס.', true); invalid('cooldown', 'form'); return; }
       var v = values();
       if (!valid(v)) return;
       var honey = form.querySelector('[name="company"], [name="website"], [name="fax"]');
-      if (honey && honey.value) { message('לא הצלחנו לאמת את הטופס. אפשר לפנות אלינו ישירות.', true); fallback(); return; }
+      if (honey && honey.value) { message('לא הצלחנו לאמת את הטופס. אפשר לפנות אלינו ישירות.', true); invalid('honeypot', honey.getAttribute('name') || 'honeypot'); fallback(); return; }
       if (!pending || !sameValues(pending, v)) {
         var attribution = {}; try { if (window.govariAttribution) attribution = window.govariAttribution(); } catch (_) {}
         pending = Object.assign({}, v, { idempotency_key: uuid(), attribution: attribution });
