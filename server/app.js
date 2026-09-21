@@ -149,7 +149,7 @@ app.post('/api/leads', leadLimiter, async (req, res) => {
     if (asHtml) {
       return res.status(503).send(htmlPage('לא נשמר',
         `<h1>לא הצלחנו לשמור כרגע</h1><p>אפשר לשלוח לנו הודעה בלחיצה אחת או להתקשר.</p>
-         <p><a href="https://wa.me/972536813013?text=${waMsg}">שליחה בוואטסאפ</a> · <a href="tel:+972536813013">חייגו 053-6813013</a></p>`));
+         <p><a href="https://wa.me/message/4WXHHRXIKWQWJ1?text=${waMsg}">שליחה בוואטסאפ</a> · <a href="tel:+972536813013">חייגו 053-6813013</a></p>`));
     }
     return res.status(503).json({
       ok: false,

@@ -75,6 +75,6 @@ export function customerConfirmation(order, { paid }) {
       <p style="color:#444">${intro}</p>
       ${orderTable(order)}
       <p style="color:#444">לכל שאלה אנחנו כאן: <a href="tel:0536813013" style="color:#e11623">053-6813013</a>
-      או בוואטסאפ <a href="https://wa.me/972536813013" style="color:#e11623">כאן</a>.</p>`),
+      או בוואטסאפ <a href="https://wa.me/message/4WXHHRXIKWQWJ1" style="color:#e11623">כאן</a>.</p>`),
   };
 }

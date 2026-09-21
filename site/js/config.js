@@ -13,6 +13,7 @@
     phone: '053-6813013',
     phoneE164: '+972536813013',
     whatsapp: '972536813013',
+    whatsappLink: 'https://wa.me/message/4WXHHRXIKWQWJ1',
     email: 'davidazulay75@gmail.com',
 
     // --- מחיר מאושר --- הטווח תלוי במוצר המדויק ובמפרט הטכני.
@@ -44,7 +45,7 @@
   };
 
   GOVARI.waHref = function (text) {
-    var base = 'https://wa.me/' + GOVARI.whatsapp;
+    var base = GOVARI.whatsappLink;
     return text ? base + '?text=' + encodeURIComponent(text) : base;
   };
   GOVARI.telHref = 'tel:' + GOVARI.phoneE164;

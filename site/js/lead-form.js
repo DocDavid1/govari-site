@@ -7,7 +7,7 @@
   function uuid() { return window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : 'lead-' + Date.now() + '-' + Math.random().toString(16).slice(2); }
   function waHref(text) {
     try { if (typeof G.waHref === 'function') { var href = G.waHref(text); if (/^https:\/\/wa.me\//.test(href)) return href; } } catch (_) {}
-    return 'https://wa.me/972536813013?text=' + encodeURIComponent(text);
+    return 'https://wa.me/message/4WXHHRXIKWQWJ1?text=' + encodeURIComponent(text);
   }
   function init(form, index) {
     if (form.__leadInit) return;
