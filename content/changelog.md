@@ -1,4 +1,10 @@
 
+## 2026-09-21 — דוח growth-analyst: מיפוי משפך + בנצ'מרק תחרותי
+- נוצר `content/growth-report.md` (לא כפול ל-`sales-playbook.md`): מיפוי קוד בפועל של מדידה/ליד/outbox/CTA, ובנצ'מרק מבני מול יבואן ישראלי ישיר ומותגים גלובליים (Nextbase/Ring/Garmin/Viofo) — ללא העתקת טקסט/מיתוג.
+- ממצא מרכזי: cron ה-outbox ב-`vercel.json` רץ פעם ביום בלבד (מגבלת Vercel Hobby לפי `DEPLOY.md`), ולא ברור אם ה-workaround המתועד (`cron-job.org`) הוגדר בפועל — רשת הביטחון להתראת ליד עלולה לפעול רק אחרי עד 24 שעות במקרה כשל.
+- ממצא נוסף: כפתור וואטסאפ עדיין לא קיים ברצועת ה-CTA הדביקה במובייל (`.mobile-contact`), בניגוד להמלצה המפורשת שכבר קיימת בפלייבוק.
+- 5 המלצות מתועדפות עם בעלות סוכן ומה חסר מדוד לכל אחת, בתוך הדוח.
+
 ## 2026-09-14 — תיקון פופאפ ופירוק לגורמים
 - הפופאפ הוקטן ועוצב מחדש ככרטיס קומפקטי יותר, עם היררכיית CTA מאוזנת ופחות חסימה של המסך.
 - נוספו שכבות אלקטרוניות, מעגלים, ribbon cables ותוויות מעודנות לסקשן הפירוק לגורמים, כדי שירגיש כמו תצוגת מוצר מקצועית ולא דיאגרמה שטוחה.
@@ -392,3 +398,13 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 - Added a new `cta_click` event via one delegated, href-based click listener in `track.js` (tel:/wa.me/#lead links) — works across every page template with no HTML changes.
 - Did not add `begin_checkout`/`purchase`/`sign_up`: the site has no real checkout or account flow (`checkout.html`/`preorder.html`/`order-success.html` are redirect stubs to the lead form; price is intentionally not sold online). Adding those would be inventing steps that don't occur.
 - Added a `?ga_debug=1` switch (persists for the session) that turns on GA4 DebugView + console logging of every tracked event, for verifying real delivery.
+
+## 2026-09-21 — Trust strip at the primary lead CTA
+- Added a compact `.lead-assurance` strip inside the home lead form (`#lead`), directly under the "קבלו הצעה לרכב שלכם" button: 12-month warranty, no payment or credit-card details on the site, and free installation in the center/Jerusalem subject to coordination. All three are already-approved facts from `content/content.md` and were already published on the page (offer list, FAQ, FAQ schema) — nothing new was claimed.
+- Removed the now-duplicated "אין תשלום באתר" sentence from the form note, since the strip states it one line above with more prominence. The consent and privacy wording is unchanged.
+- Styling added in `site/css/editorial.css` (hairline rule, gold-tinted 17px stroke icons matching the existing benefit icon set, theme variables for light/dark) and a small size pass in `site/css/mobile-conversion.css`. Note: on mobile `.price-summary` and `.lead-promise` are hidden in the lead grid, so this strip is now the only trust anchor visible next to the mobile CTA.
+
+## 2026-09-21 — Client-side lead validation failures are now measured
+- Added a `lead_validation_error` funnel event in `site/js/lead-form.js`, fired only when a submit attempt is rejected in the browser before reaching the server. Parameters: `form` (home/popup), `reason` (`name_missing` / `name_too_short` / `phone_missing` / `phone_invalid` / `honeypot` / `fields_missing` / `cooldown`) and `field` (`full_name` / `phone` / honeypot input name / `form`). No name or phone value is ever sent.
+- Mapped it in `site/js/track.js` through the existing `govariTrack` pipeline (`GA_EVENT_MAP` + `STEP_META`) to the GA4 event `form_validation_error` with `step_name=form_validation_error`, `funnel_step=2` — the drop-off between `form_start` and `form_submit`. No parallel measurement mechanism was introduced.
+- Measurement only: wording, validation rules, error messages, focus behaviour and the submit flow are unchanged. Verified in a real browser against the local server — valid submission still returns 200 with a receipt and shows the success box, and invalid input still shows the same error message while emitting the new event.

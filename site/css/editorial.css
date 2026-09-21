@@ -549,6 +549,40 @@ body{font-weight:400}h1,h2,h3{font-weight:500;letter-spacing:-.045em}.btn{border
   font-size:18px;
   white-space:normal;
 }
+/* Trust strip pinned to the primary lead CTA. Facts only: warranty, no online payment, free install. */
+.lead-assurance{
+  list-style:none;
+  margin:2px 0 0;
+  padding:14px 0 0;
+  display:grid;
+  gap:9px;
+  border-top:1px solid var(--edge,rgba(255,255,255,.14));
+}
+.lead-assurance li{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  font-size:13.5px;
+  line-height:1.5;
+  color:var(--quiet,#c8cbc3);
+}
+.lead-assurance b{
+  font-weight:700;
+  color:var(--ink,#f0eee8);
+}
+.lead-assurance svg{
+  flex:none;
+  width:17px;
+  height:17px;
+  margin-top:1px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  color:var(--accent,#e7c884);
+  opacity:.9;
+}
 .process-line{
   display:grid;
   grid-template-columns:repeat(3,1fr);
