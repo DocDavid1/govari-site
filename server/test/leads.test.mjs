@@ -55,7 +55,40 @@ test('production refuses ephemeral JSON and health signals not ready', async () 
     const { clean } = cleanLeadInput({ full_name: 'בדיקה', phone: '0501234567' });
     await assert.rejects(createLead(clean), /DATABASE_URL/);
     assert.equal((await fetch(url + '/api/health')).status, 503);
+    const response = await fetch(url + '/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ full_name: 'בדיקת כשל', phone: '0501234567' }) });
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).ok, false);
   } finally { config.env = 'test'; }
+});
+
+test('optional vehicle and city qualify a lead without blocking the short form', () => {
+  const plain = cleanLeadInput({ full_name: 'בדיקת רכב', phone: '0501234567' });
+  const detailed = cleanLeadInput({ full_name: 'בדיקת רכב', phone: '0501234567', city: 'בית שמש', vehicle: 'יונדאי איוניק' });
+  assert.equal(plain.ok, true);
+  assert.equal(detailed.ok, true);
+  assert.equal(detailed.clean.city, 'בית שמש');
+  assert.equal(detailed.clean.notes, 'דגם רכב: יונדאי איוניק');
+});
+
+test('admin status writes reject cross-site posts and accept the admin origin', async () => {
+  const old = { ...config.admin };
+  Object.assign(config.admin, { user: 'owner', password: 'qa-only-password' });
+  const { clean } = cleanLeadInput({ full_name: 'בדיקת סטטוס', phone: '0507654321', idempotency_key: 'admin-status-test' });
+  const saved = await createLead(clean);
+  const headers = { authorization: 'Basic ' + Buffer.from('owner:qa-only-password').toString('base64'), 'Content-Type': 'application/x-www-form-urlencoded' };
+  try {
+    const denied = await fetch(url + '/admin/leads/' + saved.leadId, { method: 'POST', headers: { ...headers, origin: 'https://unrelated.example', 'sec-fetch-site': 'cross-site' }, body: 'status=contacted', redirect: 'manual' });
+    assert.equal(denied.status, 403);
+    const allowed = await fetch(url + '/admin/leads/' + saved.leadId, { method: 'POST', headers: { ...headers, origin: url }, body: 'status=contacted', redirect: 'manual' });
+    assert.equal(allowed.status, 303);
+    assert.equal(allowed.headers.get('location'), '/admin/leads');
+  } finally {
+    Object.assign(config.admin, old);
+    // This lead's own ADMIN_EMAIL notification would otherwise sit pending
+    // (RESEND_API_KEY is blanked out for the whole test run) and make the
+    // next outbox-tick test see an unrelated failure. Drain it here instead.
+    for (const ev of await claimDueEvents(10)) await completeEvent(ev.id);
+  }
 });
 
 test('Vercel cron token works alongside a distinct external scheduler token', async () => {

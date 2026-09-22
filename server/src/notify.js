@@ -64,7 +64,7 @@ export async function sendAdminEmail(lead, submission) {
 }
 
 // גרסה "חירום" — נקראת ישירות כשמסד הנתונים לא זמין (בלי lead מלא).
-export async function sendEmergencyAdminEmail({ fullName, phoneRaw, city, notes, reason }) {
+export async function sendEmergencyAdminEmail({ fullName, phoneRaw, city, notes, idempotencyKey }) {
   if (!resend) throw new Error('RESEND_API_KEY missing');
   const disp = formatILDisplay(phoneRaw);
   const { data, error } = await resend.emails.send({
@@ -73,14 +73,14 @@ export async function sendEmergencyAdminEmail({ fullName, phoneRaw, city, notes,
     subject: `⚠️ ליד גוב ארי (מצב חירום — המסד לא זמין) — ${disp}`,
     html: `<div dir="rtl" style="font-family:Arial;font-size:15px">
       <p style="color:#b00"><b>שים לב:</b> מסד הנתונים לא היה זמין בעת קליטת הליד. פרטים מלאים למטה — נא לתעד ידנית.</p>
-      <p>סיבה: ${escapeHtml(reason || '')}</p>
+      <p>הקליטה במסד נכשלה. בדקו אם הליד נקלט לאחר ניסיון חוזר לפני תיעוד ידני.</p>
       <table>
         <tr><td style="color:#666;padding:4px 8px">שם</td><td style="padding:4px 8px"><b>${escapeHtml(fullName || '')}</b></td></tr>
         <tr><td style="color:#666;padding:4px 8px">טלפון</td><td style="padding:4px 8px"><b>${escapeHtml(disp)}</b></td></tr>
         <tr><td style="color:#666;padding:4px 8px">עיר</td><td style="padding:4px 8px">${escapeHtml(city || '')}</td></tr>
         <tr><td style="color:#666;padding:4px 8px">הערה</td><td style="padding:4px 8px">${escapeHtml(notes || '')}</td></tr>
       </table></div>`,
-  });
+  }, idempotencyKey ? { idempotencyKey: `emergency-lead/${idempotencyKey}` } : undefined);
   if (error) throw new Error(`Resend: ${error.message || JSON.stringify(error)}`);
   if (!data?.id) throw new Error('Resend did not confirm receipt');
   return { id: data?.id, emergency: true };

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import { config, adminEnabled } from './config.js';
 import { listLeads, updateLead, countLeads, leadsCsv, exportLeadBackup, STATUSES } from './leads.js';
 import { formatILDisplay, toWaNumber } from './phone.js';
+import { outboxHealth } from './outbox.js';
 
 function timingSafeEqual(a, b) {
   const ab = Buffer.from(String(a));
@@ -40,9 +41,10 @@ export async function renderLeadsPage(req, res) {
   const status = String(req.query.status || '');
   const q = String(req.query.q || '').slice(0, 80);
   const offset = Math.max(0, Math.min(100000000, parseInt(req.query.offset, 10) || 0));
-  const [pageRows, counts] = await Promise.all([
+  const [pageRows, counts, delivery] = await Promise.all([
     listLeads({ limit: 101, offset, status, q }),
     countLeads(),
+    outboxHealth(),
   ]);
 
   const rows = pageRows.slice(0, 100);
@@ -67,7 +69,7 @@ export async function renderLeadsPage(req, res) {
         <a href="tel:${esc(disp.replace(/[^\d+]/g, ''))}" style="color:#e7c877">${esc(disp)}</a>
         &nbsp;<a href="https://wa.me/${esc(wa)}" target="_blank" style="color:#25d366">wa</a>
       </td>
-      <td>${esc(l.city || '')}</td>
+      <td>${esc(l.city || '')}${l.notes ? `<div style="font-size:12px;color:#bbb">${esc(l.notes)}</div>` : ''}</td>
       <td style="font-size:12px;color:#a2a2ad">${esc(src)}</td>
       <td>
         <form method="post" action="/admin/leads/${esc(l.id)}" style="display:flex;gap:6px;align-items:center">
@@ -104,8 +106,10 @@ export async function renderLeadsPage(req, res) {
     <a href="/admin/leads-backup.json">גיבוי מלא: לידים, הגשות והתראות</a>
   </div>
   <p class="muted">הלידים נשמרים במסד גם כאשר התראת דוא״ל נכשלת. הגיבוי מכיל פרטי לקוחות; שמרו אותו במקום פרטי.</p>
+  <p role="status">${delivery.error ? 'לא ניתן לבדוק כרגע את מצב משלוח ההתראות.' : `התראות: ${Number(delivery.pending) || 0} ממתינות · ${Number(delivery.processing) || 0} בעיבוד · ${Number(delivery.failed) || 0} נכשלו · ${Number(delivery.stuck) || 0} מתעכבות. מצב זה אינו אישור שהמייל הגיע לתיבת הדואר.`}</p>
+  <p class="muted">המקור בטבלה הוא המקור הראשון של הלקוח. היסטוריית כל ההגשות והקמפיין של כל הגשה זמינות בגיבוי המלא.</p>
   <table>
-    <thead><tr><th>זמן</th><th>שם</th><th>טלפון</th><th>עיר</th><th>מקור</th><th>סטטוס</th></tr></thead>
+    <thead><tr><th>זמן</th><th>שם</th><th>טלפון</th><th>עיר / פרטי רכב</th><th>מקור ראשון</th><th>סטטוס</th></tr></thead>
     <tbody>${tr || '<tr><td colspan="6" class="muted">אין לידים עדיין</td></tr>'}</tbody>
   </table>
   <nav class="bar" aria-label="עמודי לידים">
@@ -117,9 +121,14 @@ export async function renderLeadsPage(req, res) {
 }
 
 export async function handleStatusUpdate(req, res) {
+  // Browser form posts include Origin; reject cross-site writes under cached Basic Auth.
+  const origin = req.get('origin');
+  const fetchSite = req.get('sec-fetch-site');
+  let sameOrigin = false;
+  try { sameOrigin = Boolean(origin) && new URL(origin).host === req.get('host'); } catch {}
+  if (fetchSite === 'cross-site' || !sameOrigin) return res.status(403).send('יש לעדכן סטטוס מתוך ממשק הלידים.');
   await updateLead(req.params.id, { status: req.body.status, notes: req.body.notes });
-  const back = req.get('referer') || '/admin/leads';
-  res.redirect(303, back);
+  res.redirect(303, '/admin/leads');
 }
 
 export async function handleCsv(req, res) {

@@ -2,7 +2,6 @@ import express from 'express';
 import { waitUntil } from '@vercel/functions';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -123,7 +122,7 @@ app.post('/api/leads', leadLimiter, async (req, res) => {
       try {
         await sendEmergencyAdminEmail({
           fullName: clean.fullName, phoneRaw: clean.phoneRaw,
-          city: clean.city, notes: clean.notes, reason: err.message,
+          city: clean.city, notes: clean.notes, idempotencyKey: clean.idempotencyKey,
         });
         rescued = true;
       } catch (e2) {
@@ -132,16 +131,15 @@ app.post('/api/leads', leadLimiter, async (req, res) => {
     }
 
     if (rescued) {
-      const emergencyLeadId = randomUUID();
-      const emergencySubmissionId = randomUUID();
+      // Provider acceptance is not durable database storage or inbox delivery.
+      // Keep the customer's retry key/draft and never show a confirmed lead here.
       return asHtml
-        ? res.send(htmlPage('תודה', '<h1>קיבלנו את הפרטים 👍</h1><p>נחזור אליך בהקדם.</p><p><a href="/">חזרה לאתר</a></p>'))
-        : res.status(200).json({
-          ok: true,
+        ? res.status(503).send(htmlPage('לא אושר', '<h1>לא הצלחנו לאשר שהפרטים נשמרו</h1><p>אפשר לנסות שוב או ליצור איתנו קשר ישירות.</p><p><a href="tel:+972536813013">חייגו 053-6813013</a></p><p><a href="/">חזרה לאתר</a></p>'))
+        : res.status(503).json({
+          ok: false,
           degraded: true,
-          leadId: emergencyLeadId,
-          submissionId: emergencySubmissionId,
-          eventId: emergencySubmissionId,
+          fallback: true,
+          errors: ['לא הצלחנו לאשר שהפרטים נשמרו. נסו שוב או פנו אלינו ישירות.'],
         });
     }
     // מצב C — גם המסד וגם החירום נכשלו. אומרים אמת ומציעים ערוצים ישירים.

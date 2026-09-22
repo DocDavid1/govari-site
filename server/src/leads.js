@@ -79,7 +79,7 @@ export function cleanLeadInput(body = {}) {
     phoneNormalized: normalizeILPhone(phoneRaw) || phoneRaw.replace(/[^\d+]/g, ''),
     city: clip(b.city, 80),
     email: clip(b.email, 160),
-    notes: clip(b.notes, 500),
+    notes: clip(b.notes, 500) || (clip(b.vehicle, 100) ? `דגם רכב: ${clip(b.vehicle, 100)}` : null),
     idempotencyKey: clip(b.idempotency_key ?? b.idempotencyKey, 64),
     attribution: {
       source: clip(a.source, 40) || 'website',
