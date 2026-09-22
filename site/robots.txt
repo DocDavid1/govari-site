@@ -3,4 +3,4 @@ Allow: /
 Disallow: /order-success.html
 Disallow: /preorder.html
 Disallow: /checkout.html
-Sitemap: https://govari-site.vercel.app/sitemap.xml
+Sitemap: https://www.govarisystems.co.il/sitemap.xml

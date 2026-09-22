@@ -2356,3 +2356,8 @@ html[data-theme] .footer-offer-button span{color:#17251c!important;font-size:inh
 .lead-orbit__card .form-note{max-width:none!important;width:100%!important;text-align:start!important}
 .lead-orbit__card .price-summary small{max-width:none!important}
 .lead-orbit__card>small{margin:0!important}
+/* Optional qualification keeps the two required fields fast on paid-social visits. */
+.lead-form .lead-extra{border-top:1px solid var(--edge);padding-top:12px}
+.lead-form .lead-extra summary{cursor:pointer;color:var(--quiet);font-size:13px;line-height:1.5;min-height:44px;display:flex;align-items:center}
+.lead-form .lead-extra[open]{display:grid;gap:10px}
+.lead-form .lead-extra[open] summary{color:var(--ink);font-weight:700}
