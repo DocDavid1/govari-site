@@ -90,6 +90,10 @@
     }
     /* מדידה בלבד: מדווח איזה שדה/סיבה עצרו את ההגשה בצד לקוח. לא משנה התנהגות. */
     function invalid(reason, field) { track('lead_validation_error', { form: form.dataset.leadForm || 'lead', reason: reason, field: field || 'form' }); }
+    form.addEventListener('invalid', function (event) {
+      var field = event.target;
+      invalid(field.validity.valueMissing ? 'required_missing' : 'browser_validation', field.name || 'form');
+    }, true);
     function valid(v) {
       var digits = v.phone.replace(/[^\d]/g, '');
       var el = v.full_name.length < 2 ? nameEl : digits.length < 7 || digits.length > 15 ? phoneEl : null;
