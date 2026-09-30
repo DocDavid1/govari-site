@@ -277,18 +277,29 @@ html[data-theme="dark"] .whatsapp {
   display: none;
 }
 .connected-hero {
-  max-width: 1320px;
+  position: relative;
+  isolation: isolate;
+  max-width: none;
   min-height: 650px;
   margin: auto;
-  padding: 70px 32px 55px;
+  padding: 70px max(32px, calc((100vw - 1320px) / 2 + 32px)) 55px;
   display: grid;
   grid-template-columns: 1fr 1.06fr;
   align-items: center;
   gap: 35px;
+  overflow: hidden;
+  background: #12262d;
 }
 .hero-copy {
   position: relative;
   z-index: 2;
+  color: #f6fbfb;
+}
+.hero-copy .eyebrow {
+  color: #75dfe1;
+}
+.hero-copy .microcopy {
+  color: #d6e4e6;
 }
 .hero-copy h1 {
   font-size: clamp(48px, 4.5vw, 70px);
@@ -298,12 +309,13 @@ html[data-theme="dark"] .whatsapp {
 }
 .hero-copy h1 em {
   font-style: normal;
-  color: var(--tech);
+  color: #75dfe1;
 }
 .hero-description {
   font-size: 18px;
   max-width: 510px;
   line-height: 1.75;
+  color: #d6e4e6;
 }
 .hero-offer {
   display: flex;
@@ -314,6 +326,7 @@ html[data-theme="dark"] .whatsapp {
 .hero-offer > span {
   max-width: 170px;
   font-size: 14px;
+  color: #d6e4e6;
 }
 .hero-offer strong {
   font-size: 36px;
@@ -332,53 +345,57 @@ html[data-theme="dark"] .whatsapp {
 .offer-detail {
   font-size: 11px;
   margin-top: 12px;
+  color: #c0d0d3;
 }
 .hero-scene {
   position: relative;
   height: 505px;
   min-width: 0;
   direction: ltr;
+  z-index: 2;
 }
 .windshield {
   position: absolute;
-  left: 0;
-  top: 18px;
-  width: 90%;
-  height: 64%;
-  border-radius: 80px 80px 22px 22px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  background: #243e46;
+  background: #12262d;
+  z-index: -1;
 }
 .windshield video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.67;
+  opacity: 0.82;
 }
 .windshield-lines {
   position: absolute;
   inset: 0;
-  box-shadow: inset 0 0 0 12px #18363c35;
-  border-radius: inherit;
+  background:
+    linear-gradient(90deg, rgba(11, 27, 33, 0.95) 0%, rgba(11, 27, 33, 0.7) 43%, rgba(11, 27, 33, 0.32) 72%, rgba(11, 27, 33, 0.58) 100%),
+    linear-gradient(0deg, rgba(8, 22, 27, 0.66), transparent 45%);
   pointer-events: none;
 }
 .scene-caption {
   position: absolute;
   top: 22px;
-  left: 26px;
-  color: white;
+  left: max(32px, calc((100vw - 1320px) / 2 + 32px));
+  color: #fff;
   font-size: 12px;
+  z-index: 4;
 }
 .video-toggle {
   position: absolute;
-  bottom: 14px;
-  left: 14px;
+  top: 18px;
+  right: max(32px, calc((100vw - 1320px) / 2 + 32px));
   border: 1px solid #fff5;
   border-radius: 8px;
   background: #17323ad9;
   color: white;
   padding: 8px 12px;
   font-size: 11px;
+  z-index: 4;
 }
 .camera-platform {
   position: absolute;
@@ -1520,15 +1537,13 @@ html[data-theme="dark"] .reservist-footer {
     margin-top: 14px;
   }
   .windshield {
-    width: 88%;
-    height: 65%;
-    border-radius: 48px 48px 16px 16px;
-    top: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
   }
   .scene-caption {
-    top: 15px;
-    left: 20px;
-    font-size: 10px;
+    display: none;
   }
   .camera-platform {
     top: 27%;
@@ -1873,4 +1888,10 @@ html[data-theme="dark"] .reservist-footer {
   width: 70px;
   border-top: 1px dashed var(--tech);
   opacity: 0.55;
+}
+
+/* Keep Latin technology names stable inside right-to-left Hebrew copy. */
+bdi[dir="ltr"] {
+  direction: ltr;
+  unicode-bidi: isolate;
 }

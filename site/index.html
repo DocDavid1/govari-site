@@ -25,7 +25,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f6f8f8" />
     <link rel="icon" href="assets/images/favicon.png" />
-    <link rel="stylesheet" href="css/connected.css?v=20260925" />
+    <link rel="stylesheet" href="css/connected.css?v=20260930-restore" />
     <script>
       try {
         document.documentElement.dataset.theme =
@@ -141,7 +141,7 @@
     <script src="js/config.js?v=20260925" defer></script>
     <script src="js/track.js?v=20260929" defer></script>
     <script src="js/lead-form.js?v=20260929" defer></script>
-    <script src="js/connected-ui.js?v=20260925" defer></script>
+    <script src="js/connected-ui.js?v=20260930-restore" defer></script>
     <script src="js/vendor/gsap.min.js" defer></script>
     <script src="js/vendor/ScrollTrigger.min.js" defer></script>
     <script src="js/connected-story.js?v=20260925" defer></script>
@@ -188,14 +188,40 @@
     </header>
     <main id="content">
       <section class="connected-hero" aria-labelledby="hero-title">
+        <div class="windshield" aria-label="סרטון נסיעה ברקע">
+          <video
+            id="roadFilm"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="assets/images/highway-editorial.jpg"
+          >
+            <source
+              src="assets/videos/highway-editorial.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div class="windshield-lines"></div>
+          <span class="scene-caption">צילום נסיעה להמחשה</span
+          ><button
+            class="video-toggle"
+            data-video-toggle="roadFilm"
+            type="button"
+          >
+            הפעלת סרטון הרקע
+          </button>
+        </div>
         <div class="hero-copy">
           <p class="eyebrow">
             <span class="status-dot"></span> גוב ארי מערכות · מצלמות רכב
           </p>
           <h1 id="hero-title">לראות את הרכב.<br /><em>גם מרחוק.</em></h1>
           <p class="hero-description">
-            מצלמת רכב עם 4 ערוצי צילום, 4G ו־GPS. אפשר לצפות ברכב ולבדוק איפה הוא
-            נמצא דרך אפליקציה בעברית, גם מרחוק.
+            מצלמת רכב עם ארבעה ערוצי צילום, <bdi dir="ltr">4G</bdi>
+            ו־<bdi dir="ltr">GPS</bdi>. אפשר לצפות ברכב ולבדוק איפה הוא נמצא דרך
+            אפליקציה בעברית, גם מרחוק.
           </p>
           <div class="hero-offer">
             <span>מבצע סוכות · מצלמה והתקנה</span
@@ -233,31 +259,10 @@
           </p>
           <p class="offer-detail">
             התקנה בבית הלקוח בבית שמש, ירושלים והמרכז בתיאום.<br />סים שנתי
-            לבחירה בתוספת 199 ₪.
+            לבחירה בתוספת <bdi dir="ltr">199 ₪</bdi>.
           </p>
         </div>
         <div class="hero-scene">
-          <div class="windshield">
-            <video
-              id="roadFilm"
-              muted
-              loop
-              playsinline
-              preload="none"
-              poster="assets/images/highway-editorial.jpg"
-            >
-              <source src="assets/videos/road-drive.mp4" type="video/mp4" />
-            </video>
-            <div class="windshield-lines"></div>
-            <span class="scene-caption">מצלמת רכב עם צפייה מהנייד</span
-            ><button
-              class="video-toggle"
-              data-video-toggle="roadFilm"
-              type="button"
-            >
-              הפעלת סרטון הרקע
-            </button>
-          </div>
           <div class="camera-platform">
             <img
               src="assets/images/camera-main-v2.webp"
@@ -287,7 +292,7 @@
               class=""
               width="1138"
               height="1436"
-            /><span>4 ערוצי צילום באפליקציה</span>
+            /><span>באפליקציה: ארבע זוויות צילום</span>
           </div>
           <span class="signal-pill"
             ><svg
@@ -301,7 +306,7 @@
             >
               <path d="M4 18v3m5-8v8m5-13v13m5-18v18" />
             </svg>
-            חיבור סלולרי 4G</span
+            חיבור סלולרי <bdi dir="ltr">4G</bdi></span
           >
           <p class="visual-note">המחשת מוצר וממשק</p>
         </div>
@@ -321,7 +326,7 @@
               <rect x="3" y="6" width="18" height="14" rx="3" />
               <circle cx="12" cy="13" r="3" />
               <path d="m8 6 1-3h6l1 3" /></svg
-            >4 ערוצי צילום</span
+            >ארבעה ערוצי צילום</span
           ><span
             ><svg
               viewBox="0 0 24 24"
@@ -333,7 +338,7 @@
               aria-hidden="true"
             >
               <path d="M4 18v3m5-8v8m5-13v13m5-18v18" /></svg
-            >צפייה מרחוק ב־4G</span
+            >צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span
           ><span
             ><svg
               viewBox="0 0 24 24"
@@ -346,7 +351,7 @@
             >
               <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
               <circle cx="12" cy="10" r="2" /></svg
-            >GPS ומסלול</span
+            ><bdi dir="ltr">GPS</bdi> ומסלול</span
           ><span
             ><svg
               viewBox="0 0 24 24"
@@ -372,7 +377,7 @@
             >
               <path d="m12 2 8 3v7c0 5-8 10-8 10S4 17 4 12V5Z" />
               <path d="m8 12 3 3 5-6" /></svg
-            >אחריות 12 חודשים</span
+            >אחריות לשנה</span
           >
         </div>
         <img
@@ -395,11 +400,12 @@
           <div class="story-layout">
             <div class="build-copy">
               <article class="build-step is-active" data-step="0">
-                <p class="eyebrow">01 / בתוך המערכת</p>
+                <p class="eyebrow">שלב ראשון · בתוך המערכת</p>
                 <h2>מה יש<br />בתוך המצלמה?</h2>
                 <p>
-                  ההדמיה מציגה איך רכיבי צילום, GPS וחיבור 4G עובדים יחד:
-                  מצלמים את הנסיעה, מציגים את המיקום ומאפשרים צפייה מהנייד.
+                  ההדמיה מציגה איך רכיבי הצילום, <bdi dir="ltr">GPS</bdi>
+                  וחיבור <bdi dir="ltr">4G</bdi> עובדים יחד: מצלמים את הנסיעה,
+                  מציגים את המיקום ומאפשרים צפייה מהנייד.
                 </p>
                 <small
                   >המחשת רכיבים עקרונית; אינה תרשים פירוק או מפרט פנימי של
@@ -414,15 +420,15 @@
                 />
               </article>
               <article class="build-step" data-step="1">
-                <p class="eyebrow">02 / ההתקנה</p>
+                <p class="eyebrow">שלב שני · ההתקנה</p>
                 <h2>מתקינים את המצלמה<br />ברכב שלכם.</h2>
                 <p>
                   היחידה הראשית מותקנת על השמשה הקדמית, ומצלמה נוספת מצלמת
                   לאחור. לפני ההתקנה בודקים את דגם הרכב ואת חיבור החשמל.
                 </p>
                 <small
-                  >התקנה בבית הלקוח בבית שמש, ירושלים והמרכז בתיאום. אחריות 12
-                  חודשים.</small
+                  >התקנה בבית הלקוח בבית שמש, ירושלים והמרכז בתיאום. אחריות
+                  לשנה.</small
                 ><img
                   src="assets/product/lifestyle/govari-installed-windshield.webp"
                   alt="המחשת מצלמה מותקנת על השמשה הקדמית"
@@ -433,7 +439,7 @@
                 />
               </article>
               <article class="build-step" data-step="2">
-                <p class="eyebrow">03 / ארבע זוויות</p>
+                <p class="eyebrow">שלב שלישי · ארבע זוויות</p>
                 <h2>צילום קדימה, אחורה<br />ובתוך הרכב.</h2>
                 <p>
                   ארבעה ערוצי צילום מתעדים את הדרך ואת תא הנוסעים. באפליקציה
@@ -452,7 +458,7 @@
                 />
               </article>
               <article class="build-step" data-step="3">
-                <p class="eyebrow">04 / האפליקציה</p>
+                <p class="eyebrow">שלב רביעי · האפליקציה</p>
                 <h2>צופים ברכב<br />דרך הטלפון.</h2>
                 <p>
                   צפייה חיה מהנייד, גישה להקלטות ומיקום הרכב — באפליקציה בעברית
@@ -471,7 +477,7 @@
                 />
               </article>
               <article class="build-step" data-step="4">
-                <p class="eyebrow">05 / המיקום</p>
+                <p class="eyebrow">שלב חמישי · המיקום</p>
                 <h2>בודקים איפה הרכב<br />ולאן הוא נסע.</h2>
                 <p>
                   רואים היכן הרכב נמצא, עוקבים אחרי המסלול וחוזרים להיסטוריית
@@ -488,7 +494,7 @@
                 />
               </article>
               <article class="build-step" data-step="5">
-                <p class="eyebrow">06 / הרכב שלכם</p>
+                <p class="eyebrow">שלב אחרון · הרכב שלכם</p>
                 <h2>רוצים פרטים<br />על המצלמה?</h2>
                 <p>
                   השאירו שם וטלפון. נחזור אליכם, נבדוק התאמה לרכב ונסביר
@@ -546,7 +552,7 @@
                 data-y="-27"
                 data-rotate="7"
               >
-                <div class="component-model"><i></i><b>ISP</b></div>
+                <div class="component-model"><i></i><b>עיבוד</b></div>
                 <strong>מעבד</strong><small>ניהול ערוצי הצילום</small>
               </div>
               <div
@@ -555,8 +561,8 @@
                 data-y="30"
                 data-rotate="-6"
               >
-                <div class="component-model"><i></i><b>GPS</b></div>
-                <strong>GPS</strong><small>מיקום ומסלול</small>
+                <div class="component-model"><i></i><bdi dir="ltr">GPS</bdi></div>
+                <strong><bdi dir="ltr">GPS</bdi></strong><small>מיקום ומסלול</small>
               </div>
               <div
                 class="build-part part-modem"
@@ -564,8 +570,8 @@
                 data-y="35"
                 data-rotate="3"
               >
-                <div class="component-model"><i></i><b>4G</b></div>
-                <strong>4G</strong><small>צפייה מרחוק</small>
+                <div class="component-model"><i></i><bdi dir="ltr">4G</bdi></div>
+                <strong><bdi dir="ltr">4G</bdi></strong><small>צפייה מרחוק</small>
               </div>
               <div
                 class="build-part part-case"
@@ -607,7 +613,7 @@
                 >
                   <path d="M4 18v3m5-8v8m5-13v13m5-18v18" />
                 </svg>
-                4G · צפייה מרחוק</span
+                <bdi dir="ltr">4G</bdi> · צפייה מרחוק</span
               >
               <div class="build-route">
                 <div class="map-grid"></div>
@@ -648,7 +654,7 @@
                       <rect x="3" y="6" width="18" height="14" rx="3" />
                       <circle cx="12" cy="13" r="3" />
                       <path d="m8 6 1-3h6l1 3" /></svg
-                    >4 ערוצי צילום</span
+                    >ארבעה ערוצי צילום</span
                   ><span
                     ><svg
                       viewBox="0 0 24 24"
@@ -660,7 +666,7 @@
                       aria-hidden="true"
                     >
                       <path d="M4 18v3m5-8v8m5-13v13m5-18v18" /></svg
-                    >צפייה מרחוק ב־4G</span
+                    >צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span
                   ><span
                     ><svg
                       viewBox="0 0 24 24"
@@ -675,7 +681,7 @@
                         d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"
                       />
                       <circle cx="12" cy="10" r="2" /></svg
-                    >GPS ומסלול</span
+                    ><bdi dir="ltr">GPS</bdi> ומסלול</span
                   ><span
                     ><svg
                       viewBox="0 0 24 24"
@@ -701,7 +707,7 @@
                     >
                       <path d="m12 2 8 3v7c0 5-8 10-8 10S4 17 4 12V5Z" />
                       <path d="m8 12 3 3 5-6" /></svg
-                    >אחריות 12 חודשים</span
+                    >אחריות לשנה</span
                   >
                 </div>
                 <p>מבצע סוכות · מצלמה והתקנה</p>
@@ -714,9 +720,9 @@
             <nav aria-label="שלבי המערכת">
               <button data-build-go="0" type="button">הרכיבים</button
               ><button data-build-go="1" type="button">ההתקנה</button
-              ><button data-build-go="2" type="button">4 זוויות</button
+              ><button data-build-go="2" type="button">ארבע זוויות</button
               ><button data-build-go="3" type="button">האפליקציה</button
-              ><button data-build-go="4" type="button">GPS</button
+              ><button data-build-go="4" type="button"><bdi dir="ltr">GPS</bdi></button
               ><button data-build-go="5" type="button">ההצעה</button>
             </nav>
             <div class="build-progress"><span></span></div>
@@ -740,8 +746,8 @@
             <span>מבצע סוכות</span><strong><bdi>1,099 ₪</bdi></strong>
             <p>מצלמה והתקנה בבית הלקוח</p>
             <small
-              >בית שמש, ירושלים והמרכז בתיאום.<br />סים לשנה לבחירה: 199 ₪
-              נוספים.</small
+              >בית שמש, ירושלים והמרכז בתיאום.<br />סים לשנה לבחירה:
+              <bdi dir="ltr">199 ₪</bdi> נוספים.</small
             >
           </div>
           <div class="tag-list">
@@ -758,7 +764,7 @@
                 <rect x="3" y="6" width="18" height="14" rx="3" />
                 <circle cx="12" cy="13" r="3" />
                 <path d="m8 6 1-3h6l1 3" /></svg
-              >4 ערוצי צילום</span
+              >ארבעה ערוצי צילום</span
             ><span
               ><svg
                 viewBox="0 0 24 24"
@@ -770,7 +776,7 @@
                 aria-hidden="true"
               >
                 <path d="M4 18v3m5-8v8m5-13v13m5-18v18" /></svg
-              >צפייה מרחוק ב־4G</span
+              >צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span
             ><span
               ><svg
                 viewBox="0 0 24 24"
@@ -783,7 +789,7 @@
               >
                 <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
                 <circle cx="12" cy="10" r="2" /></svg
-              >GPS ומסלול</span
+              ><bdi dir="ltr">GPS</bdi> ומסלול</span
             ><span
               ><svg
                 viewBox="0 0 24 24"
@@ -809,7 +815,7 @@
               >
                 <path d="m12 2 8 3v7c0 5-8 10-8 10S4 17 4 12V5Z" />
                 <path d="m8 12 3 3 5-6" /></svg
-              >אחריות 12 חודשים</span
+              >אחריות לשנה</span
             >
           </div>
           <div class="direct-contact">
@@ -884,7 +890,7 @@
                     d="M12 3 5 6v5c0 4.8 3 8.2 7 10 4-1.8 7-5.2 7-10V6l-7-3Z"
                   />
                   <path d="m9 12 2 2 4-4" /></svg
-                ><span><b>אחריות 12 חודשים</b></span>
+                ><span><b>אחריות לשנה</b></span>
               </li>
               <li>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -984,7 +990,7 @@
                 <rect x="2" y="11" width="4" height="7" rx="1" />
                 <rect x="18" y="11" width="4" height="7" rx="1" /></svg
             ></span>
-            <h3>תמיכה 24/7</h3>
+            <h3>תמיכה בכל שעות היממה</h3>
             <p>תמיכה בעברית גם אחרי ההתקנה, בכל שעה.</p>
           </article>
         </div>
@@ -1034,9 +1040,10 @@
           <details>
             <summary>כמה עולה המערכת?<span aria-hidden="true">+</span></summary>
             <p>
-              במבצע סוכות: מצלמה והתקנה בבית הלקוח ב־1,099 ₪. השירות בבית שמש,
-              ירושלים והמרכז בתיאום. סים לשנה הוא תוספת לבחירה של 199 ₪. אין
-              תשלום באתר; מקבלים את פרטי ההזמנה לפני החלטה.
+              במבצע סוכות: מצלמה והתקנה בבית הלקוח ב־<bdi dir="ltr">1,099
+              ₪</bdi>. השירות בבית שמש, ירושלים והמרכז בתיאום. סים לשנה הוא
+              תוספת לבחירה של <bdi dir="ltr">199 ₪</bdi>. אין תשלום באתר;
+              מקבלים את פרטי ההזמנה לפני החלטה.
             </p>
           </details>
           <details>
@@ -1044,13 +1051,13 @@
               האם אפשר לצפות ברכב מרחוק?<span aria-hidden="true">+</span>
             </summary>
             <p>
-              כן. חיבור 4G עם סים פעיל מאפשר צפייה דרך האפליקציה, בכפוף לקליטה
-              סלולרית ולחבילת הגלישה.
+              כן. חיבור <bdi dir="ltr">4G</bdi> עם סים פעיל מאפשר צפייה דרך
+              האפליקציה, בכפוף לקליטה סלולרית ולחבילת הגלישה.
             </p>
           </details>
           <details>
             <summary>
-              האם יש GPS והיסטוריית מסלול?<span aria-hidden="true">+</span>
+              האם יש <bdi dir="ltr">GPS</bdi> והיסטוריית מסלול?<span aria-hidden="true">+</span>
             </summary>
             <p>
               כן. המערכת מציגה את מיקום הרכב בזמן אמת, וכן היסטוריית נסיעות
@@ -1097,15 +1104,16 @@
               מה כוללת האחריות?<span aria-hidden="true">+</span>
             </summary>
             <p>
-              אחריות ל־12 חודשים ותמיכה 24/7. תנאי האחריות המדויקים נמסרים לפני
-              השלמת ההזמנה.
+              אחריות לשנה ותמיכה בכל שעות היממה. תנאי האחריות המדויקים נמסרים
+              לפני השלמת ההזמנה.
             </p>
           </details>
           <details>
             <summary>איך עובד הסים?<span aria-hidden="true">+</span></summary>
             <p>
               הסים מספק את החיבור הסלולרי לצפייה מרחוק. יש אפשרות לסים לשנה מלאה
-              בתוספת 199 ₪. היקף החבילה ותנאי ההמשך נמסרים לפני הזמנה.
+              בתוספת <bdi dir="ltr">199 ₪</bdi>. היקף החבילה ותנאי ההמשך נמסרים
+              לפני הזמנה.
             </p>
           </details>
         </div>

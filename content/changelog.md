@@ -436,3 +436,11 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 - Replaced abstract homepage, story, video and footer slogans with direct descriptions and retained approved product/price/service facts.
 - Removed the interrupting analytics banner. Google defaults to denied storage/advertising consent with cookieless measurement; stored opt-outs remain off. Optional settings live in the privacy page. Advertising remains denied and Meta has a separate explicit gate. Contact data and raw page queries are excluded from measurement events.
 - Validation: 32 automated server/measurement tests passed; browser recovery simulations passed same-key retries, autofilled legacy fields, phone normalization, malformed receipt rejection, offline edited drafts and a single confirmed conversion. Homepage passed six widths and both themes, six scroll phases, video controls, menus, FAQ, reduced motion and blocked animation fallback. Six secondary pages passed 320/390/1440 width checks; static HTML asset/link and duplicate-ID checks passed. Physical iPhone, analytics account reports and inbox placement remain unverified.
+
+## 2026-09-30 — Previous homepage restored and hero media repaired
+- Restored the owner-preferred Connected Car homepage design, including the transparent “עושה מילואים” brand mark, original light/dark palette, product assembly story and original product imagery.
+- Reconnected the hero to the valid original aerial-road film (`highway-editorial.mp4`). The temporary `road-drive.mp4` file was invalid and could not be decoded, which is why the film did not play.
+- Expanded that film across the full hero width with a readable contrast layer; product, phone, offer and actions remain visible above it on desktop and mobile.
+- Rewrote visible channel counts as natural Hebrew and isolated `4G`/`GPS` tokens so mixed Hebrew, Latin letters and numbers retain the correct reading order.
+- Replaced numbered/English-facing step labels in the homepage, product page and app page with natural Hebrew while retaining standard product terms such as `4G` and `GPS` in isolated left-to-right spans.
+- No lead schema, database, price, warranty or product claim was changed in this restoration.
