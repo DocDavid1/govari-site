@@ -27,7 +27,7 @@
       return { hidden: step.getAttribute("aria-hidden"), inert: step.inert };
     });
     var media = window.matchMedia(
-      "(min-width: 981px) and (min-height: 680px) and (prefers-reduced-motion: no-preference)",
+      "(min-width: 981px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)",
     );
 
     function trackPhase(index) {
@@ -71,11 +71,14 @@
     function observeStaticSteps() {
       if (observer) observer.disconnect();
       if (!("IntersectionObserver" in window)) return;
+      story.classList.add("has-static-reveals");
       observer = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
-            if (entry.isIntersecting && !animated)
+            if (entry.isIntersecting && !animated) {
+              entry.target.classList.add("is-in-view");
               activate(Number(entry.target.dataset.step), true);
+            }
           });
         },
         { threshold: 0.45 },
@@ -93,7 +96,7 @@
       timeline = null;
       trigger = null;
       animated = false;
-      story.classList.remove("is-animated");
+      story.classList.remove("is-animated", "has-static-reveals");
       steps.forEach(function (step, index) {
         var original = originalStepState[index];
         if (original.hidden === null) step.removeAttribute("aria-hidden");
@@ -297,7 +300,9 @@
             animation: timeline,
             pin: pin,
             start: "top top",
-            end: "+=4200",
+            end: function () {
+              return "+=" + Math.max(3300, Math.round(window.innerHeight * 5));
+            },
             scrub: 0.65,
             anticipatePin: 1,
             invalidateOnRefresh: true,

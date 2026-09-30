@@ -22,7 +22,18 @@ fs.mkdirSync(OUT, { recursive: true });
     );
     await page.goto(BASE, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => document.fonts.status === "loaded");
-    await page.waitForTimeout(350);
+    await page.waitForTimeout(900);
+    const roadFilm = await page.locator("#roadFilm").evaluate((video) => ({
+      readyState: video.readyState,
+      currentTime: video.currentTime,
+      width: video.videoWidth,
+      height: video.videoHeight,
+      unavailable: video.closest(".windshield")?.classList.contains("video-unavailable"),
+    }));
+    assert.ok(roadFilm.readyState >= 2, `${width}: hero video is not ready`);
+    assert.ok(roadFilm.currentTime > 0, `${width}: hero video did not start`);
+    assert.equal(roadFilm.unavailable, false, `${width}: hero video fallback shown`);
+    assert.deepEqual([roadFilm.width, roadFilm.height], [1280, 720]);
     for (const theme of ["light", "dark"]) {
       if (theme === "dark") await page.locator(".theme-switch").click();
       assert.equal(
@@ -89,6 +100,7 @@ fs.mkdirSync(OUT, { recursive: true });
     const lead = await page.locator("form").boundingBox();
     assert.ok(lead);
     await page.locator("form").scrollIntoViewIfNeeded();
+    assert.equal(await page.locator(".form-card").evaluate((e) => getComputedStyle(e).opacity), "1");
     await page.screenshot({ path: `${OUT}/form-${width}.png` });
     assert.equal(await page.locator("form input[required]").count(), 2);
     await page.locator("#faq details").first().locator("summary").click();
