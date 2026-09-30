@@ -45,24 +45,11 @@
     reduced = matchMedia("(prefers-reduced-motion: reduce)");
   let manuallyPaused = false;
   function syncVideo() {
-    if (!video || !toggle) return;
-    const paused = video.paused;
-    toggle.textContent = paused ? "הפעלת הסרטון" : "השהיית הסרטון";
-    toggle.setAttribute(
-      "aria-label",
-      paused ? "הפעלת סרטון הרקע" : "השהיית סרטון הרקע",
-    );
+    toggle.textContent = video.paused ? "הפעלת סרטון הרקע" : "השהיית הסרטון";
     toggle.setAttribute("aria-pressed", String(!video.paused));
-  }
-  function markVideoUnavailable() {
-    video.closest(".windshield")?.classList.add("video-unavailable");
   }
   video.addEventListener("play", syncVideo);
   video.addEventListener("pause", syncVideo);
-  video.addEventListener("error", markVideoUnavailable);
-  video.addEventListener("canplay", () =>
-    video.closest(".windshield")?.classList.remove("video-unavailable"),
-  );
   toggle.addEventListener("click", () => {
     if (video.paused) {
       manuallyPaused = false;
@@ -113,29 +100,6 @@
       { threshold: 0 },
     );
     lo.observe(lead);
-
-    const revealTargets = Array.from(
-      document.querySelectorAll(
-        ".trust-rail, .real-product-copy, .real-product-gallery figure, .section-heading, .benefit-grid article, .demo-section > div, .demo-section > video, .faq details",
-      ),
-    );
-    if (revealTargets.length && !reduced.matches) {
-      revealTargets.forEach((element) =>
-        element.classList.add("reveal-on-scroll"),
-      );
-      root.classList.add("reveal-ready");
-      const revealObserver = new IntersectionObserver(
-        (entries, currentObserver) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add("is-in-view");
-            currentObserver.unobserve(entry.target);
-          });
-        },
-        { threshold: 0.12, rootMargin: "0px 0px -7% 0px" },
-      );
-      revealTargets.forEach((element) => revealObserver.observe(element));
-    }
   }
   reduced.addEventListener("change", () => {
     if (reduced.matches) video.pause();
