@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/styles.css?v=20260915-theme2" />
   <script>(function(){try{var t=localStorage.getItem('gav-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <script src="js/config.js?v=20260920"></script>
-  <script src="js/track.js?v=20260920"></script>
+  <script src="js/track.js?v=20260929"></script>
   <style>
     .legal{max-width:820px;margin-inline:auto}
     .legal h2{font-size:clamp(1.3rem,2.4vw,1.7rem);margin:2.2rem 0 .6rem}
@@ -17,6 +17,10 @@
     .legal ul{margin:.4rem 0 1rem;padding-inline-start:1.2rem;display:grid;gap:.4rem}
     .legal .muted-note{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem;color:var(--muted)}
     .legal strong{color:var(--text)}
+    .measurement-actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .measurement-actions button{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.65rem .9rem;cursor:pointer}
+    .measurement-actions button[aria-pressed="true"]{border-color:currentColor}
+    .measurement-actions button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
   </style>
   <link rel="canonical" href="https://www.govarisystems.co.il/privacy.html">
   <meta property="og:url" content="https://www.govarisystems.co.il/privacy.html">
@@ -31,7 +35,7 @@
       <div class="container legal">
         <p class="eyebrow">פרטיות</p>
         <h1 >מדיניות פרטיות</h1>
-        <p class="muted-note">עודכן לאחרונה: 15.09.2026. מדיניות זו מסבירה איזה מידע אנו אוספים, כיצד אנו עושים בו שימוש ומהן זכויותיכם, בהתאם לחוק הגנת הפרטיות, התשמ"א-1981 והתקנות מכוחו.</p>
+        <p class="muted-note">עודכן לאחרונה: 29.09.2026. מדיניות זו מסבירה איזה מידע אנו אוספים, כיצד אנו עושים בו שימוש ומהן זכויותיכם, בהתאם לחוק הגנת הפרטיות, התשמ"א-1981 והתקנות מכוחו.</p>
 
         <h2>1. כללי</h2>
         <p>מדיניות זו חלה על השימוש באתר של גוב ארי מערכות ("<strong>החברה</strong>") ועל השירותים הנלווים, לרבות המצלמה והאפליקציה. השימוש באתר ובשירות מהווה הסכמה למדיניות זו.</p>
@@ -52,14 +56,18 @@
           <li>עמידה בחובות שבדין.</li>
         </ul>
 
-        <h2>4. עוגיות (Cookies)</h2>
+        <h2>4. עוגיות ומדידה</h2>
         <ul>
           <li><strong>אחסון זמני בדפדפן</strong> — אם שליחת בקשת הצעה לא אושרה, פרטי הטופס ומזהה הניסיון נשמרים זמנית במכשיר כדי לאפשר ניסיון חוזר בלי להקליד מחדש. הם נמחקים לאחר אישור קליטה, או כשפג תוקפם בעת שימוש חוזר באתר.</li>
           <li><strong>עוגיות חיוניות</strong> — נדרשות לתפעול האתר ולשמירת העדפות (כגון מצב תצוגה).</li>
-          <li><strong>עוגיות ביצועים/אנליטיקה</strong> — מדידת השימוש באמצעות Google Analytics מופעלת רק לאחר שבחרתם לאפשר מדידה בבאנר. סירוב אינו מונע שליחת בקשת הצעה.</li>
+          <li><strong>מדידה בסיסית ללא עוגיות</strong> — Google Analytics מופעל כברירת מחדל במצב שבו אחסון עוגיות מדידה ופרסום אינו מאושר. במצב זה נשלחים ל-Google אותות שימוש ללא עוגיות לצורך מדידה מצרפית, כגון צפייה בעמוד ושלבי מילוי הטופס; פרטי הטופס עצמם אינם נשלחים באירועי המדידה.</li>
+          <li><strong>עוגיות מדידה לפי בחירה</strong> — ניתן לאפשר עוגיות של Google Analytics בהעדפות שלהלן, או לכבות את המדידה. אישור עוגיות מדידה אינו אישור לפרסום מותאם או ל-Meta Pixel. בחירה קודמת לכבות מדידה נשמרת. כל בחירה מאפשרת להמשיך לגלוש ולשלוח בקשת הצעה.</li>
           <li>ניתן לנהל ולמחוק עוגיות דרך הגדרות הדפדפן; חסימת עוגיות חיוניות עלולה לפגוע בתפקוד האתר.</li>
         </ul>
-        <p><button type="button" data-consent-reset>שינוי בחירת המדידה</button></p>
+        <div class="muted-note" id="measurement-preferences" role="group" aria-label="העדפות מדידה">
+          <p data-consent-status role="status" aria-live="polite">ניתן לבחור כאן את העדפת המדידה במכשיר זה.</p>
+          <p class="measurement-actions"><button type="button" data-consent-value="auto">מדידה ללא עוגיות</button> <button type="button" data-consent-value="granted">אישור עוגיות מדידה</button> <button type="button" data-consent-value="denied">כיבוי מדידה</button></p>
+        </div>
 
         <h2>5. מסירת מידע לצדדים שלישיים</h2>
         <p>לא נמכור את המידע שלכם. מידע עשוי להימסר לספקים הנדרשים לאספקת השירות, כגון ספקי תקשורת, משלוח, התקנה, אחסון או דיוור, ולרשויות מוסמכות כאשר הדבר נדרש על פי דין, בהיקף המינימלי הנדרש.</p>

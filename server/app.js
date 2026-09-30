@@ -100,7 +100,13 @@ app.post('/api/leads', leadLimiter, async (req, res) => {
     const result = await createLead(clean, meta);
 
     // best-effort — הנתיב האמין הוא ה-Cron על /api/outbox/tick
-    waitUntil(processOutbox({ max: 6 }).catch((e) => console.error('[outbox inline]', e.message)));
+    // Storage is already committed. Notification scheduling must never turn
+    // its durable receipt into a failure or trigger an emergency duplicate.
+    try {
+      waitUntil(processOutbox({ max: 6 }).catch((e) => console.error('[outbox inline]', e.message)));
+    } catch (e) {
+      console.error('[outbox scheduling]', e.message);
+    }
 
     if (asHtml) {
       return res.send(htmlPage('תודה',

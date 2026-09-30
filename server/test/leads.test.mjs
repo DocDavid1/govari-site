@@ -179,3 +179,23 @@ test('CSV exports beyond 5000 records and neutralizes spreadsheet formulas', asy
     assert.ok(csv.includes('"line\rbreak"'));
   } finally { await writeFile(file, original); }
 });
+
+
+test('notification scheduling failure cannot reject an already stored lead', async () => {
+  const { HANDLERS } = await import('../src/notify.js');
+  const key = Symbol.for('@vercel/request-context');
+  const previous = globalThis[key];
+  const original = HANDLERS.ADMIN_EMAIL;
+  const jobs = [];
+  HANDLERS.ADMIN_EMAIL = async () => {};
+  globalThis[key] = { get: () => ({ waitUntil: promise => { jobs.push(promise); throw new Error('simulated lifecycle failure'); } }) };
+  try {
+    const response = await fetch(url + '/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ full_name: 'בדיקת הפרדת התראה', phone: '0541234599', idempotency_key: 'notification-schedule-failure' }) });
+    const data = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(data.ok, true);
+    assert.ok(data.submissionId);
+    const rows = JSON.parse(await readFile(path.join(dir, 'lead_submissions.json'), 'utf8'));
+    assert.equal(rows.filter(row => row.id === data.submissionId).length, 1);
+  } finally { await Promise.allSettled(jobs); globalThis[key] = previous; HANDLERS.ADMIN_EMAIL = original; }
+});

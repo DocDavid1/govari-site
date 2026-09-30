@@ -35,7 +35,8 @@
     var started = false;
     var blockedUntil = 0;
     var originalLabel = button ? button.textContent : '';
-    function values() { return { full_name: nameEl ? nameEl.value.trim() : '', phone: phoneEl ? phoneEl.value.trim() : '', city: cityEl ? cityEl.value.trim() : '', vehicle: vehicleEl ? vehicleEl.value.trim() : '' }; }
+    function phoneDigits(value) { return value.replace(/[٠-٩]/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'.indexOf(d); }).replace(/[۰-۹]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); }); }
+    function values() { return { full_name: nameEl ? nameEl.value.trim() : '', phone: phoneEl ? phoneDigits(phoneEl.value.trim()) : '', city: cityEl ? cityEl.value.trim() : '', vehicle: vehicleEl ? vehicleEl.value.trim() : '' }; }
     function clearPending() { try { localStorage.removeItem(pendingKey); } catch (_) {} }
     function persist() {
       try { sessionStorage.setItem(key, JSON.stringify({ expires: Date.now() + TTL, values: values(), pending: pending, blockedUntil: blockedUntil })); } catch (_) {}
@@ -158,8 +159,8 @@
       if (Date.now() < blockedUntil) { message('נא להמתין מעט לפני ניסיון נוסף. הפרטים נשארו בטופס.', true); invalid('cooldown', 'form'); return; }
       var v = values();
       if (!valid(v)) return;
-      var honey = form.querySelector('[name="company"], [name="website"], [name="fax"]');
-      if (honey && honey.value) { message('לא הצלחנו לאמת את הטופס. אפשר לפנות אלינו ישירות.', true); invalid('honeypot', honey.getAttribute('name') || 'honeypot'); fallback(); return; }
+      // Only the explicitly collected fields are submitted. Autofilled legacy
+      // company fields must not block genuine visitors before reaching the API.
       if (!pending || !sameValues(pending, v)) {
         var attribution = {}; try { if (window.govariAttribution) attribution = window.govariAttribution(); } catch (_) {}
         pending = Object.assign({}, v, { idempotency_key: uuid(), attribution: attribution });

@@ -9,8 +9,42 @@
   var LS_KEY = 'govari_attribution';
   var DEBUG_KEY = 'govari_debug';
   var CONSENT_KEY = 'govari_analytics_consent_v1';
-  function hasConsent() { try { return localStorage.getItem(CONSENT_KEY) === 'granted'; } catch (e) { return false; } }
-  function setConsent(value) { try { localStorage.setItem(CONSENT_KEY, value); } catch (e) {} }
+  var META_CONSENT_KEY = 'govari_meta_consent_v1';
+  var consentChoice = null;
+  try { consentChoice = localStorage.getItem(CONSENT_KEY); } catch (e) {}
+  function hasConsent() { return consentChoice === 'granted'; }
+  function measurementEnabled() { return consentChoice !== 'denied'; }
+  function hasMetaConsent() {
+    try { return measurementEnabled() && localStorage.getItem(META_CONSENT_KEY) === 'granted'; } catch (e) { return false; }
+  }
+  function googleConsent() {
+    return { analytics_storage: hasConsent() ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
+  }
+  function setConsent(value) {
+    consentChoice = value === 'granted' || value === 'denied' ? value : null;
+    try {
+      if (consentChoice) localStorage.setItem(CONSENT_KEY, consentChoice);
+      else localStorage.removeItem(CONSENT_KEY);
+    } catch (e) {}
+  }
+
+  // Analytics never receives raw query strings, fragments, referrers or form values.
+  function measurementPage() {
+    return location.origin + (/^\/[a-z0-9_-]+\.html$/i.test(location.pathname) ? location.pathname : '/');
+  }
+  function measurementReferrer() {
+    try { var ref = new URL(document.referrer); return /^https?:$/.test(ref.protocol) ? ref.origin + '/' : ''; } catch (e) { return ''; }
+  }
+  function safeParams(params) {
+    var result = {};
+    ['form', 'reason', 'field', 'button_name', 'location', 'phase_name'].forEach(function (key) {
+      if (typeof params[key] === 'string' && /^[a-z_][a-z0-9_-]{0,79}$/i.test(params[key])) result[key] = params[key];
+    });
+    ['count', 'phase'].forEach(function (key) {
+      if (typeof params[key] === 'number' && Number.isFinite(params[key])) result[key] = params[key];
+    });
+    return result;
+  }
 
   /* ---------- מצב דיבאג מדידה: ?ga_debug=1 (נשמר לכל הביקור) ----------
      מדפיס כל אירוע לקונסול ומפעיל GA4 DebugView, כדי לוודא בפועל שאירועים נשלחים. */
@@ -59,7 +93,7 @@
   /* ---------- Meta Pixel — נטען רק אם יש מזהה ---------- */
   var pixelReady = false;
   function loadPixel() {
-    if (pixelReady || !G.metaPixelId || !hasConsent()) return;
+    if (pixelReady || !G.metaPixelId || !hasMetaConsent()) return;
     try {
       /* eslint-disable */
       !function (f, b, e, v, n, t, s) {
@@ -77,17 +111,27 @@
   /* ---------- Google Analytics 4 (Google tag) — נטען רק אם יש מזהה מדידה ---------- */
   var gaReady = false;
   function loadGA() {
-    if (gaReady || !G.ga4Id || window.gtag || !hasConsent()) return;
+    if (gaReady || !G.ga4Id || !measurementEnabled()) return;
     try {
       window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      // Consent defaults must precede tag loading, config and events.
+      window.gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      if (hasConsent()) window.gtag('consent', 'update', googleConsent());
+      window.gtag('set', 'ads_data_redaction', true);
+      window.gtag('set', 'url_passthrough', false);
+      window['ga-disable-' + G.ga4Id] = false;
       var s = document.createElement('script');
       s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + G.ga4Id;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(G.ga4Id);
       document.head.appendChild(s);
       window.gtag('js', new Date());
-      if (window.__govariDebug) window.gtag('config', G.ga4Id, { debug_mode: true });
-      else window.gtag('config', G.ga4Id);
+      var config = {
+        page_location: measurementPage(), page_referrer: measurementReferrer(), page_title: G.brand || 'Govari',
+        allow_google_signals: false, allow_ad_personalization_signals: false
+      };
+      if (window.__govariDebug) config.debug_mode = true;
+      window.gtag('config', G.ga4Id, config);
       gaReady = true;
     } catch (e) { /* מדידה לא קריטית */ }
   }
@@ -114,20 +158,21 @@
     lead_submit_success: { step_name: 'lead_complete', funnel_step: 4 },
     cta_click: { step_name: 'cta_click', funnel_step: 0 }
   };
-  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
   /* ---------- אירוע משפך אחיד ---------- */
   window.govariTrack = function (name, params, opts) {
-    params = params || {};
+    if (!measurementEnabled() || !/^[a-z_][a-z0-9_]{0,39}$/i.test(name)) return;
+    params = safeParams(params || {});
     opts = opts || {};
+    var eventId = typeof opts.eventId === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(opts.eventId) ? opts.eventId : '';
     try {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push(Object.assign({ event: 'govari_' + name }, params));
     } catch (e) {}
     try {
-      if (hasConsent() && window.fbq) {
+      if (hasMetaConsent() && window.fbq) {
         if (name === 'lead_submit_success') {
-          window.fbq('track', 'Lead', { currency: 'ILS', value: 0 }, opts.eventId ? { eventID: opts.eventId } : undefined);
+          window.fbq('track', 'Lead', { currency: 'ILS', value: 0 }, eventId ? { eventID: eventId } : undefined);
         } else if (name === 'hero_view' || name === 'lead_form_view') {
           window.fbq('track', 'ViewContent', { content_name: name });
         } else {
@@ -136,22 +181,20 @@
       }
     } catch (e) {}
     try {
-      if (hasConsent() && window.gtag && name !== 'page_view') {
-        var attribution = captureAttribution();
-        var gaParams = { page_path: location.pathname };
-        UTM_KEYS.forEach(function (k) { if (attribution[k]) gaParams[k] = attribution[k]; });
+      if (gaReady && window.gtag && name !== 'page_view') {
+        var gaParams = { page_location: measurementPage(), page_referrer: measurementReferrer(), page_path: new URL(measurementPage()).pathname };
         Object.assign(gaParams, STEP_META[name], params);
         (GA_EVENT_MAP[name] || [name]).forEach(function (gaName) {
           var eventParams = gaParams;
           if (gaName === 'lead' || gaName === 'generate_lead') {
             eventParams = Object.assign({ currency: 'ILS', value: 0 }, gaParams);
-            if (opts.eventId) eventParams.transaction_id = opts.eventId;
+            if (eventId) eventParams.transaction_id = eventId;
           }
           window.gtag('event', gaName, eventParams);
         });
       }
     } catch (e) {}
-    if (window.__govariDebug) console.log('[track]', name, params, opts);
+    if (window.__govariDebug) console.log('[track]', name, params);
   };
 
   /* ---------- cta_click — לחיצה על CTA אמיתי (טלפון / וואטסאפ / קישור להצעה),
@@ -176,28 +219,40 @@
   }, true);
 
   captureAttribution();
-  if (hasConsent()) { loadPixel(); loadGA(); }
-  function renderConsent() {
-    document.querySelectorAll('[data-consent-reset]').forEach(function (button) { button.addEventListener('click', function () { try { localStorage.removeItem(CONSENT_KEY); } catch (e) {} location.reload(); }); });
-    var choice = null;
-    try { choice = localStorage.getItem(CONSENT_KEY); } catch (e) {}
-    if (choice === 'granted' || choice === 'denied' || !document.body) return;
-    var panel = document.createElement('div');
-    panel.className = 'govari-consent';
-    panel.setAttribute('role', 'region');
-    panel.setAttribute('aria-label', 'בחירה לגבי מדידת השימוש באתר');
-    var copy = document.createElement('p');
-    copy.textContent = 'נרצה למדוד שימוש באתר כדי לשפר אותו. אפשר לסרב; הטופס ויצירת הקשר ימשיכו לפעול.';
-    var privacy = document.createElement('a'); privacy.href = 'privacy.html'; privacy.textContent = 'מדיניות פרטיות'; copy.append(' ', privacy);
-    var actions = document.createElement('div');
-    var reject = document.createElement('button'); reject.type = 'button'; reject.textContent = 'ללא מדידה';
-    var accept = document.createElement('button'); accept.type = 'button'; accept.textContent = 'אפשר מדידה';
-    actions.append(reject, accept); panel.append(copy, actions); document.body.appendChild(panel);
-    document.body.classList.add('consent-pending');
-    function finish(value) { setConsent(value); panel.remove(); document.body.classList.remove('consent-pending'); if (value === 'granted') { loadPixel(); loadGA(); } }
-    reject.addEventListener('click', function () { finish('denied'); });
-    accept.addEventListener('click', function () { finish('granted'); });
+  loadGA();
+  loadPixel();
+
+  function clearMeasurementCookies() {
+    var domains = location.hostname.split('.');
+    var scopes = [''];
+    for (var i = 0; i < domains.length - 1; i++) scopes.push('; domain=' + domains.slice(i).join('.'));
+    document.cookie.split(';').forEach(function (cookie) {
+      var name = cookie.split('=')[0].trim();
+      if (!/^(_ga($|_)|_gid$|_gat($|_)|_gcl_|_fbp$|_fbc$)/.test(name)) return;
+      scopes.forEach(function (scope) { document.cookie = name + '=; Max-Age=0; path=/' + scope + '; SameSite=Lax'; });
+    });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderConsent); else renderConsent();
+  function renderPreferences() {
+    var status = document.querySelector('[data-consent-status]');
+    function refresh() {
+      if (status) status.textContent = hasConsent() ? 'הבחירה הנוכחית: עוגיות מדידה מאושרות.' : measurementEnabled() ? 'הבחירה הנוכחית: מדידה בסיסית ללא עוגיות.' : 'הבחירה הנוכחית: המדידה כבויה.';
+      document.querySelectorAll('[data-consent-value]').forEach(function (button) {
+        button.setAttribute('aria-pressed', String(button.getAttribute('data-consent-value') === (consentChoice || 'auto')));
+      });
+    }
+    document.querySelectorAll('[data-consent-value]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        setConsent(button.getAttribute('data-consent-value'));
+        window['ga-disable-' + G.ga4Id] = !measurementEnabled();
+        if (gaReady) window.gtag('consent', 'update', googleConsent());
+        else loadGA();
+        if (!hasConsent()) { try { clearMeasurementCookies(); } catch (e) {} }
+        if (!measurementEnabled() && window.fbq) window.fbq('consent', 'revoke');
+        refresh();
+      });
+    });
+    refresh();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderPreferences); else renderPreferences();
   window.govariTrack('page_view', { path: location.pathname });
 })();

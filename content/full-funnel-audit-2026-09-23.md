@@ -279,3 +279,17 @@ VERIFIED: 23 בדיקות שרת; תרחישי הדפדפן לעיל; 28 שיל�
 OWNER MUST VERIFY: iPhone Safari ו־Instagram ברשת סלולרית, מילוי אוטומטי ומקלדת; שליחה מסומנת אחת בייצור והגעתה למסד/מייל; WhatsApp למקבל הנכון; קליטת GA4; שחזור גיבוי חיצוני; זמני חזרת נציג. לבדוק שני מצבי צבע, סירוב מדידה, ניתוק רשת ופתיחה מחדש.
 
 לפני: נתיב חירום יכול היה לדווח הצלחה ללא אחסון, חלוניות התנגשו, שדות ריקים לא נמדדו, והגנה בדפדפן הייתה מוגבלת יותר. אחרי: אישור שמירה קודם להצלחה; ניסיונות עם אותו מזהה, שחזור גלוי, ערוצי התאוששות, מדידה בהסכמה ויותר מידע לבעלים. המדד העסקי הבא הוא פניות כשירות לכל ביקור ממומן, לצד זמן מענה ואחוז פניות שנוצר עמן קשר — אין הבטחה ליחס המרה מסוים.
+
+
+## Live investigation — 30 September 2026
+
+**VERIFIED:** two owner-authorized labeled test leads were submitted to the real custom-domain endpoint, one via the actual mobile-width form. Both returned durable receipts. Read-only database checks confirmed two submission records and completed ADMIN_EMAIL events, with no queued or failed notifications at the time of the check. This is stronger evidence than the previous mocked browser checks, but does not prove inbox placement or explain the owner's original failure.
+
+**VERIFIED, fixed locally and covered by regression checks:**
+1. Autofill of the old hidden `company` field blocked the browser before it contacted the server. The hidden homepage field and client-only rejection have been removed. Server spam checks on direct requests, validation and rate limiting remain.
+2. A synchronous lifecycle-registration error could be caught as a storage failure after the database commit. Background scheduling is now isolated from durable acknowledgement.
+3. Eastern Arabic/Persian phone digits passed server normalization but failed the browser's digits check. Browser values now normalize before validation/submission.
+
+**Benchmark:** [DDPAI Israel](https://www.ddpai.co.il/) explicitly separates installation inclusion, model specification and warranty; [Samsonix R855](https://samsonix.co.il/product/r855) provides concrete remote-viewing benefits, demonstration videos and a user manual. GovAri's copy now emphasizes what is visible in the app, what installation includes, service area, optional SIM cost and what happens after leaving details. No competitor specifications, reviews or endorsements were copied.
+
+**Still requires evidence:** real customer installation videos/reviews and verified app screens. Do not replace illustrative graphics with fabricated customer proof. Record an actual installation and live app walkthrough, with customer consent, before publishing it as evidence. This pass does not claim legal approval or the highest possible conversion rate.

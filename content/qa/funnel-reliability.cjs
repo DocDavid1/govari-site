@@ -8,9 +8,9 @@ if (!/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(BASE)) throw new Error('R
  await ctx.route(/googletagmanager|google-analytics|facebook\.net/,r=>r.fulfill({status:200,body:''}));
  const page=await ctx.newPage(); let errors=[]; page.on('pageerror',e=>errors.push(e.message));
  await page.goto(BASE+'/index.html?utm_source=qa&utm_campaign=reliability');
- await page.waitForSelector('.govari-consent');
- assert.equal(await page.locator('script[src*="googletagmanager"]').count(),0);
- await page.getByRole('button',{name:'אפשר מדידה',exact:true}).click();
+ await page.waitForFunction(()=>typeof window.gtag === 'function');
+ assert.equal(await page.locator('.govari-consent').count(),0);
+ assert.equal(await page.evaluate(()=>dataLayer.find(x=>x[0]==='consent'&&x[1]==='default')[2].analytics_storage),'denied');
  assert.equal(await page.locator('script[src*="googletagmanager"]').count(),1);
  assert.equal(await page.evaluate(()=>dataLayer.filter(x=>x[0]==='config').length),1);
  const fill=async()=>{await page.locator('form[data-lead-form="home"] [name="full_name"]').fill('בדיקת מערכת');await page.locator('form[data-lead-form="home"] [name="phone"]').fill('0501234567');};
@@ -18,12 +18,16 @@ if (!/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(BASE)) throw new Error('R
  let calls=[];
  await page.route('**/api/leads',async r=>{calls.push(r.request().postDataJSON());await r.fulfill({status:calls.length<3?503:200,contentType:'application/json',body:JSON.stringify(calls.length<3?{ok:false}:{ok:true,leadId:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',submissionId:'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'})});});
  await submit(); assert.equal(await page.evaluate(()=>dataLayer.filter(x=>x.event==='govari_lead_validation_error'&&x.reason==='required_missing').length),2);
- await fill(); await submit(); await page.waitForSelector('.lead-success',{timeout:12000});
- assert.equal(calls.length,3);assert.equal(new Set(calls.map(x=>x.idempotency_key)).size,1);
+ await fill();
+ // Simulate a cached legacy form whose company field was filled by autofill.
+ await page.locator('form[data-lead-form="home"]').evaluate(f=>{const e=document.createElement('input');e.name='company';e.value='Autofilled organization';e.hidden=true;f.appendChild(e);});
+ await page.locator('[name=phone]').fill('٠٥٠١٢٣٤٥٦٧');
+ await submit(); await page.waitForSelector('.lead-success',{timeout:12000});
+ assert.equal(calls.length,3);assert.equal(calls[0].phone,'0501234567');assert.equal(calls[0].company,undefined);assert.equal(new Set(calls.map(x=>x.idempotency_key)).size,1);
  assert.equal(calls[0].attribution.utm_campaign,'reliability');
  assert.equal(await page.evaluate(()=>dataLayer.filter(x=>x[0]==='event'&&x[1]==='generate_lead').length),1);
  assert.equal(await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.endsWith(':pending')).length),0);
- console.log('PASS consent gating, single GA initialization, 503 retry, same key, UTM, one confirmed conversion, cleanup');
+ console.log('PASS cookieless consent defaults, single GA initialization, 503 retry, same key, UTM, one confirmed conversion, cleanup');
  await page.reload(); calls=[]; await page.unroute('**/api/leads');
  await page.route('**/api/leads',r=>r.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'}));
  await fill();await submit();await page.waitForFunction(()=>document.querySelector('[data-lead-status]')?.textContent.includes('לא הצלחנו'));
@@ -33,8 +37,8 @@ if (!/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(BASE)) throw new Error('R
  assert.equal(await page.locator('form[data-lead-form="home"] [name="full_name"]').inputValue(),'בדיקת מערכת');
  assert.ok((await page.locator('form[data-lead-form="home"] [data-lead-status]').textContent()).includes('בקשה קודמת'));
  console.log('PASS malformed receipt rejected; pending request survives new session');
- await page.evaluate(()=>{localStorage.clear();sessionStorage.clear();});await page.reload();
- await page.getByRole('button',{name:'ללא מדידה',exact:true}).click();await fill();
+ await page.evaluate(()=>{localStorage.clear();sessionStorage.clear();localStorage.setItem('govari_analytics_consent_v1','denied');});await page.reload();
+ await fill();
  await ctx.setOffline(true);await page.unroute('**/api/leads');await submit();
  await page.waitForFunction(()=>document.querySelector('form[data-lead-form="home"] [data-lead-status]')?.textContent.includes('אין חיבור'));
  assert.equal(await page.locator('form[data-lead-form="home"] [type="submit"]').isDisabled(),false);
