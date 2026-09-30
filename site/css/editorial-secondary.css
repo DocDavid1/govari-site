@@ -17,7 +17,7 @@
 .ed-intro{padding-block:100px 70px}
 .ed-intro-bottom{display:flex;justify-content:space-between;align-items:end;gap:48px}.ed-intro-bottom p{max-width:620px;margin:0}
 .ed-link{display:inline-block;border-bottom:1px solid currentColor;padding-block:10px;font-weight:500;white-space:nowrap}
-.ed-product{margin-block:0 100px}.ed-product img{width:100%;height:clamp(320px,48vw,640px);object-fit:contain;background:#171918}.editorial-page figcaption{font-size:.75rem;color:#626660;margin-top:14px}
+.ed-product{margin-block:0 100px}.ed-product img{width:100%;height:clamp(320px,48vw,640px);object-fit:contain;background:#d1d3d4}.editorial-page figcaption{font-size:.75rem;color:#626660;margin-top:14px}
 .ed-chapter{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;padding-block:100px;border-top:1px solid #bfc1b8}
 .ed-number{display:block;font-size:.8rem;margin-bottom:32px;color:#777c71}.ed-chapter-body{padding-top:45px}.ed-chapter-body p{max-width:470px}.ed-facts{display:flex;gap:70px;margin-top:45px}.ed-facts div{display:grid;gap:8px}.ed-facts strong{font-size:clamp(3.5rem,6vw,6rem);font-weight:400;line-height:1}.ed-facts span{font-size:.85rem}
 .ed-dark{background:#171918;color:#eeeee6}.ed-dark .ed-chapter{border:0}.ed-dark p{color:#bbbeb5}.ed-dark .ed-number{color:#999f91}
@@ -90,6 +90,23 @@
 .secondary-editorial .ed-button:hover{
   transform:translateY(-2px);
   filter:saturate(1.08) brightness(1.02);
+}
+.secondary-editorial .ed-intro .ed-button,
+.secondary-editorial .ed-app-intro .ed-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:52px;
+  padding:13px 23px;
+  border:1px solid rgba(255,230,174,.55);
+  text-decoration:none;
+  white-space:normal;
+  line-height:1.35;
+}
+html[data-theme] .secondary-editorial .ed-intro .ed-button,
+html[data-theme] .secondary-editorial .ed-app-intro .ed-button{
+  background:linear-gradient(135deg,#ffe2a6 0%,#efc66f 42%,#d7a244 100%)!important;
+  color:#12140f!important;
 }
 .secondary-editorial .miluim-stamp{
   --stamp:#d9c070;
