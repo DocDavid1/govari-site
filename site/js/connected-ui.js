@@ -45,11 +45,16 @@
     reduced = matchMedia("(prefers-reduced-motion: reduce)");
   let manuallyPaused = false;
   function syncVideo() {
-    toggle.textContent = video.paused ? "הפעלת סרטון הרקע" : "השהיית הסרטון";
+    const label = video.paused ? "הפעלת סרטון הרקע" : "השהיית הסרטון";
+    toggle.textContent = label;
+    toggle.dataset.videoState = video.paused ? "paused" : "playing";
+    toggle.setAttribute("aria-label", label);
+    toggle.title = label;
     toggle.setAttribute("aria-pressed", String(!video.paused));
   }
   video.addEventListener("play", syncVideo);
   video.addEventListener("pause", syncVideo);
+  syncVideo();
   toggle.addEventListener("click", () => {
     if (video.paused) {
       manuallyPaused = false;
@@ -59,6 +64,33 @@
       video.pause();
     }
   });
+  const heroSection = document.querySelector(".connected-hero"),
+    heroCamera = document.querySelector(".hero-scene .camera-platform");
+  if (heroSection && heroCamera && !reduced.matches) {
+    const heroStart = heroSection.getBoundingClientRect().top + window.scrollY;
+    let cameraFrame = 0;
+    const updateCamera = () => {
+      cameraFrame = 0;
+      const progress = Math.max(
+        0,
+        Math.min(1, (window.scrollY - heroStart) / (window.innerHeight * 0.8)),
+      );
+      heroCamera.style.setProperty("--hero-camera-y", `${progress * -14}px`);
+      heroCamera.style.setProperty(
+        "--hero-camera-scale",
+        String(1 + progress * 0.1),
+      );
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!cameraFrame)
+          cameraFrame = window.requestAnimationFrame(updateCamera);
+      },
+      { passive: true },
+    );
+    updateCamera();
+  }
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(
       (entries) => {

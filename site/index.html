@@ -25,7 +25,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f6f8f8" />
     <link rel="icon" href="assets/images/favicon.png" />
-    <link rel="stylesheet" href="css/connected.css?v=20260930-visual2" />
+    <link rel="stylesheet" href="css/connected.css?v=20260930-visual3" />
     <script>
       try {
         document.documentElement.dataset.theme =
@@ -182,7 +182,13 @@
             aria-controls="primary-nav"
           >
             <span></span><span></span>
-          </button>
+          </button><button
+            class="video-toggle header-video-toggle"
+            data-video-toggle="roadFilm"
+            type="button"
+            aria-label="השהיית סרטון הרקע"
+            title="השהיית סרטון הרקע"
+          >השהיית סרטון הרקע</button>
         </div>
       </div>
     </header>
@@ -205,13 +211,7 @@
           </video>
           <div class="windshield-lines"></div>
           <span class="scene-caption">צילום נסיעה להמחשה</span
-          ><button
-            class="video-toggle"
-            data-video-toggle="roadFilm"
-            type="button"
           >
-            הפעלת סרטון הרקע
-          </button>
         </div>
         <div class="hero-copy">
           <p class="eyebrow">
@@ -261,6 +261,9 @@
             התקנה בבית הלקוח בבית שמש, ירושלים והמרכז בתיאום.<br />סים שנתי
             לבחירה בתוספת <bdi dir="ltr">199 ₪</bdi>.
           </p>
+          <a class="hero-scroll-cue" href="#connected-story">
+            <span aria-hidden="true">↓</span> גללו לראות איך המערכת מתחברת
+          </a>
         </div>
         <div class="hero-scene">
           <div class="camera-platform">
@@ -294,7 +297,7 @@
               height="1436"
             /><span>באפליקציה: ארבע זוויות צילום</span>
           </div>
-          <span class="signal-pill"
+          <span class="signal-pill" dir="rtl"
             ><svg
               viewBox="0 0 24 24"
               fill="none"
@@ -306,7 +309,7 @@
             >
               <path d="M4 18v3m5-8v8m5-13v13m5-18v18" />
             </svg>
-            חיבור סלולרי <bdi dir="ltr">4G</bdi></span
+            <span class="signal-copy"><bdi dir="ltr">4G</bdi><small>חיבור סלולרי</small></span></span
           >
           <p class="visual-note">המחשת מוצר וממשק</p>
         </div>
