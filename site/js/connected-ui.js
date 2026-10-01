@@ -66,12 +66,12 @@
   });
   const heroSection = document.querySelector(".connected-hero"),
     heroCamera = document.querySelector(".hero-scene .camera-platform");
-  if (heroSection && heroCamera && !reduced.matches) {
+  if (heroSection && heroCamera) {
     const heroStart = heroSection.getBoundingClientRect().top + window.scrollY;
     let cameraFrame = 0;
     const updateCamera = () => {
       cameraFrame = 0;
-      const progress = Math.max(
+      const progress = reduced.matches ? 0 : Math.max(
         0,
         Math.min(1, (window.scrollY - heroStart) / (window.innerHeight * 0.8)),
       );
@@ -89,6 +89,7 @@
       },
       { passive: true },
     );
+    reduced.addEventListener("change", updateCamera);
     updateCamera();
   }
   if ("IntersectionObserver" in window) {

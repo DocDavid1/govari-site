@@ -459,7 +459,7 @@ html[data-theme="dark"] .whatsapp {
   display: block;
   text-align: center;
   font-size: 11px;
-  color: var(--muted);
+  color: #d6e4e6;
   padding-top: 8px;
 }
 .signal-pill {
@@ -485,6 +485,7 @@ html[data-theme="dark"] .whatsapp {
   bottom: -23px;
   left: 0;
   font-size: 10px;
+  color: #d6e4e6;
 }
 @media (min-width: 981px) and (max-width: 1180px) {
   .connected-hero {
@@ -2115,5 +2116,9 @@ bdi[dir="ltr"] {
 @media (prefers-reduced-motion: reduce) {
   .hero-scroll-cue span {
     animation: none;
+  }
+  .hero-scene .camera-platform {
+    transform: none;
+    will-change: auto;
   }
 }
