@@ -1836,10 +1836,12 @@ html[data-theme="dark"] .reservist-footer {
     backdrop-filter: blur(16px);
     border-top: 1px solid var(--line);
     transform: translateY(120%);
+    visibility: hidden;
     transition: transform 0.2s;
   }
   .mobile-action.is-visible {
     transform: translateY(0);
+    visibility: visible;
   }
   .mobile-action .primary {
     flex: 1;
