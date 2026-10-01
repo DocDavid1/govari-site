@@ -293,3 +293,10 @@ OWNER MUST VERIFY: iPhone Safari ו־Instagram ברשת סלולרית, מילו
 **Benchmark:** [DDPAI Israel](https://www.ddpai.co.il/) explicitly separates installation inclusion, model specification and warranty; [Samsonix R855](https://samsonix.co.il/product/r855) provides concrete remote-viewing benefits, demonstration videos and a user manual. GovAri's copy now emphasizes what is visible in the app, what installation includes, service area, optional SIM cost and what happens after leaving details. No competitor specifications, reviews or endorsements were copied.
 
 **Still requires evidence:** real customer installation videos/reviews and verified app screens. Do not replace illustrative graphics with fabricated customer proof. Record an actual installation and live app walkthrough, with customer consent, before publishing it as evidence. This pass does not claim legal approval or the highest possible conversion rate.
+
+
+## 2026-10-01 — בדיקת QA חוזרת: נגישות ותצוגת ההירו
+- בדיקה חיה לקריאה בלבד: האתר והסקריפטים מחזירים 200, PostgreSQL מדווח תקין, ואין התראות בתור/בתהליך/בכשל. גיבוי הגיליון החיצוני עדיין כבוי, כפי שתועד קודם. לא נשלחו לידים או הודעות בדיקה.
+- שוחזר כשל נגישות: הפעלת העדפת תנועה מופחתת בזמן ביקור לא עצרה את שינוי גודל המצלמה בגלילה. המצלמה מתאפסת מיד וכעת מכבדת גם שינוי העדפה ללא רענון.
+- כיתובי ההמחשה מעל הסרטון ירשו צבע כהה במצב יום. נקבע להם צבע בהיר קבוע שמתאים לרקע הסרטון הכהה בשני המצבים.
+- אומת בדפדפן: שינוי העדפת תנועה בזמן אמת, גלילה לאחר השינוי, כיתובים בשני המצבים ורוחבים 320/390/768/1440 ללא גלילה אופקית או שגיאות JS. 32 בדיקות שרת ומדידה עברו. בריאות המסד אינה הוכחה לכתיבת ליד או להגעה לתיבת המייל בסבב זה.

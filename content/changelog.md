@@ -458,3 +458,10 @@ Reworked the scroll story so six conceptual components begin at the camera and s
 - Rewrote visible channel counts as natural Hebrew and isolated `4G`/`GPS` tokens so mixed Hebrew, Latin letters and numbers retain the correct reading order.
 - Replaced numbered/English-facing step labels in the homepage, product page and app page with natural Hebrew while retaining standard product terms such as `4G` and `GPS` in isolated left-to-right spans.
 - No lead schema, database, price, warranty or product claim was changed in this restoration.
+
+
+## 2026-10-01 — בדיקת QA חוזרת: נגישות ותצוגת ההירו
+- בדיקה חיה לקריאה בלבד: האתר והסקריפטים מחזירים 200, PostgreSQL מדווח תקין, ואין התראות בתור/בתהליך/בכשל. גיבוי הגיליון החיצוני עדיין כבוי, כפי שתועד קודם. לא נשלחו לידים או הודעות בדיקה.
+- שוחזר כשל נגישות: הפעלת העדפת תנועה מופחתת בזמן ביקור לא עצרה את שינוי גודל המצלמה בגלילה. המצלמה מתאפסת מיד וכעת מכבדת גם שינוי העדפה ללא רענון.
+- כיתובי ההמחשה מעל הסרטון ירשו צבע כהה במצב יום. נקבע להם צבע בהיר קבוע שמתאים לרקע הסרטון הכהה בשני המצבים.
+- אומת בדפדפן: שינוי העדפת תנועה בזמן אמת, גלילה לאחר השינוי, כיתובים בשני המצבים ורוחבים 320/390/768/1440 ללא גלילה אופקית או שגיאות JS. 32 בדיקות שרת ומדידה עברו. בריאות המסד אינה הוכחה לכתיבת ליד או להגעה לתיבת המייל בסבב זה.
