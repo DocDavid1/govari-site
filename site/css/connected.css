@@ -1606,8 +1606,8 @@ html[data-theme="dark"] .reservist-footer {
     margin-top: 8px;
   }
   .hero-scene {
-    height: 285px;
-    margin-top: 14px;
+    height: 220px;
+    margin-top: 8px;
   }
   .windshield {
     inset: 0;
@@ -1619,9 +1619,9 @@ html[data-theme="dark"] .reservist-footer {
     display: none;
   }
   .camera-platform {
-    top: 27%;
+    top: 5%;
     width: 77%;
-    height: 47%;
+    height: 60%;
   }
   .phone-preview {
     width: 36%;

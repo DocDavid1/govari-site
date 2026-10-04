@@ -26,8 +26,12 @@
     if (nameEl) nameEl.setAttribute('autocomplete', 'name');
     if (cityEl) cityEl.setAttribute('autocomplete', 'address-level2');
     if (phoneEl) { phoneEl.type = 'tel'; phoneEl.setAttribute('inputmode', 'tel'); phoneEl.setAttribute('autocomplete', 'tel'); phoneEl.setAttribute('dir', 'ltr'); }
-    var key = 'govari:lead-draft:v1:' + location.pathname + ':' + (form.id || form.dataset.leadForm || 'lead') + ':' + index;
+    var pagePath = location.pathname === '/index.html' ? '/' : location.pathname;
+    var suffix = ':' + (form.id || form.dataset.leadForm || 'lead') + ':' + index;
+    var key = 'govari:lead-draft:v1:' + pagePath + suffix;
+    var legacyKey = pagePath === '/' ? 'govari:lead-draft:v1:/index.html' + suffix : null;
     var pendingKey = key + ':pending';
+    var legacyPendingKey = legacyKey ? legacyKey + ':pending' : null;
     var pending = null;
     var submitting = false;
     var waitingOnline = false;
@@ -37,24 +41,45 @@
     var originalLabel = button ? button.textContent : '';
     function phoneDigits(value) { return value.replace(/[٠-٩]/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'.indexOf(d); }).replace(/[۰-۹]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); }); }
     function values() { return { full_name: nameEl ? nameEl.value.trim() : '', phone: phoneEl ? phoneDigits(phoneEl.value.trim()) : '', city: cityEl ? cityEl.value.trim() : '', vehicle: vehicleEl ? vehicleEl.value.trim() : '' }; }
-    function clearPending() { try { localStorage.removeItem(pendingKey); } catch (_) {} }
+    function readStored(storage, currentKey, alternateKey, validRecord) {
+      var latest = null;
+      [currentKey, alternateKey].filter(Boolean).forEach(function (storedKey) {
+        try {
+          var record = JSON.parse(storage.getItem(storedKey));
+          if (record && record.expires > Date.now() && validRecord(record)) {
+            if (!latest || record.expires > latest.expires) latest = record;
+          } else storage.removeItem(storedKey);
+        } catch (_) { try { storage.removeItem(storedKey); } catch (_) {} }
+      });
+      // Keep the original expiry and submission identity when moving an old URL's draft.
+      if (latest && alternateKey) {
+        try { storage.setItem(currentKey, JSON.stringify(latest)); storage.removeItem(alternateKey); } catch (_) {}
+      }
+      return latest;
+    }
+    function clearPending() {
+      [pendingKey, legacyPendingKey].filter(Boolean).forEach(function (storedKey) { try { localStorage.removeItem(storedKey); } catch (_) {} });
+    }
     function persist() {
-      try { sessionStorage.setItem(key, JSON.stringify({ expires: Date.now() + TTL, values: values(), pending: pending, blockedUntil: blockedUntil })); } catch (_) {}
-      try { if (pending) localStorage.setItem(pendingKey, JSON.stringify({ expires: Date.now() + TTL, payload: pending })); else clearPending(); } catch (_) {}
+      try { sessionStorage.setItem(key, JSON.stringify({ expires: Date.now() + TTL, values: values(), pending: pending, blockedUntil: blockedUntil })); if (legacyKey) sessionStorage.removeItem(legacyKey); } catch (_) {}
+      try { if (pending) { localStorage.setItem(pendingKey, JSON.stringify({ expires: Date.now() + TTL, payload: pending })); if (legacyPendingKey) localStorage.removeItem(legacyPendingKey); } else clearPending(); } catch (_) {}
     }
     try {
-      var saved = JSON.parse(sessionStorage.getItem(key));
-      if (saved && saved.expires > Date.now() && saved.values) {
+      var saved = readStored(sessionStorage, key, legacyKey, function (record) { return record.values; });
+      if (saved) {
         [[nameEl, 'full_name'], [phoneEl, 'phone'], [cityEl, 'city'], [vehicleEl, 'vehicle']].forEach(function (pair) { if (pair[0] && !pair[0].value && typeof saved.values[pair[1]] === 'string') pair[0].value = saved.values[pair[1]]; });
         if (saved.pending && typeof saved.pending.idempotency_key === 'string') pending = saved.pending;
         blockedUntil = Number(saved.blockedUntil) || 0;
-      } else sessionStorage.removeItem(key);
+      }
     } catch (_) {}
     try {
-      var savedPending = JSON.parse(localStorage.getItem(pendingKey));
-      if (savedPending && savedPending.expires > Date.now() && savedPending.payload && typeof savedPending.payload.idempotency_key === 'string') {
+      var savedPending = readStored(localStorage, pendingKey, legacyPendingKey, function (record) { return record.payload && typeof record.payload.idempotency_key === 'string'; });
+      if (savedPending) {
         pending = savedPending.payload;
-        [[nameEl, 'full_name'], [phoneEl, 'phone'], [cityEl, 'city'], [vehicleEl, 'vehicle']].forEach(function (pair) { if (pair[0] && !pair[0].value && typeof pending[pair[1]] === 'string') pair[0].value = pending[pair[1]]; });
+        [[nameEl, 'full_name'], [phoneEl, 'phone'], [cityEl, 'city'], [vehicleEl, 'vehicle']].forEach(function (pair) {
+          var hasSessionValue = saved && typeof saved.values[pair[1]] === 'string';
+          if (pair[0] && !pair[0].value && !hasSessionValue && typeof pending[pair[1]] === 'string') pair[0].value = pending[pair[1]];
+        });
       } else clearPending();
     } catch (_) { clearPending(); }
     function message(text, error) { status.textContent = text; status.style.display = 'block'; status.dataset.tone = error ? 'error' : 'info'; }
@@ -81,7 +106,7 @@
     }
     function success(data) {
       complete = true; pending = null; waitingOnline = false;
-      try { sessionStorage.removeItem(key); } catch (_) {} clearPending();
+      [key, legacyKey].filter(Boolean).forEach(function (storedKey) { try { sessionStorage.removeItem(storedKey); } catch (_) {} }); clearPending();
       track('lead_submit_success', { form: form.dataset.leadForm || 'lead' }, { eventId: data.submissionId });
       var box = document.createElement('div'); box.className = 'lead-success'; box.setAttribute('role', 'status'); box.setAttribute('tabindex', '-1');
       var heading = document.createElement('h3'); heading.textContent = 'הבקשה התקבלה'; box.appendChild(heading);
