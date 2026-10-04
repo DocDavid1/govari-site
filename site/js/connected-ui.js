@@ -46,7 +46,6 @@
   let manuallyPaused = false;
   function syncVideo() {
     const label = video.paused ? "הפעלת סרטון הרקע" : "השהיית הסרטון";
-    toggle.textContent = label;
     toggle.dataset.videoState = video.paused ? "paused" : "playing";
     toggle.setAttribute("aria-label", label);
     toggle.title = label;

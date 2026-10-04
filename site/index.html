@@ -25,7 +25,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f6f8f8" />
     <link rel="icon" href="assets/images/favicon.png" />
-    <link rel="stylesheet" href="css/connected.css?v=20261004-mobile" />
+    <link rel="stylesheet" href="css/connected.css?v=20261004-video" />
     <script>
       try {
         document.documentElement.dataset.theme =
@@ -141,7 +141,7 @@
     <script src="js/config.js?v=20260925" defer></script>
     <script src="js/track.js?v=20260929" defer></script>
     <script src="js/lead-form.js?v=20261004-recovery" defer></script>
-    <script src="js/connected-ui.js?v=20260930-restore" defer></script>
+    <script src="js/connected-ui.js?v=20261004-video" defer></script>
     <script src="js/vendor/gsap.min.js" defer></script>
     <script src="js/vendor/ScrollTrigger.min.js" defer></script>
     <script src="js/connected-story.js?v=20260925" defer></script>
@@ -188,7 +188,12 @@
             type="button"
             aria-label="השהיית סרטון הרקע"
             title="השהיית סרטון הרקע"
-          >השהיית סרטון הרקע</button>
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="video-play-icon" d="M8 5v14l11-7Z" />
+              <path class="video-pause-icon" d="M7 5h4v14H7Zm6 0h4v14h-4Z" />
+            </svg>
+          </button>
         </div>
       </div>
     </header>

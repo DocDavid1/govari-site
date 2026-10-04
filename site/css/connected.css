@@ -1989,18 +1989,18 @@ bdi[dir="ltr"] {
   font-size: 0;
   line-height: 1;
 }
-.header-video-toggle span {
+.header-video-toggle svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+.header-video-toggle .video-play-icon,
+.header-video-toggle[data-video-state="paused"] .video-pause-icon {
   display: none;
 }
-.header-video-toggle::before {
-  content: "Ⅱ";
-  font-size: 17px;
-  font-weight: 800;
-}
-.header-video-toggle[data-video-state="paused"]::before {
-  content: "▶";
-  font-size: 14px;
-  transform: translateX(-1px);
+.header-video-toggle[data-video-state="paused"] .video-play-icon {
+  display: block;
 }
 .hero-scroll-cue {
   display: inline-flex;
