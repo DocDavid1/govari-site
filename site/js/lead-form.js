@@ -87,7 +87,7 @@
       submitting = on;
       form.setAttribute('aria-busy', String(on));
       fields.forEach(function (el) { el.readOnly = on; });
-      if (button) { button.disabled = on; button.textContent = on ? 'שולח…' : originalLabel; }
+      if (button) { button.disabled = on; button.textContent = on ? 'שולחים…' : originalLabel; }
     }
     function link(parent, text, href, external) {
       var el = document.createElement('a'); el.className = 'btn btn-ghost btn-sm'; el.textContent = text; el.href = href;
@@ -111,7 +111,7 @@
       var box = document.createElement('div'); box.className = 'lead-success'; box.setAttribute('role', 'status'); box.setAttribute('tabindex', '-1');
       var heading = document.createElement('h3'); heading.textContent = 'הבקשה התקבלה'; box.appendChild(heading);
       var text = document.createElement('p'); text.textContent = 'נחזור אליכם בשיחה: נבדוק התאמה לרכב, נסביר מה כלול ונתאם התקנה אם תרצו. אין תשלום באתר ולא בוצע חיוב.'; box.appendChild(text);
-      link(box, 'שמירת המספר שלנו בוואטסאפ', waHref('היי, השארתי פרטים באתר גוב ארי ואשמח שתחזרו אליי.'), true);
+      link(box, 'שלחו לנו הודעה בוואטסאפ', waHref('היי, השארתי פרטים באתר גוב ארי ואשמח שתחזרו אליי.'), true);
       form.replaceWith(box); box.focus();
     }
     /* מדידה בלבד: מדווח איזה שדה/סיבה עצרו את ההגשה בצד לקוח. לא משנה התנהגות. */
@@ -188,7 +188,7 @@
     window.addEventListener('online', function () {
       if (waitingOnline && pending && !complete) {
         waitingOnline = false;
-        if (!sameValues(values(), pending)) { pending = null; persist(); message('החיבור חזר. ערכתם את הפרטים, אז לחצו שוב על שליחה כדי לשלוח את הגרסה המעודכנת.'); return; }
+        if (!sameValues(values(), pending)) { pending = null; persist(); message('החיבור חזר. הפרטים השתנו — לחצו שוב על שליחה כדי לשלוח את הגרסה המעודכנת.'); return; }
         lock(true); message('החיבור חזר. שולחים…'); send(pending, 1);
       }
     });

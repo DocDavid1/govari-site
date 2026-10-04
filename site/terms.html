@@ -16,15 +16,15 @@
     <meta property="og:image" content="https://www.govarisystems.co.il/assets/images/camera-studio-v2.webp" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://www.govarisystems.co.il/assets/images/camera-studio-v2.webp" />
-    <meta name="theme-color" content="#f6f8f8" />
+    <meta name="theme-color" content="#112329" />
     <link rel="icon" href="assets/images/favicon.png" />
     <link rel="preload" href="assets/fonts/heebo-400.ttf" as="font" type="font/ttf" crossorigin />
-    <link rel="stylesheet" href="css/connected.css?v=20261004-inner" />
-    <link rel="stylesheet" href="css/inner.css?v=20261004-inner" />
+    <link rel="stylesheet" href="css/connected.css?v=20261005-dark" />
+    <link rel="stylesheet" href="css/inner.css?v=20261004-motion" />
     <script>
       try {
         document.documentElement.dataset.theme =
-          localStorage.getItem("gav-theme") === "dark" ? "dark" : "light";
+          localStorage.getItem("gav-theme-choice") === "light" ? "light" : "dark";
       } catch (e) {}
     </script>
     <script src="js/config.js?v=20260925"></script>
@@ -34,10 +34,10 @@
     <a class="skip-link" href="#content">דלגו לתוכן</a>
     <header class="connected-header">
       <div class="header-inner">
-        <a class="brand" href="index.html" aria-label="גוב ארי מערכות — דף הבית"
+        <div class="brand-group"><a class="brand" href="index.html" aria-label="גוב ארי מערכות — דף הבית"
           ><img src="assets/images/logo-govari-mark.png" alt="גוב ארי מערכות" width="120" height="90"
-        /></a>
-        <nav id="primary-nav" aria-label="ניווט ראשי"><a href="index.html#connected-story">איך זה עובד</a><a href="features.html">המצלמה</a><a href="app.html">האפליקציה</a><a href="index.html#faq">שאלות ותשובות</a><a href="tel:+972536813013" class="mobile-phone" dir="ltr">053-6813013</a></nav>
+        /></a><img class="header-badge" src="assets/brand/reservist-transparent-v1.webp" alt="עושה מילואים" width="72" height="46" /></div>
+        <nav id="primary-nav" aria-label="ניווט ראשי"><a href="index.html#connected-story"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg><span>איך זה עובד</span></a><a href="features.html"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="3"/><circle cx="12" cy="13" r="3.2"/><path d="M8 7l1.5-3h5L16 7"/></svg><span>המצלמה</span></a><a href="app.html"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18h2"/></svg><span>האפליקציה</span></a><a href="index.html#faq"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17h.01"/></svg><span>שאלות ותשובות</span></a><a href="about.html" class="nav-mobile-only"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><span>עלינו</span></a><div class="menu-extras"><a class="button primary" href="index.html#lead">קבלו הצעה לרכב שלכם <span aria-hidden="true">←</span></a><div class="menu-contact"><a class="menu-chip" href="tel:+972536813013"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>התקשרו</span></a><a class="menu-chip" href="https://wa.me/message/4WXHHRXIKWQWJ1" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a9 9 0 0 1-13.5 7.8L3 21l1.5-4.6A9 9 0 1 1 21 11.5Z"/><path d="m8 7 2 3-1 1c1 2 2 3 4 3l1-1 3 2c-2 4-10-1-10-6Z"/></svg><span>וואטסאפ</span></a></div><p class="menu-meta">מחיר השקה <bdi dir="ltr">1,099 ₪</bdi> · מצלמה והתקנה</p></div></nav>
         <div class="header-actions">
           <button class="theme-switch" type="button" aria-label="מעבר למצב לילה" aria-pressed="false">
             <span aria-hidden="true">◐</span></button
@@ -49,19 +49,20 @@
         </div>
       </div>
     </header>
+    <div class="menu-scrim" hidden></div>
     <main id="content" class="legal-page">
       <article class="wrap legal" aria-labelledby="page-title">
         <p class="eyebrow">מסמך משפטי</p>
         <h1 id="page-title">תנאי שימוש ומדיניות</h1>
-        <p class="muted-note">עודכן לאחרונה: 15.09.2026. מסמך זה מנוסח בלשון זכר מטעמי נוחות אך מופנה לכל המגדרים. אנא קראו אותו בעיון לפני ביצוע הזמנה — ביצוע הזמנה מהווה הסכמה לתנאים אלה.</p>
+        <p class="muted-note">עודכן לאחרונה: 04.10.2026. מסמך זה מנוסח בלשון זכר מטעמי נוחות אך מופנה לכל המגדרים. אנא קראו אותו בעיון לפני ביצוע הזמנה — ביצוע הזמנה מהווה הסכמה לתנאים אלה.</p>
 
         <h2>1. כללי</h2>
-        <p>אתר זה ("<strong>האתר</strong>") מופעל על ידי גוב ארי מערכות ("<strong>החברה</strong>", "<strong>אנחנו</strong>"), עוסק 207575192. השירות ניתן בעיקר מאזור בית שמש, וכן באזור המרכז, ירושלים והסביבה בכפוף לתיאום. תנאי שימוש אלה ("<strong>התנאים</strong>") חלים על כל שימוש באתר ועל כל רכישה של מוצר ו/או שירות מהחברה. אם אינך מסכים לתנאים — אנא הימנע משימוש באתר ומביצוע הזמנה.</p>
+        <p>אתר זה ("<strong>האתר</strong>") מופעל על ידי גוב ארי מערכות ("<strong>החברה</strong>", "<strong>אנחנו</strong>"), עוסק 207575192. השירות ניתן בבית שמש, ירושלים והמרכז בכפוף לתיאום. תנאי שימוש אלה ("<strong>התנאים</strong>") חלים על כל שימוש באתר ועל כל רכישה של מוצר ו/או שירות מהחברה. אם אינך מסכים לתנאים — אנא הימנע משימוש באתר ומביצוע הזמנה.</p>
 
         <h2>2. הגדרות</h2>
         <ul>
           <li><strong>"המוצר"</strong> — מצלמת רכב מבית גוב ארי, על מרכיביה והאפליקציה הנלווית.</li>
-          <li><strong>"השירות"</strong> — הזמנה מיידית ללא תשלום, תיאום התאמה לרכב, התקנה, תמיכה ושירותים נלווים כפי שיסוכמו עם נציג החברה.</li>
+          <li><strong>"השירות"</strong> — בקשת יצירת קשר ללא תשלום, תיאום התאמה לרכב, התקנה, תמיכה ושירותים נלווים כפי שיסוכמו עם נציג החברה.</li>
           <li><strong>"הלקוח"</strong> — מי שמבצע הזמנה או משתמש במוצר.</li>
         </ul>
 
@@ -75,7 +76,7 @@
 
         <h2>4. אספקה והתקנה</h2>
         <h3>4.1 תיאום התקנה</h3>
-        <p>התקנה בבית הלקוח כלולה במחיר ההשקה, בבית שמש, ירושלים והמרכז בכפוף לתיאום והתאמה לרכב. לחלופין, ניתן לקבל הדרכה טלפונית/וידאו להתקנה עצמית, עם הנחה על עלות ההתקנה הפיזית. פרטי התקנה, מיקום וזמנים יסוכמו מול נציג החברה לפני השלמת ההזמנה. על הלקוח לאפשר גישה סבירה לרכב ולוודא את נוכחותו או נוכחות נציג מטעמו במועד שייקבע.</p>
+        <p>התקנה בבית הלקוח כלולה במחיר ההשקה, בבית שמש, ירושלים והמרכז, בתיאום ובכפוף להתאמה לרכב. לחלופין, ניתן לקבל הדרכה טלפונית/וידאו להתקנה עצמית, עם הנחה על עלות ההתקנה הפיזית. פרטי התקנה, מיקום וזמנים יסוכמו מול נציג החברה לפני השלמת ההזמנה. על הלקוח לאפשר גישה סבירה לרכב ולוודא את נוכחותו או נוכחות נציג מטעמו במועד שייקבע.</p>
         <h3>4.2 אספקה וזמינות</h3>
         <p>זמני אספקה והתקנה תלויים בזמינות המוצר, באזור השירות ובתיאום מול הלקוח. עיכובים שאינם בשליטת החברה אינם באחריות החברה.</p>
 
@@ -83,7 +84,7 @@
         <p>ביטול עסקה יתבצע בהתאם להוראות חוק הגנת הצרכן, התשמ"א-1981 והתקנות מכוחו:</p>
         <ul>
           <li>ניתן לבטל עסקה בתוך <strong>14 ימים</strong> מיום קבלת המוצר או מיום קבלת מסמך הגילוי, לפי המאוחר.</li>
-          <li>בביטול שאינו עקב פגם/אי-התאמה, החברה רשאית לגבות <strong>דמי ביטול בשיעור 5% ממחיר העסקה או 100₪ — הנמוך מביניהם</strong>.</li>
+          <li>בביטול שאינו עקב פגם/אי-התאמה, החברה רשאית לגבות <strong>דמי ביטול בשיעור 5% ממחיר העסקה או 100 ₪ — הנמוך מביניהם</strong>.</li>
           <li>החזרת המוצר תהיה כשהוא תקין, שלם וללא נזק. עלות פירוק/החזרה עשויה לחול על הלקוח בהתאם לדין.</li>
           <li>הזיכוי הכספי יבוצע לאמצעי התשלום המקורי בתוך המועד הקבוע בחוק.</li>
           <li>הוראות אלה אינן גורעות מזכויות הלקוח לפי כל דין, לרבות בשל פגם או אי-התאמה.</li>
@@ -129,7 +130,7 @@
         <p>על תנאים אלה יחולו דיני מדינת ישראל בלבד. סמכות השיפוט תיקבע בהתאם לדין החל בישראל.</p>
 
         <h2>13. יצירת קשר</h2>
-        <p>לשאלות בנוגע לתנאים אלה: טלפון <a href="tel:+972536813013" >053-6813013</a> · אימייל <a href="mailto:davidazulay75@gmail.com" >davidazulay75@gmail.com</a> · וואטסאפ <a href="https://wa.me/message/4WXHHRXIKWQWJ1" >כאן</a>.</p>
+        <p>לשאלות בנוגע לתנאים אלה: טלפון <a href="tel:+972536813013" >053-6813013</a> · אימייל <a href="mailto:davidazulay75@gmail.com" >davidazulay75@gmail.com</a> · וואטסאפ <a href="https://wa.me/message/4WXHHRXIKWQWJ1" >שליחת הודעה בוואטסאפ</a>.</p>
       </article>
     </main>
     <footer class="connected-footer">
@@ -159,6 +160,6 @@
       <a class="button primary" href="index.html#lead">קבלו הצעה לרכב שלכם ←</a
       ><a class="button whatsapp" href="https://wa.me/message/4WXHHRXIKWQWJ1" target="_blank" rel="noopener" aria-label="שיחה בוואטסאפ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a9 9 0 0 1-13.5 7.8L3 21l1.5-4.6A9 9 0 1 1 21 11.5Z" /><path d="m8 7 2 3-1 1c1 2 2 3 4 3l1-1 3 2c-2 4-10-1-10-6Z" /></svg></a>
     </div>
-    <script src="js/connected-ui.js?v=20261004-inner"></script>
+    <script src="js/connected-ui.js?v=20261005-dark"></script>
   </body>
 </html>

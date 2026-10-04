@@ -23,13 +23,13 @@
       content="https://www.govarisystems.co.il/assets/images/camera-studio-v2.webp"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#f6f8f8" />
+    <meta name="theme-color" content="#112329" />
     <link rel="icon" href="assets/images/favicon.png" />
-    <link rel="stylesheet" href="css/connected.css?v=20261004-ux" />
+    <link rel="stylesheet" href="css/connected.css?v=20261005-dark" />
     <script>
       try {
         document.documentElement.dataset.theme =
-          localStorage.getItem("gav-theme") === "dark" ? "dark" : "light";
+          localStorage.getItem("gav-theme-choice") === "light" ? "light" : "dark";
       } catch (e) {}
     </script>
     <script type="application/ld+json">
@@ -51,7 +51,7 @@
     },
     {
       "@type": "Product",
-      "name": "מצלמת רכב 4 ערוצים עם 4G ו-GPS",
+      "name": "מצלמת רכב 4 ערוצים עם 4G ו־GPS",
       "image": "https://www.govarisystems.co.il/assets/images/camera-studio-v2.webp",
       "brand": {
         "@type": "Brand",
@@ -73,7 +73,7 @@
           "name": "כמה עולה המערכת?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "במחיר ההשקה: מצלמה והתקנה בבית הלקוח ב־1,099 ₪. השירות בבית שמש, ירושלים והמרכז בתיאום. סים לשנה הוא תוספת לבחירה של 199 ₪. אין תשלום באתר; מקבלים את פרטי ההזמנה לפני החלטה."
+            "text": "במחיר ההשקה: מצלמה והתקנה בבית הלקוח ב־1,099 ₪. השירות בבית שמש, ירושלים והמרכז בתיאום. סים לשנה הוא תוספת לבחירה של 199 ₪. אין תשלום באתר; מקבלים את פרטי ההזמנה לפני ההחלטה."
           }
         },
         {
@@ -113,7 +113,7 @@
           "name": "מה קורה אחרי שמשאירים פרטים?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "משאירים שם וטלפון באתר. חוזרים אליכם בשיחה: התאמה לרכב, הסבר מה כולל, מחיר ותנאים. את ההזמנה ותיאום ההתקנה מסכמים בשיחה. אין תשלום באתר."
+            "text": "משאירים שם וטלפון באתר. חוזרים אליכם בשיחה: התאמה לרכב, הסבר מה כלול, מחיר ותנאים. את ההזמנה ותיאום ההתקנה מסכמים בשיחה. אין תשלום באתר."
           }
         },
         {
@@ -145,7 +145,7 @@
           "name": "כמה זמן נשמרות ההקלטות?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "משך השמירה תלוי בנפח כרטיס הזיכרון ובהגדרות הצילום. בהקלטה בלולאה קבצים ישנים מוחלפים בחדשים. נפרט את תצורת האחסון של הערכה לפני ההזמנה."
+            "text": "משך השמירה תלוי בנפח כרטיס הזיכרון ובהגדרות הצילום. בהקלטה בלולאה קבצים ישנים מוחלפים בחדשים. נסביר כמה הקלטות נשמרות בכרטיס שתבחרו לפני ההזמנה."
           }
         }
       ]
@@ -156,29 +156,24 @@
     <script src="js/config.js?v=20260925" defer></script>
     <script src="js/track.js?v=20260929" defer></script>
     <script src="js/lead-form.js?v=20261004-recovery" defer></script>
-    <script src="js/connected-ui.js?v=20261004-ux" defer></script>
+    <script src="js/connected-ui.js?v=20261005-dark" defer></script>
     <script src="js/vendor/gsap.min.js" defer></script>
     <script src="js/vendor/ScrollTrigger.min.js" defer></script>
-    <script src="js/connected-story.js?v=20260925" defer></script>
+    <script src="js/connected-story.js?v=20261005-mobile" defer></script>
   </head>
   <body class="connected-home">
     <a class="skip-link" href="#content">דלגו לתוכן</a>
     <header class="connected-header">
       <div class="header-inner">
-        <a class="brand" href="index.html" aria-label="גוב ארי מערכות — דף הבית"
+        <div class="brand-group"><a class="brand" href="index.html" aria-label="גוב ארי מערכות — דף הבית"
           ><img
             src="assets/images/logo-govari-mark.png"
             alt="גוב ארי מערכות"
             class=""
             width="120"
             height="90"
-        /></a>
-        <nav id="primary-nav" aria-label="ניווט ראשי">
-          <a href="#connected-story">איך זה עובד</a
-          ><a href="features.html">המצלמה</a><a href="app.html">האפליקציה</a
-          ><a href="#faq">שאלות ותשובות</a
-          ><a href="tel:+972536813013" class="mobile-phone">053-6813013</a>
-        </nav>
+        /></a><img class="header-badge" src="assets/brand/reservist-transparent-v1.webp" alt="עושה מילואים" width="72" height="46" /></div>
+        <nav id="primary-nav" aria-label="ניווט ראשי"><a href="#connected-story"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg><span>איך זה עובד</span></a><a href="features.html"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="3"/><circle cx="12" cy="13" r="3.2"/><path d="M8 7l1.5-3h5L16 7"/></svg><span>המצלמה</span></a><a href="app.html"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18h2"/></svg><span>האפליקציה</span></a><a href="#faq"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17h.01"/></svg><span>שאלות ותשובות</span></a><a href="about.html" class="nav-mobile-only"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><span>עלינו</span></a><div class="menu-extras"><a class="button primary" href="#lead">קבלו הצעה לרכב שלכם <span aria-hidden="true">←</span></a><div class="menu-contact"><a class="menu-chip" href="tel:+972536813013"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>התקשרו</span></a><a class="menu-chip" href="https://wa.me/message/4WXHHRXIKWQWJ1" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a9 9 0 0 1-13.5 7.8L3 21l1.5-4.6A9 9 0 1 1 21 11.5Z"/><path d="m8 7 2 3-1 1c1 2 2 3 4 3l1-1 3 2c-2 4-10-1-10-6Z"/></svg><span>וואטסאפ</span></a></div><p class="menu-meta">מחיר השקה <bdi dir="ltr">1,099 ₪</bdi> · מצלמה והתקנה</p></div></nav>
         <div class="header-actions">
           <button
             class="theme-switch"
@@ -212,6 +207,7 @@
         </div>
       </div>
     </header>
+    <div class="menu-scrim" hidden></div>
     <main id="content">
       <section class="connected-hero" aria-labelledby="hero-title">
         <div class="windshield">
@@ -236,18 +232,18 @@
         </div>
         <div class="hero-copy">
           <p class="eyebrow">
-            <span class="status-dot"></span> גוב ארי מערכות · מצלמות רכב
+            <span class="status-dot"></span> גוב ארי · מצלמות רכב
           </p>
           <h1 id="hero-title">לראות את הרכב.<br /><em>גם מרחוק.</em></h1>
           <p class="hero-description">
-            מצלמת רכב עם ארבעה ערוצי צילום, <bdi dir="ltr">4G</bdi>
-            ו־<bdi dir="ltr">GPS</bdi>. אפשר לצפות ברכב ולבדוק איפה הוא נמצא דרך
-            אפליקציה בעברית, גם מרחוק.
+            ארבעה ערוצי צילום, <bdi dir="ltr">4G</bdi> ו־<bdi dir="ltr">GPS</bdi>. צפייה ומיקום מהטלפון.
           </p>
           <div class="hero-offer">
             <span>מחיר השקה · מצלמה והתקנה</span
             ><strong
               ><bdi>1,099 <small>₪</small></bdi></strong
+            ><span class="hero-offer-sim"
+              >סים שנתי אופציונלי: <bdi dir="ltr">199 ₪</bdi></span
             >
           </div>
           <div class="hero-actions">
@@ -258,6 +254,7 @@
               href="https://wa.me/message/4WXHHRXIKWQWJ1"
               target="_blank"
               rel="noopener"
+              aria-label="שיחה בוואטסאפ"
               ><svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -271,16 +268,12 @@
                   d="M21 11.5a9 9 0 0 1-13.5 7.8L3 21l1.5-4.6A9 9 0 1 1 21 11.5Z"
                 />
                 <path d="m8 7 2 3-1 1c1 2 2 3 4 3l1-1 3 2c-2 4-10-1-10-6Z" />
-              </svg>
-              שיחה בוואטסאפ</a
+              </svg><span class="wa-text">שיחה בוואטסאפ</span></a
             >
           </div>
-          <p class="microcopy">
-            ללא תשלום באתר · ללא פרטי אשראי · ללא התחייבות
-          </p>
-          <p class="offer-detail">
-            התקנה בבית הלקוח בבית שמש, ירושלים והמרכז בתיאום.<br />סים שנתי
-            לבחירה בתוספת <bdi dir="ltr">199 ₪</bdi>.
+          <p class="microcopy hero-terms">
+            <span>ללא תשלום באתר · ללא התחייבות</span>
+            <span>התקנה אצלכם, בתיאום — בית שמש, ירושלים והמרכז</span>
           </p>
           <a class="hero-scroll-cue" href="#connected-story">
             <span aria-hidden="true">↓</span> גללו לראות איך המערכת מתחברת
@@ -324,80 +317,7 @@
         </div>
       </section>
       <div class="trust-rail">
-        <div class="tag-list">
-          <span
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <rect x="3" y="6" width="18" height="14" rx="3" />
-              <circle cx="12" cy="13" r="3" />
-              <path d="m8 6 1-3h6l1 3" /></svg
-            >ארבעה ערוצי צילום</span
-          ><span
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M4 18v3m5-8v8m5-13v13m5-18v18" /></svg
-            ><span>צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span></span
-          ><span
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
-              <circle cx="12" cy="10" r="2" /></svg
-            ><span><bdi dir="ltr">GPS</bdi> ומסלול</span></span
-          ><span
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <rect x="6" y="2" width="12" height="20" rx="3" />
-              <path d="M10 5h4m-3 14h2" /></svg
-            >אפליקציה בעברית</span
-          ><span
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="m12 2 8 3v7c0 5-8 10-8 10S4 17 4 12V5Z" />
-              <path d="m8 12 3 3 5-6" /></svg
-            >אחריות לשנה</span
-          >
-        </div>
-        <img
-          src="assets/brand/reservist-transparent-v1.webp"
-          width="100"
-          height="64"
-          alt="עושה מילואים"
-        />
+        <ul class="icon-strip" aria-label="עיקרי המערכת"><li><span class="is-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span><span class="is-lbl">4 ערוצי צילום</span></li><li><span class="is-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18v3m5-8v8m5-13v13m5-18v18"/></svg></span><span class="is-lbl">צפייה ב־<bdi dir="ltr">4G</bdi></span></li><li><span class="is-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span class="is-lbl"><bdi dir="ltr">GPS</bdi> ומסלול</span></li><li><span class="is-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18h2"/></svg></span><span class="is-lbl">אפליקציה בעברית</span></li><li><span class="is-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.8 3 8.2 7 10 4-1.8 7-5.2 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="is-lbl">אחריות לשנה</span></li><li><span class="is-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-5h4v5"/></svg></span><span class="is-lbl">התקנה אצלכם</span></li><li><span class="is-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg></span><span class="is-lbl">תמיכה <bdi dir="ltr">24/7</bdi></span></li><li><span class="is-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M4.5 19.5l15-15"/></svg></span><span class="is-lbl">ללא תשלום באתר</span></li></ul>
       </div>
       <section
         id="connected-story"
@@ -415,32 +335,31 @@
                 <p class="eyebrow">שלב ראשון · בתוך המערכת</p>
                 <h2>מה יש<br />בתוך המצלמה?</h2>
                 <p>
-                  ההדמיה מציגה איך רכיבי הצילום, <bdi dir="ltr">GPS</bdi>
-                  וחיבור <bdi dir="ltr">4G</bdi> עובדים יחד: מצלמים את הנסיעה,
-                  מציגים את המיקום ומאפשרים צפייה מהנייד.
+                  צילום, <bdi dir="ltr">GPS</bdi> ו־<bdi dir="ltr">4G</bdi> במערכת אחת.
                 </p>
-                <small
-                  >המחשת רכיבים עקרונית; אינה תרשים פירוק או מפרט פנימי של
-                  היצרן.</small
-                ><img
-                  src="assets/product/exploded/components-mobile-board-v1.webp"
-                  alt="המחשה של רכיבים אלקטרוניים"
-                  class="step-image"
-                  loading="lazy"
-                  width="800"
-                  height="520"
-                />
+                <div class="xplode xplode--scroll step-image" aria-hidden="true">
+                  <img class="xp-body" src="assets/images/camera-main-v2.webp" alt="" loading="lazy" /><span class="xp-scan"></span>
+                  <span class="xp xp--back xp--deep xp--lbl-r" style="--w0:18;--w1:20;--x0:0;--y0:0;--x1:0;--y1:-40"><img src="assets/product/exploded/v2/part-display.webp" alt="" loading="lazy" /><b>מסך 3 אינץ׳</b></span>
+                  <span class="xp xp--back xp--lbl-r" style="--w0:22;--w1:22;--x0:0;--y0:0;--x1:0;--y1:-27"><img src="assets/product/exploded/v2/part-mainboard.webp" alt="" loading="lazy" /><b>לוח מעבד<span class="xp-long">, סים וזיכרון</span></b></span>
+                  <span class="xp xp--back xp--minor xp--keep xp--lbl-l" style="--w0:6;--w1:7;--x0:-12;--y0:-6;--x1:-26;--y1:-38"><img src="assets/product/exploded/v2/part-gps.webp" alt="" loading="lazy" /><b><bdi dir="ltr">GPS</bdi></b></span>
+                  <span class="xp xp--back xp--minor xp--lbl-r" style="--w0:6;--w1:7.5;--x0:12;--y0:-6;--x1:24;--y1:-19"><img src="assets/product/exploded/v2/part-modem.webp" alt="" loading="lazy" /><b>מודם <bdi dir="ltr">4G</bdi></b></span>
+                  <span class="xp xp--back xp--minor xp--lbl-r" style="--w0:4;--w1:4.5;--x0:9;--y0:-2;--x1:31;--y1:-9"><img src="assets/product/exploded/v2/part-sdcard.webp" alt="" loading="lazy" /><b>כרטיס זיכרון</b></span>
+                  <span class="xp xp--back xp--mid xp--lbl-l" style="--w0:7;--w1:10;--x0:0;--y0:1;--x1:0;--y1:-14"><img src="assets/product/exploded/v2/part-sensor.webp" alt="" loading="lazy" /><b>חיישן תמונה</b></span>
+                  <span class="xp xp--front" style="--w0:8;--w1:11;--x0:-27.5;--y0:1.5;--x1:-41;--y1:1.5"><img src="assets/product/exploded/v2/part-lens_side.webp" alt="" loading="lazy" /><b>מצלמת צד</b></span>
+                  <span class="xp xp--front xp--mirror" style="--w0:8;--w1:11;--x0:27.5;--y0:1.5;--x1:41;--y1:1.5"><img src="assets/product/exploded/v2/part-lens_side.webp" alt="" loading="lazy" /><b>מצלמת צד</b></span>
+                  <span class="xp xp--front xp--lens" style="--w0:9;--w1:16;--x0:0;--y0:1.5;--x1:0;--y1:4"><img src="assets/product/exploded/v2/part-lens_main.webp" alt="" loading="lazy" /><b>עדשה קדמית</b></span>
+                </div>
+                <small class="xp-note xp-note--step">המחשת רכיבים עקרונית; אינה תרשים פירוק או מפרט פנימי של היצרן.</small>
+                <ul class="xp-sr"><li>עדשה קדמית</li><li>שתי מצלמות צד</li><li>חיישן תמונה</li><li>לוח מעבד, סים וזיכרון</li><li>GPS</li><li>מודם 4G</li><li>מסך 3 אינץ׳</li><li>כרטיס זיכרון</li></ul>
               </article>
               <article class="build-step" data-step="1">
                 <p class="eyebrow">שלב שני · ההתקנה</p>
                 <h2>מתקינים את המצלמה<br />ברכב שלכם.</h2>
                 <p>
-                  היחידה הראשית מותקנת על השמשה הקדמית, ומצלמה נוספת מצלמת
-                  לאחור. לפני ההתקנה בודקים את דגם הרכב ואת חיבור החשמל.
+                  יחידה על השמשה ומצלמה אחורית. התאמה לרכב נבדקת מראש.
                 </p>
                 <small
-                  >התקנה בבית הלקוח בבית שמש, ירושלים והמרכז בתיאום. אחריות
-                  לשנה.</small
+                  >התקנה בבית הלקוח · אחריות לשנה</small
                 ><img
                   src="assets/product/lifestyle/govari-installed-windshield.webp"
                   alt="המחשת מצלמה מותקנת על השמשה הקדמית"
@@ -454,33 +373,25 @@
                 <p class="eyebrow">שלב שלישי · ארבע זוויות</p>
                 <h2>צילום קדימה, אחורה<br />ובתוך הרכב.</h2>
                 <p>
-                  ארבעה ערוצי צילום מתעדים את הדרך ואת תא הנוסעים. באפליקציה
-                  אפשר לצפות בזוויות הצילום השונות.
+                  ארבעה ערוצים. כל זווית זמינה באפליקציה.
                 </p>
                 <small
-                  >פריסת הערוצים להמחשה. כיווני הצילום המדויקים נקבעים לפי הרכב
-                  ומיקום ההתקנה.</small
-                ><img
-                  src="assets/illustrations/four-views.svg"
-                  alt="המחשת ארבע זוויות צילום ברכב"
-                  class="step-image"
-                  loading="lazy"
-                  width="800"
-                  height="520"
-                />
+                  >פריסה להמחשה; הכיוונים נקבעים לפי הרכב.</small
+                ><figure class="channel-board step-image">
+                  <img src="assets/product/generated/four-channel-views.webp" alt="המחשת ארבע זוויות צילום: קדימה, אחורה, פנים הרכב וזווית נוספת" width="1200" height="803" loading="lazy" />
+                  <span class="ch-label ch-front">קדימה</span><span class="ch-label ch-rear">אחורה</span><span class="ch-label ch-cabin">פנים הרכב</span><span class="ch-label ch-side">זווית נוספת</span>
+                </figure>
               </article>
               <article class="build-step" data-step="3">
                 <p class="eyebrow">שלב רביעי · האפליקציה</p>
                 <h2>צופים ברכב<br />דרך הטלפון.</h2>
                 <p>
-                  צפייה חיה מהנייד, גישה להקלטות ומיקום הרכב — באפליקציה בעברית
-                  לאייפון ולאנדרואיד.
+                  צפייה חיה, הקלטות ומיקום. לאייפון ולאנדרואיד.
                 </p>
                 <small
-                  >המחשת ממשק. הצפייה מרחוק מחייבת סים פעיל וקליטה
-                  סלולרית.</small
+                  >המחשת ממשק · נדרשים סים פעיל וקליטה</small
                 ><img
-                  src="assets/images/app-live-view-ui.webp"
+                  src="assets/images/app-live-view-v2.webp"
                   alt="המחשת צפייה במצלמות דרך האפליקציה בעברית"
                   class="step-image"
                   loading="lazy"
@@ -492,8 +403,7 @@
                 <p class="eyebrow">שלב חמישי · המיקום</p>
                 <h2>בודקים איפה הרכב<br />ולאן הוא נסע.</h2>
                 <p>
-                  רואים היכן הרכב נמצא, עוקבים אחרי המסלול וחוזרים להיסטוריית
-                  הנסיעות והמיקומים באפליקציה.
+                  מיקום נוכחי ומסלולים קודמים באפליקציה.
                 </p>
                 <small>המפה והמסלול כאן להמחשה.</small
                 ><img
@@ -509,28 +419,23 @@
                 <p class="eyebrow">שלב אחרון · הרכב שלכם</p>
                 <h2>רוצים פרטים<br />על המצלמה?</h2>
                 <p>
-                  השאירו שם וטלפון. נחזור אליכם, נבדוק התאמה לרכב ונסביר
-                  מה כוללת ההצעה. תחליטו אם תרצו להתקדם.
+                  השאירו שם וטלפון. נחזור אליכם.
                 </p>
-                <small>ללא תשלום באתר, ללא פרטי אשראי וללא התחייבות.</small
+                <small>ללא תשלום באתר וללא התחייבות.</small
                 ><a class="button primary" href="#lead"
                   >קבלו הצעה לרכב שלכם <span aria-hidden="true">←</span></a
-                ><img
-                  src="assets/images/camera-studio-v2.webp"
-                  alt="מצלמת הרכב והמצלמה האחורית"
-                  class="step-image"
-                  loading="lazy"
-                  width="800"
-                  height="520"
-                />
+                ><div class="levitate step-image" data-tilt>
+                  <div class="lv-body"><img src="assets/images/camera-studio-cut.webp" alt="מצלמת הרכב והמצלמה האחורית" width="1200" height="800" loading="lazy" /><i class="lv-glint" aria-hidden="true" style="-webkit-mask-image:url(assets/images/camera-studio-cut.webp);mask-image:url(assets/images/camera-studio-cut.webp)"></i></div>
+                </div>
               </article>
             </div>
             <div class="build-visual" aria-hidden="true">
               <div class="visual-grid"></div>
               <div class="build-install">
-                <img src="assets/illustrations/connected-car.svg" alt="" /><span
+                <img src="assets/product/generated/install-car-top.webp" alt="" width="1200" height="800" loading="lazy" /><span
                   >מיקומי התקנה להמחשה</span
-                >
+                ><b class="install-tag install-tag--front">קדמת הרכב</b
+                ><b class="install-tag install-tag--rear">חלק אחורי</b>
               </div>
               <img
                 class="build-camera"
@@ -540,60 +445,19 @@
                 height="886"
                 loading="lazy"
               />
-              <div
-                class="build-part part-lens"
-                data-x="-31"
-                data-y="-31"
-                data-rotate="-8"
-              >
-                <div class="component-model"><i></i><b></b></div>
-                <strong>עדשה</strong><small>צילום הדרך</small>
-              </div>
-              <div
-                class="build-part part-sensor"
-                data-x="0"
-                data-y="-38"
-                data-rotate="0"
-              >
-                <div class="component-model"><i></i><b></b></div>
-                <strong>חיישן תמונה</strong><small>קליטת התמונה</small>
-              </div>
-              <div
-                class="build-part part-processor"
-                data-x="32"
-                data-y="-27"
-                data-rotate="7"
-              >
-                <div class="component-model"><i></i><b>עיבוד</b></div>
-                <strong>מעבד</strong><small>ניהול ערוצי הצילום</small>
-              </div>
-              <div
-                class="build-part part-gps"
-                data-x="-32"
-                data-y="30"
-                data-rotate="-6"
-              >
-                <div class="component-model"><i></i><bdi dir="ltr">GPS</bdi></div>
-                <strong><bdi dir="ltr">GPS</bdi></strong><small>מיקום ומסלול</small>
-              </div>
-              <div
-                class="build-part part-modem"
-                data-x="3"
-                data-y="35"
-                data-rotate="3"
-              >
-                <div class="component-model"><i></i><bdi dir="ltr">4G</bdi></div>
-                <strong><bdi dir="ltr">4G</bdi></strong><small>צפייה מרחוק</small>
-              </div>
-              <div
-                class="build-part part-case"
-                data-x="33"
-                data-y="25"
-                data-rotate="8"
-              >
-                <div class="component-model"><i></i><b></b></div>
-                <strong>מארז</strong><small>גוף המצלמה</small>
-              </div>
+              <div class="xplode xplode--story" aria-hidden="true">
+                  <img class="xp-body" src="assets/images/camera-main-v2.webp" alt="" loading="lazy" /><span class="xp-scan"></span>
+                  <span class="xp xp--back xp--deep xp--lbl-r" style="--w0:18;--w1:20;--x0:0;--y0:0;--x1:0;--y1:-40"><img src="assets/product/exploded/v2/part-display.webp" alt="" loading="lazy" /><b>מסך 3 אינץ׳</b></span>
+                  <span class="xp xp--back xp--lbl-r" style="--w0:22;--w1:22;--x0:0;--y0:0;--x1:0;--y1:-27"><img src="assets/product/exploded/v2/part-mainboard.webp" alt="" loading="lazy" /><b>לוח מעבד<span class="xp-long">, סים וזיכרון</span></b></span>
+                  <span class="xp xp--back xp--minor xp--keep xp--lbl-l" style="--w0:6;--w1:7;--x0:-12;--y0:-6;--x1:-26;--y1:-38"><img src="assets/product/exploded/v2/part-gps.webp" alt="" loading="lazy" /><b><bdi dir="ltr">GPS</bdi></b></span>
+                  <span class="xp xp--back xp--minor xp--lbl-r" style="--w0:6;--w1:7.5;--x0:12;--y0:-6;--x1:24;--y1:-19"><img src="assets/product/exploded/v2/part-modem.webp" alt="" loading="lazy" /><b>מודם <bdi dir="ltr">4G</bdi></b></span>
+                  <span class="xp xp--back xp--minor xp--lbl-r" style="--w0:4;--w1:4.5;--x0:9;--y0:-2;--x1:31;--y1:-9"><img src="assets/product/exploded/v2/part-sdcard.webp" alt="" loading="lazy" /><b>כרטיס זיכרון</b></span>
+                  <span class="xp xp--back xp--mid xp--lbl-l" style="--w0:7;--w1:10;--x0:0;--y0:1;--x1:0;--y1:-14"><img src="assets/product/exploded/v2/part-sensor.webp" alt="" loading="lazy" /><b>חיישן תמונה</b></span>
+                  <span class="xp xp--front" style="--w0:8;--w1:11;--x0:-27.5;--y0:1.5;--x1:-41;--y1:1.5"><img src="assets/product/exploded/v2/part-lens_side.webp" alt="" loading="lazy" /><b>מצלמת צד</b></span>
+                  <span class="xp xp--front xp--mirror" style="--w0:8;--w1:11;--x0:27.5;--y0:1.5;--x1:41;--y1:1.5"><img src="assets/product/exploded/v2/part-lens_side.webp" alt="" loading="lazy" /><b>מצלמת צד</b></span>
+                  <span class="xp xp--front xp--lens" style="--w0:9;--w1:16;--x0:0;--y0:1.5;--x1:0;--y1:4"><img src="assets/product/exploded/v2/part-lens_main.webp" alt="" loading="lazy" /><b>עדשה קדמית</b></span>
+                  <small class="xp-note">המחשת רכיבים עקרונית; אינה תרשים פירוק או מפרט פנימי של היצרן.</small>
+                </div>
               <img
                 class="build-rear"
                 src="assets/images/camera-rear-v2.webp"
@@ -601,16 +465,14 @@
                 loading="lazy"
               />
               <div class="build-channels">
-                <img
-                  src="assets/illustrations/four-views.svg"
-                  alt=""
-                  class=""
-                  loading="lazy"
-                /><small>המחשת פריסת ארבעת הערוצים</small>
+                <figure class="channel-board">
+                  <img src="assets/product/generated/four-channel-views.webp" alt="" width="1200" height="803" loading="lazy" />
+                  <span class="ch-label ch-front">קדימה</span><span class="ch-label ch-rear">אחורה</span><span class="ch-label ch-cabin">פנים הרכב</span><span class="ch-label ch-side">זווית נוספת</span>
+                </figure><small>המחשת פריסת ארבעת הערוצים</small>
               </div>
               <img
                 class="build-phone"
-                src="assets/images/app-live-view-ui.webp"
+                src="assets/images/app-live-view-v2.webp"
                 alt=""
                 loading="lazy"
               /><span class="build-signal"
@@ -750,8 +612,7 @@
           <p class="eyebrow">פרטים ותיאום התקנה</p>
           <h2 id="lead-title">נבדוק יחד התאמה<br />לרכב שלכם.</h2>
           <p>
-            השאירו שם וטלפון ונחזור אליכם. נסביר על המצלמה, נבדוק התאמה לרכב
-            ונתאם התקנה אם תרצו להתקדם.
+            השאירו שם וטלפון. נחזור אליכם לבדיקת התאמה ותיאום התקנה.
           </p>
           <div class="offer-card">
             <span>מחיר השקה</span><strong><bdi>1,099 ₪</bdi></strong>
@@ -894,7 +755,7 @@
             <button class="btn btn-primary btn-free" type="submit">
               קבלו הצעה לרכב שלכם ←
             </button>
-            <ul class="lead-assurance" aria-label="מה מובטח בהזמנה">
+            <ul class="lead-assurance" aria-label="מה כלול בהזמנה">
               <li>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path
@@ -919,11 +780,11 @@
             </ul>
             <ol class="lead-next" aria-label="מה קורה אחרי השליחה">
               <li>חוזרים אליכם בשיחה</li>
-              <li>בודקים התאמה לרכב, מה כולל, מחיר ותנאים</li>
+              <li>בודקים התאמה לרכב, מה כלול, מחיר ותנאים</li>
               <li>מתאמים התקנה, אם תרצו להתקדם</li>
             </ol>
             <p class="form-note">
-              מסירת הפרטים מרצונכם, לצורך חזרה מגוב ארי מערכות לגבי הבקשה. ללא
+              אתם מוסרים את הפרטים מרצונכם, כדי שגוב ארי מערכות תחזור אליכם בנושא הבקשה. ללא
               טלפון לא נוכל לחזור אליכם.
               <a href="privacy.html">מדיניות פרטיות</a>
             </p>
@@ -956,7 +817,7 @@
           <article>
             <span class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20v-4m5 4v-8m5 8V8m5 12V4"/></svg></span>
             <h3>חיבור <bdi dir="ltr">4G</bdi> עם סים</h3>
-            <p>חיבור סלולרי באמצעות <bdi dir="ltr">SIM</bdi>, לצפייה מרחוק עם חבילה פעילה וקליטה.</p>
+            <p>חיבור סלולרי באמצעות סים, לצפייה מרחוק עם חבילה פעילה וקליטה.</p>
           </article>
           <article>
             <span class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10a6 6 0 0 1 12 0v6l2 2H4l2-2Zm4 11h4"/></svg></span>
@@ -971,7 +832,7 @@
           <article>
             <span class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 5h9a4 4 0 0 1 0 8H8a3 3 0 0 0 0 6h9"/></svg></span>
             <h3>היסטוריית נסיעות ומיקומים</h3>
-            <p>חוזרים למסלולים קודמים ובודקים איפה הרכב נסע.</p>
+            <p>חוזרים למסלולים קודמים ובודקים לאן הרכב נסע.</p>
           </article>
           <article>
             <span class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 8 6 4-6 4Z"/></svg></span>
@@ -1052,7 +913,7 @@
               במחיר ההשקה: מצלמה והתקנה בבית הלקוח ב־<bdi dir="ltr">1,099
               ₪</bdi>. השירות בבית שמש, ירושלים והמרכז בתיאום. סים לשנה הוא
               תוספת לבחירה של <bdi dir="ltr">199 ₪</bdi>. אין תשלום באתר;
-              מקבלים את פרטי ההזמנה לפני החלטה.
+              מקבלים את פרטי ההזמנה לפני ההחלטה.
             </p>
           </details>
           <details>
@@ -1091,8 +952,7 @@
           <details>
             <summary>מה קורה אחרי שמשאירים פרטים?<span aria-hidden="true">+</span></summary>
             <p>
-              משאירים שם וטלפון באתר. חוזרים אליכם בשיחה: התאמה לרכב, הסבר מה
-              כולל, מחיר ותנאים. את ההזמנה ותיאום ההתקנה מסכמים בשיחה. אין
+              משאירים שם וטלפון באתר. חוזרים אליכם בשיחה: התאמה לרכב, הסבר מה כלול, מחיר ותנאים. את ההזמנה ותיאום ההתקנה מסכמים בשיחה. אין
               תשלום באתר.
             </p>
           </details>
@@ -1129,7 +989,7 @@
             </summary>
             <p>
               משך השמירה תלוי בנפח כרטיס הזיכרון ובהגדרות הצילום. בהקלטה בלולאה
-              קבצים ישנים מוחלפים בחדשים. נפרט את תצורת האחסון של הערכה לפני
+              קבצים ישנים מוחלפים בחדשים. נסביר כמה הקלטות נשמרות בכרטיס שתבחרו לפני
               ההזמנה.
             </p>
           </details>
@@ -1141,15 +1001,14 @@
             <p class="eyebrow">פרטים ותיאום התקנה</p>
             <h2 id="closing-title">נבדוק התאמה לרכב שלכם.</h2>
             <p>
-              השאירו שם וטלפון. נחזור אליכם, נבדוק התאמה לרכב ונסביר מה כוללת
-              ההצעה. תחליטו אם תרצו להתקדם.
+              השאירו שם וטלפון. נחזור אליכם.
             </p>
           </div>
           <div class="closing-actions">
             <div class="closing-price"><span>מחיר השקה · מצלמה והתקנה</span><strong><bdi>1,099 ₪</bdi></strong></div>
             <a class="button primary" href="#lead">קבלו הצעה לרכב שלכם <span aria-hidden="true">←</span></a>
             <div class="closing-contact">
-              <a href="https://wa.me/message/4WXHHRXIKWQWJ1" target="_blank" rel="noopener">שאלה בוואטסאפ</a
+              <a href="https://wa.me/message/4WXHHRXIKWQWJ1" target="_blank" rel="noopener">שיחה בוואטסאפ</a
               ><a href="tel:+972536813013"><bdi dir="ltr">053-6813013</bdi></a>
             </div>
           </div>

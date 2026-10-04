@@ -4,7 +4,7 @@
     theme = document.querySelector(".theme-switch"),
     menu = document.querySelector(".menu-toggle"),
     nav = document.getElementById("primary-nav");
-  function setTheme(dark) {
+  function setTheme(dark, remember) {
     root.dataset.theme = dark ? "dark" : "light";
     theme.setAttribute("aria-pressed", String(dark));
     theme.setAttribute("aria-label", dark ? "מעבר למצב יום" : "מעבר למצב לילה");
@@ -12,18 +12,32 @@
     document.querySelector('meta[name="theme-color"]').content = dark
       ? "#112329"
       : "#f6f8f8";
-    try {
-      localStorage.setItem("gav-theme", dark ? "dark" : "light");
-    } catch (_) {}
+    // Dark is the default; only an explicit choice is remembered.
+    if (remember)
+      try {
+        localStorage.setItem("gav-theme-choice", dark ? "dark" : "light");
+      } catch (_) {}
   }
   setTheme(root.dataset.theme === "dark");
   theme.addEventListener("click", () =>
-    setTheme(root.dataset.theme !== "dark"),
+    setTheme(root.dataset.theme !== "dark", true),
   );
+  const scrim = document.querySelector(".menu-scrim");
+  const sheet = matchMedia("(max-width: 980px)");
   function setMenu(open) {
+    if (open && !sheet.matches) open = false;
     nav.classList.toggle("is-open", open);
+    root.classList.toggle("menu-open", open);
     menu.setAttribute("aria-expanded", String(open));
     menu.setAttribute("aria-label", open ? "סגירת תפריט" : "פתיחת תפריט");
+    if (scrim) scrim.hidden = !open;
+    if (open) {
+      const first = nav.querySelector("a");
+      if (first)
+        setTimeout(() => {
+          if (nav.classList.contains("is-open")) first.focus({ preventScroll: true });
+        }, 60);
+    }
   }
   menu.addEventListener("click", () =>
     setMenu(menu.getAttribute("aria-expanded") !== "true"),
@@ -31,19 +45,105 @@
   nav.addEventListener("click", (e) => {
     if (e.target.closest("a")) setMenu(false);
   });
+  if (scrim) scrim.addEventListener("click", () => setMenu(false));
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && menu.getAttribute("aria-expanded") === "true") {
+    if (menu.getAttribute("aria-expanded") !== "true") return;
+    if (e.key === "Escape") {
       setMenu(false);
       menu.focus();
+      return;
+    }
+    if (e.key !== "Tab") return;
+    // Keep focus inside the open sheet (toggle + menu items).
+    const items = [menu, ...nav.querySelectorAll("a[href]")];
+    const first = items[0],
+      last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    } else if (!items.includes(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
     }
   });
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".connected-header")) setMenu(false);
-  });
+  sheet.addEventListener("change", () => setMenu(false));
   const video = document.getElementById("roadFilm"),
     toggle = document.querySelector('[data-video-toggle="roadFilm"]'),
     reduced = matchMedia("(prefers-reduced-motion: reduce)");
   let manuallyPaused = false;
+  // Product tilt: the floating camera leans gently toward the pointer.
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const tilts = [
+      ...document.querySelectorAll("[data-tilt] .lv-body"),
+      ...document.querySelectorAll(".hero-scene .camera-platform"),
+    ];
+    tilts.forEach((body) => {
+      const zone = body.closest("section, figure") || body.parentElement;
+      let frame = 0;
+      zone.addEventListener("pointermove", (e) => {
+        if (reduced.matches || frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          const r = zone.getBoundingClientRect(),
+            x = (e.clientX - r.left) / r.width - 0.5,
+            y = (e.clientY - r.top) / r.height - 0.5;
+          body.style.setProperty("--ry", (x * 10).toFixed(2) + "deg");
+          body.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
+        });
+      });
+      zone.addEventListener("pointerleave", () => {
+        body.style.setProperty("--ry", "0deg");
+        body.style.setProperty("--rx", "0deg");
+      });
+    });
+  }
+  // Exploded camera (mobile / static story): apart in the middle of the screen,
+  // reassembled while entering and leaving.
+  const xstages = [...document.querySelectorAll(".xplode--scroll")];
+  if (xstages.length) {
+    let xf = 0;
+    const paintX = () => {
+      xf = 0;
+      xstages.forEach((st) => {
+        if (!st.offsetParent) return;
+        const r = st.getBoundingClientRect(),
+          mid = r.top + r.height / 2,
+          d = Math.abs(mid - innerHeight / 2) / (innerHeight * 0.62),
+          p = reduced.matches ? 1 : Math.max(0, Math.min(1, (1 - d) * 1.7));
+        const v = p.toFixed(3);
+        if (st.dataset.p !== v) {
+          st.dataset.p = v;
+          st.style.setProperty("--p", v);
+        }
+      });
+    };
+    addEventListener("scroll", () => xf || (xf = requestAnimationFrame(paintX)), { passive: true });
+    addEventListener("resize", paintX);
+    reduced.addEventListener("change", paintX);
+    paintX();
+  }
+  // Feature cards: staggered reveal as the grid scrolls in.
+  const cards = [...document.querySelectorAll(".benefit-grid article")];
+  if (cards.length && "IntersectionObserver" in window && !reduced.matches) {
+    root.classList.add("js-reveal");
+    const reveal = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("is-in");
+          reveal.unobserve(e.target);
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    cards.forEach((c, i) => {
+      c.style.setProperty("--i", String(i % 4));
+      reveal.observe(c);
+    });
+  }
   // Inner pages share this header but have no hero film or lead form.
   if (!video || !toggle) {
     const sticky = document.querySelector(".mobile-action"),
@@ -64,7 +164,7 @@
     return;
   }
   function syncVideo() {
-    const label = video.paused ? "הפעלת סרטון הרקע" : "השהיית הסרטון";
+    const label = video.paused ? "הפעלת סרטון הרקע" : "השהיית סרטון הרקע";
     toggle.dataset.videoState = video.paused ? "paused" : "playing";
     toggle.setAttribute("aria-label", label);
     toggle.title = label;

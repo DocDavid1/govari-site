@@ -23,8 +23,9 @@ fs.mkdirSync(OUT, { recursive: true });
     await page.goto(BASE, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => document.fonts.status === "loaded");
     await page.waitForTimeout(350);
-    for (const theme of ["light", "dark"]) {
-      if (theme === "dark") await page.locator(".theme-switch").click();
+    // Dark is the default theme; the switch moves to light.
+    for (const theme of ["dark", "light"]) {
+      if (theme === "light") await page.locator(".theme-switch").click();
       assert.equal(
         await page.evaluate(() => document.documentElement.dataset.theme),
         theme,

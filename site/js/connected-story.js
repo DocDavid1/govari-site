@@ -112,7 +112,7 @@
       var pin = story.querySelector(".build-pin");
       var visual = story.querySelector(".build-visual");
       var camera = story.querySelector(".build-camera");
-      var parts = Array.from(story.querySelectorAll(".build-part"));
+      var xstage = story.querySelector(".xplode--story");
       var install = story.querySelector(".build-install");
       var rear = story.querySelector(".build-rear");
       var channels = story.querySelector(".build-channels");
@@ -126,7 +126,7 @@
         !pin ||
         !visual ||
         !camera ||
-        parts.length !== 6 ||
+        !xstage ||
         steps.length !== 6 ||
         !install ||
         !rear ||
@@ -157,16 +157,10 @@
             x: 0,
             y: 0,
             scale: 1,
-            autoAlpha: 1,
-          });
-          gsap.set(parts, {
-            xPercent: -50,
-            yPercent: -50,
-            x: 0,
-            y: 0,
-            rotation: 0,
             autoAlpha: 0,
           });
+          gsap.set(xstage, { autoAlpha: 1 });
+          xstage.style.setProperty("--p", "0");
           gsap.set([install, rear, channels, phone, signal, route, summary], {
             autoAlpha: 0,
           });
@@ -199,38 +193,34 @@
             timeline.addLabel(name, index);
           });
 
-          // 0: the assembled device gently opens into its six callouts.
+          // 0: the real camera opens into its parts (x-ray body, 0.04-0.50),
+          // holds, then quickly reassembles (0.84-0.98) and hands over to the camera that moves into the car.
+          var explode = { p: 0 };
+          var paintExplode = function () {
+            xstage.style.setProperty("--p", explode.p.toFixed(3));
+          };
           timeline.to(
-            parts,
-            {
-              autoAlpha: 1,
-              x: function (_, part) {
-                return (
-                  (visual.clientWidth * (Number(part.dataset.x) || 0)) / 100
-                );
-              },
-              y: function (_, part) {
-                return (
-                  (visual.clientHeight * (Number(part.dataset.y) || 0)) / 100
-                );
-              },
-              rotation: function (_, part) {
-                return Number(part.dataset.rotate) || 0;
-              },
-              duration: 0.58,
-              stagger: 0.025,
-            },
-            0.1,
+            explode,
+            { p: 1, duration: 0.46, ease: "power2.inOut", onUpdate: paintExplode },
+            0.04,
+          );
+          timeline.to(
+            explode,
+            { p: 0, duration: 0.14, ease: "power2.inOut", onUpdate: paintExplode },
+            0.84,
           );
           timeline.to(camera, { scale: 0.83, duration: 0.6 }, 0.1);
+          timeline.to(camera, { autoAlpha: 1, duration: 0.06 }, 0.95);
+          timeline.to(xstage, { autoAlpha: 0, duration: 0.06 }, 0.97);
 
           // 1: the pieces return, then the front and rear installation appears.
-          timeline.to(
-            parts,
-            { x: 0, y: 0, rotation: 0, autoAlpha: 0, duration: 0.3 },
-            1,
+          // The car fades in under the reassembled camera so the scene change reads as one move.
+          timeline.fromTo(
+            install,
+            { scale: 1.035 },
+            { scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" },
+            0.97,
           );
-          timeline.to(install, { autoAlpha: 1, duration: 0.42 }, 1.22);
           timeline.to(
             camera,
             {
@@ -241,9 +231,10 @@
                 return -visual.clientHeight * 0.005;
               },
               scale: 0.23,
-              duration: 0.55,
+              duration: 0.5,
+              ease: "power2.inOut",
             },
-            1.2,
+            1.0,
           );
           timeline.to(rear, { autoAlpha: 1, duration: 0.4 }, 1.48);
 

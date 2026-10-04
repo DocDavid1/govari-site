@@ -629,3 +629,17 @@ html[data-theme="dark"] .cta-card {
     padding-block: 40px 96px;
   }
 }
+.part img {
+  animation: lv-float 7s ease-in-out infinite;
+}
+.part:nth-child(2) img {
+  animation-delay: -2.3s;
+}
+.part:nth-child(3) img {
+  animation-delay: -4.6s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .part img {
+    animation: none;
+  }
+}
