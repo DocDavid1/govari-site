@@ -125,6 +125,131 @@
     reduced.addEventListener("change", paintX);
     paintX();
   }
+  // WhatsApp process slider: auto-advances, pauses on hover/focus/touch and
+  // for reduced motion; messages pop in on the active chat.
+  document.querySelectorAll("[data-wa-slider]").forEach((slider) => {
+    const track = slider.querySelector(".wa-track"),
+      slides = [...track.children],
+      dots = [...slider.querySelectorAll(".wa-dot")],
+      pauseBtn = slider.querySelector("[data-wa-pause]");
+    if (!slides.length) return;
+    if (!reduced.matches) slider.classList.add("wa-anim");
+    let index = 0,
+      timer = 0,
+      userPaused = reduced.matches,
+      hovering = false,
+      inView = false;
+    const live = (i) => {
+      slides.forEach((s, k) => {
+        s.classList.toggle("is-live", k === i);
+      });
+      dots.forEach((d, k) =>
+        k === i ? d.setAttribute("aria-current", "true") : d.removeAttribute("aria-current"),
+      );
+    };
+    const go = (i) => {
+      index = (i + slides.length) % slides.length;
+      const slide = slides[index];
+      // RTL-safe: align the slide's start (right) edge with the track's.
+      const delta =
+        slide.getBoundingClientRect().right - track.getBoundingClientRect().right;
+      track.scrollBy({ left: delta, behavior: reduced.matches ? "auto" : "smooth" });
+      live(index);
+    };
+    const stop = () => {
+      clearInterval(timer);
+      timer = 0;
+    };
+    const start = () => {
+      stop();
+      if (userPaused || hovering || !inView || reduced.matches) return;
+      timer = setInterval(() => go(index + 1), 5600);
+    };
+    slider.querySelector("[data-wa-next]").addEventListener("click", () => {
+      go(index + 1);
+      start();
+    });
+    slider.querySelector("[data-wa-prev]").addEventListener("click", () => {
+      go(index - 1);
+      start();
+    });
+    dots.forEach((d, k) =>
+      d.addEventListener("click", () => {
+        go(k);
+        start();
+      }),
+    );
+    pauseBtn.addEventListener("click", () => {
+      userPaused = !userPaused;
+      pauseBtn.setAttribute("aria-pressed", String(userPaused));
+      pauseBtn.setAttribute(
+        "aria-label",
+        userPaused ? "הפעלת ההחלפה האוטומטית" : "עצירת ההחלפה האוטומטית",
+      );
+      pauseBtn.innerHTML = userPaused ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zm6 0h4v14h-4z" fill="currentColor"/></svg>';
+      userPaused ? stop() : start();
+    });
+    if (reduced.matches) {
+      pauseBtn.setAttribute("aria-pressed", "true");
+      pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
+    }
+    slider.addEventListener("pointerenter", () => {
+      hovering = true;
+      stop();
+    });
+    slider.addEventListener("pointerleave", () => {
+      hovering = false;
+      start();
+    });
+    slider.addEventListener("focusin", () => {
+      hovering = true;
+      stop();
+    });
+    slider.addEventListener("focusout", () => {
+      hovering = false;
+      start();
+    });
+    track.addEventListener("touchstart", stop, { passive: true });
+    // Swipes: follow the chat that lands in view.
+    let st = 0;
+    track.addEventListener(
+      "scroll",
+      () => {
+        clearTimeout(st);
+        st = setTimeout(() => {
+          const edge = track.getBoundingClientRect().right;
+          let best = 0,
+            dist = Infinity;
+          slides.forEach((s, k) => {
+            const d = Math.abs(s.getBoundingClientRect().right - edge);
+            if (d < dist) {
+              dist = d;
+              best = k;
+            }
+          });
+          if (best !== index) {
+            index = best;
+            live(index);
+          }
+        }, 120);
+      },
+      { passive: true },
+    );
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(
+        (entries) => {
+          inView = entries[0].isIntersecting;
+          if (inView && !slides.some((s) => s.classList.contains("is-live"))) live(index);
+          inView ? start() : stop();
+        },
+        { threshold: 0.35 },
+      ).observe(slider);
+    } else {
+      inView = true;
+      live(0);
+      start();
+    }
+  });
   // Feature cards: staggered reveal as the grid scrolls in.
   const cards = [...document.querySelectorAll(".benefit-grid article")];
   if (cards.length && "IntersectionObserver" in window && !reduced.matches) {
