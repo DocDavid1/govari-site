@@ -290,14 +290,14 @@
             { y: 0, autoAlpha: 1, duration: 0.5 },
             5.1,
           );
-          timeline.to({}, { duration: 0.4 }, 5.6);
+          timeline.to({}, { duration: 0.2 }, 5.6);
 
           trigger = ScrollTrigger.create({
             trigger: story,
             animation: timeline,
             pin: pin,
             start: "top top",
-            end: "+=4200",
+            end: "+=2800",
             scrub: 0.65,
             anticipatePin: 1,
             invalidateOnRefresh: true,

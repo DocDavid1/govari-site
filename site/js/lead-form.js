@@ -110,7 +110,7 @@
       track('lead_submit_success', { form: form.dataset.leadForm || 'lead' }, { eventId: data.submissionId });
       var box = document.createElement('div'); box.className = 'lead-success'; box.setAttribute('role', 'status'); box.setAttribute('tabindex', '-1');
       var heading = document.createElement('h3'); heading.textContent = 'הבקשה התקבלה'; box.appendChild(heading);
-      var text = document.createElement('p'); text.textContent = 'נחזור אליכם להשלמת הפרטים. אין תשלום באתר ולא בוצע חיוב.'; box.appendChild(text);
+      var text = document.createElement('p'); text.textContent = 'נחזור אליכם בשיחה: נבדוק התאמה לרכב, נסביר מה כלול ונתאם התקנה אם תרצו. אין תשלום באתר ולא בוצע חיוב.'; box.appendChild(text);
       link(box, 'שמירת המספר שלנו בוואטסאפ', waHref('היי, השארתי פרטים באתר גוב ארי ואשמח שתחזרו אליי.'), true);
       form.replaceWith(box); box.focus();
     }
@@ -131,6 +131,20 @@
       }
       if (!nameEl || !phoneEl) { invalid('fields_missing', nameEl ? 'phone' : 'full_name'); return false; }
       return true;
+    }
+    /* בדיקת טלפון מיידית ביציאה מהשדה — רמז בלבד, השליחה עצמה ממשיכה להיבדק ב-valid(). */
+    if (phoneEl && phoneEl.parentNode) {
+      var hint = document.createElement('small'); hint.className = 'field-hint'; hint.id = (form.dataset.leadForm || 'lead') + '-phone-hint'; hint.hidden = true;
+      hint.textContent = 'נא למלא מספר טלפון תקין';
+      phoneEl.insertAdjacentElement('afterend', hint);
+      phoneEl.setAttribute('aria-describedby', hint.id);
+      var checkPhone = function (strict) {
+        var d = phoneDigits(phoneEl.value.trim()).replace(/[^\d]/g, '');
+        var bad = d.length > 0 && (d.length < 7 || d.length > 15);
+        if (!bad || strict) { hint.hidden = !bad; if (bad) phoneEl.setAttribute('aria-invalid', 'true'); else phoneEl.removeAttribute('aria-invalid'); }
+      };
+      phoneEl.addEventListener('blur', function () { checkPhone(true); });
+      phoneEl.addEventListener('input', function () { if (!hint.hidden) checkPhone(false); });
     }
     function sameValues(a, b) { return a.full_name === b.full_name && a.phone === b.phone && (a.city || '') === (b.city || '') && (a.vehicle || '') === (b.vehicle || ''); }
     function receipt(data) { return data && data.ok === true && !data.spam && typeof data.leadId === 'string' && typeof data.submissionId === 'string' && /^[0-9a-f-]{36}$/i.test(data.leadId) && /^[0-9a-f-]{36}$/i.test(data.submissionId); }

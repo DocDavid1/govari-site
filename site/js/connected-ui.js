@@ -130,8 +130,11 @@
       lead = document.getElementById("lead");
     let heroVisible = true,
       leadVisible = false;
-    const update = () =>
+    const update = () => {
       sticky.classList.toggle("is-visible", !heroVisible && !leadVisible);
+      // The film toggle only matters while the film is on screen.
+      document.body.classList.toggle("hero-out", !heroVisible);
+    };
     new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -154,5 +157,26 @@
   reduced.addEventListener("change", () => {
     if (reduced.matches) video.pause();
   });
+  // Show which homepage section the visitor is in.
+  if ("IntersectionObserver" in window) {
+    const links = [...nav.querySelectorAll('a[href^="#"]')],
+      watched = links
+        .map((a) => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean),
+      seen = new Map(),
+      spy = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => seen.set(e.target, e.isIntersecting));
+          const current = watched.find((el) => seen.get(el));
+          links.forEach((a) => {
+            if (current && a.getAttribute("href") === "#" + current.id)
+              a.setAttribute("aria-current", "location");
+            else a.removeAttribute("aria-current");
+          });
+        },
+        { rootMargin: "-40% 0px -55% 0px" },
+      );
+    watched.forEach((el) => spy.observe(el));
+  }
   syncVideo();
 })();

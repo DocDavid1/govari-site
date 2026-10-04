@@ -2297,3 +2297,219 @@ bdi[dir="ltr"] {
     transform: none;
   }
 }
+
+/* ===== UX upgrade (2026-10-04): same look, easier path ===== */
+
+/* Readable fine print */
+.microcopy,
+.form-note,
+.footer-bottom,
+.visual-note,
+.build-step small,
+.lead-assurance li,
+.story-top > span,
+.story-bottom nav button {
+  font-size: max(12px, 0.75rem);
+}
+.offer-detail,
+.lead-assurance li {
+  font-size: 13px;
+}
+.hero-copy .offer-detail {
+  color: #dde9ea;
+}
+
+/* Header: film toggle only while the film is visible */
+.hero-out .header-video-toggle {
+  display: none;
+}
+
+/* Where am I */
+@media (min-width: 981px) {
+  .header-inner nav a[aria-current="location"] {
+    color: var(--tech);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+  }
+}
+
+/* Story navigation: real targets and a clear exit */
+.story-bottom nav button {
+  min-height: 44px;
+  padding-inline: 14px;
+}
+.story-bottom nav button:hover {
+  color: var(--tech);
+}
+.story-bottom nav button:focus-visible {
+  outline: 3px solid var(--tech);
+  outline-offset: 2px;
+}
+.story-bottom > a.story-exit {
+  min-height: 44px;
+  padding: 8px 18px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* Lead form: what happens next + inline phone hint */
+.lead-next {
+  list-style: none;
+  counter-reset: next;
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--line);
+}
+.lead-next li {
+  counter-increment: next;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.lead-next li::before {
+  content: counter(next);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--tech);
+  font-size: 12px;
+  font-weight: 700;
+}
+.field-hint {
+  font-size: 13px;
+  font-weight: 500;
+  color: #b42318;
+}
+html[data-theme="dark"] .field-hint {
+  color: #ffb4a8;
+}
+.lead-form input[aria-invalid="true"] {
+  border-color: #b42318;
+}
+
+/* Demo: primary action next to the video */
+.demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 22px;
+  margin-top: 24px;
+}
+.demo-actions .text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Closing call to action after the questions */
+.closing-cta {
+  padding-top: 0;
+}
+.closing-card {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: clamp(28px, 5vw, 56px);
+  border-radius: 28px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+.closing-card > div > p:not(.eyebrow) {
+  margin-top: 16px;
+  font-size: 17px;
+}
+.closing-actions {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+.closing-price {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.closing-price span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.closing-price strong {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.closing-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+.closing-contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--tech);
+}
+
+/* Mobile sticky bar: call button next to WhatsApp */
+.mobile-action .call {
+  width: 48px;
+  padding: 10px;
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--line);
+}
+
+@media (max-width: 980px) {
+  /* Form right after the heading and price */
+  .lead-section {
+    gap: 0;
+  }
+  .lead-copy {
+    display: contents;
+  }
+  .lead-copy > * {
+    order: 3;
+  }
+  .lead-copy > .eyebrow,
+  .lead-copy > h2,
+  .lead-copy > p,
+  .lead-copy > .offer-card {
+    order: 1;
+  }
+  .lead-section > .form-card {
+    order: 2;
+    margin-bottom: 28px;
+  }
+  .closing-card {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    border-radius: 22px;
+  }
+}
+@media (max-width: 600px) {
+  .closing-price strong {
+    font-size: 32px;
+  }
+  .closing-actions .button {
+    width: 100%;
+  }
+  .closing-actions {
+    justify-items: stretch;
+  }
+  .story-bottom > a.story-exit {
+    font-size: 13px;
+  }
+}
