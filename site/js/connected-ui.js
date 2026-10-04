@@ -44,6 +44,25 @@
     toggle = document.querySelector('[data-video-toggle="roadFilm"]'),
     reduced = matchMedia("(prefers-reduced-motion: reduce)");
   let manuallyPaused = false;
+  // Inner pages share this header but have no hero film or lead form.
+  if (!video || !toggle) {
+    const sticky = document.querySelector(".mobile-action"),
+      intro = document.querySelector(".page-hero"),
+      closing = document.querySelector(".cta-band");
+    if (sticky && intro && "IntersectionObserver" in window) {
+      const seen = new Map();
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => seen.set(e.target, e.isIntersecting));
+        sticky.classList.toggle(
+          "is-visible",
+          ![...seen.values()].some(Boolean),
+        );
+      });
+      io.observe(intro);
+      if (closing) io.observe(closing);
+    }
+    return;
+  }
   function syncVideo() {
     const label = video.paused ? "הפעלת סרטון הרקע" : "השהיית הסרטון";
     toggle.dataset.videoState = video.paused ? "paused" : "playing";
@@ -63,22 +82,21 @@
       video.pause();
     }
   });
-  const heroSection = document.querySelector(".connected-hero"),
-    heroCamera = document.querySelector(".hero-scene .camera-platform");
+  const heroSection = document.querySelector(".hero-scene"),
+    heroCamera = heroSection && heroSection.querySelector(".camera-platform");
   if (heroSection && heroCamera) {
-    const heroStart = heroSection.getBoundingClientRect().top + window.scrollY;
-    let cameraFrame = 0;
+    let cameraFrame = 0,
+      lastP = "";
     const updateCamera = () => {
       cameraFrame = 0;
-      const progress = reduced.matches ? 0 : Math.max(
-        0,
-        Math.min(1, (window.scrollY - heroStart) / (window.innerHeight * 0.8)),
-      );
-      heroCamera.style.setProperty("--hero-camera-y", `${progress * -14}px`);
-      heroCamera.style.setProperty(
-        "--hero-camera-scale",
-        String(1 + progress * 0.1),
-      );
+      // Reduced motion: show the separated, labelled view as a still image.
+      const raw = reduced.matches
+        ? 1
+        : Math.max(0, Math.min(1, window.scrollY / (window.innerHeight * 0.32)));
+      const p = (1 - Math.pow(1 - raw, 3)).toFixed(3);
+      if (p === lastP) return;
+      lastP = p;
+      heroSection.style.setProperty("--p", p);
     };
     window.addEventListener(
       "scroll",

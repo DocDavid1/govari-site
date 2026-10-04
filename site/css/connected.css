@@ -41,7 +41,7 @@
   --ink: #162e36;
   --muted: #536a70;
   --line: #d8e3e4;
-  --tech: #087e8b;
+  --tech: #07737f;
   --cta: #ffc453;
   --glass: rgba(250, 252, 252, 0.92);
   --shadow: 0 20px 65px #12323a10;
@@ -194,7 +194,7 @@ html[data-theme="dark"] .whatsapp {
 }
 .eyebrow {
   font-size: 12px;
-  letter-spacing: 0.065em;
+  letter-spacing: 0;
   font-weight: 600;
   color: var(--tech);
   margin-bottom: 20px;
@@ -239,7 +239,7 @@ html[data-theme="dark"] .whatsapp {
 }
 .header-inner nav {
   display: flex;
-  gap: 30px;
+  gap: 22px;
   align-items: center;
   font-size: 14px;
   font-weight: 500;
@@ -252,8 +252,8 @@ html[data-theme="dark"] .whatsapp {
 .theme-switch,
 .menu-toggle {
   border: 1px solid var(--line);
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background: var(--surface);
   color: var(--ink);
@@ -359,13 +359,7 @@ html[data-theme="dark"] .whatsapp {
   transform-origin: center center;
   will-change: transform;
 }
-.phone-preview {
-  animation: hero-phone-lift 6s ease-in-out 0.25s infinite alternate;
-}
-@keyframes hero-phone-lift {
-  from { transform: translateY(0); }
-  to { transform: translateY(-9px); }
-}
+
 .windshield {
   position: absolute;
   inset: 0;
@@ -441,45 +435,7 @@ html[data-theme="dark"] .whatsapp {
   left: 11%;
   filter: drop-shadow(0 13px 8px #0002);
 }
-.phone-preview {
-  position: absolute;
-  right: -4%;
-  bottom: 0;
-  width: 39%;
-  z-index: 3;
-  filter: drop-shadow(0 20px 20px #163e3a20);
-}
-.phone-preview img {
-  width: 100%;
-  max-height: 360px;
-  object-fit: contain;
-  border-radius: 24px;
-}
-.phone-preview span {
-  display: block;
-  text-align: center;
-  font-size: 11px;
-  color: #d6e4e6;
-  padding-top: 8px;
-}
-.signal-pill {
-  position: absolute;
-  left: 5%;
-  bottom: 7%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  border-radius: 30px;
-  padding: 8px 14px;
-  color: var(--tech);
-  font-size: 12px;
-}
-.signal-pill svg {
-  width: 18px;
-  height: 18px;
-}
+
 .visual-note {
   position: absolute;
   bottom: -23px;
@@ -531,17 +487,10 @@ html[data-theme="dark"] .whatsapp {
     height: 66%;
     left: 2%;
   }
-  .phone-preview {
-    right: 3%;
-    width: 27%;
-  }
-  .signal-pill {
-    left: 9%;
-  }
+
 }
 @media (prefers-reduced-motion: reduce) {
-  .camera-platform,
-  .phone-preview {
+  .camera-platform {
     animation: none !important;
   }
 }
@@ -602,8 +551,8 @@ html[data-theme="dark"] .reservist-footer {
 }
 .story-top .eyebrow {
   margin: 0;
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: 12px;
+  letter-spacing: 0;
 }
 .story-top > span {
   font-size: 12px;
@@ -1244,12 +1193,12 @@ html[data-theme="dark"] .reservist-footer {
 .faq summary::-webkit-details-marker {
   display: none;
 }
-.faq summary span {
+.faq summary > span[aria-hidden] {
   font-size: 23px;
   line-height: 1;
   color: var(--tech);
 }
-.faq details[open] summary span {
+.faq details[open] summary > span[aria-hidden] {
   transform: rotate(45deg);
 }
 .faq details p {
@@ -1446,10 +1395,7 @@ html[data-theme="dark"] .reservist-footer {
   .hero-scene {
     height: 400px;
   }
-  .phone-preview {
-    right: 0;
-    width: 41%;
-  }
+
   .trust-rail {
     margin-inline: 24px;
     padding-block: 18px;
@@ -1623,24 +1569,7 @@ html[data-theme="dark"] .reservist-footer {
     width: 77%;
     height: 60%;
   }
-  .phone-preview {
-    width: 36%;
-    right: -1%;
-    bottom: 9%;
-  }
-  .phone-preview img {
-    max-height: 218px;
-    border-radius: 15px;
-  }
-  .phone-preview span {
-    font-size: 9px;
-  }
-  .signal-pill {
-    font-size: 10px;
-    padding: 6px 10px;
-    bottom: 9%;
-    left: 3%;
-  }
+
   .video-toggle {
     font-size: 9px;
     padding: 6px 9px;
@@ -1977,8 +1906,8 @@ bdi[dir="ltr"] {
   inset: auto;
   z-index: 2;
   flex: 0 0 44px;
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   padding: 0;
   display: grid;
   place-items: center;
@@ -2023,23 +1952,7 @@ bdi[dir="ltr"] {
 @keyframes scroll-cue-bob {
   50% { transform: translateY(4px); }
 }
-.signal-pill {
-  direction: rtl;
-  gap: 7px;
-  white-space: nowrap;
-}
-.signal-copy {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 5px;
-  direction: rtl;
-}
-.signal-copy bdi {
-  font-weight: 800;
-}
-.signal-copy small {
-  font-size: inherit;
-}
+
 @media (min-width: 1181px) {
   .connected-hero {
     grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.18fr);
@@ -2047,10 +1960,7 @@ bdi[dir="ltr"] {
   .camera-platform {
     width: 77%;
   }
-  .phone-preview {
-    right: 0;
-    width: 15%;
-  }
+
 }
 @media (min-width: 601px) and (max-width: 980px) {
   .connected-hero {
@@ -2079,10 +1989,7 @@ bdi[dir="ltr"] {
     height: 60%;
     left: 2%;
   }
-  .phone-preview {
-    right: 2%;
-    width: 24%;
-  }
+
 }
 @media (max-width: 600px) {
   .header-video-toggle {
@@ -2096,20 +2003,7 @@ bdi[dir="ltr"] {
   .camera-platform {
     width: 74%;
   }
-  .phone-preview {
-    width: 20%;
-    right: 0;
-  }
-  .signal-pill {
-    left: 3%;
-    gap: 6px;
-    padding: 6px 9px;
-    font-size: 9px;
-  }
-  .signal-pill svg {
-    width: 16px;
-    height: 16px;
-  }
+
   .hero-scroll-cue {
     margin-top: 8px;
     font-size: 11px;
@@ -2122,5 +2016,284 @@ bdi[dir="ltr"] {
   .hero-scene .camera-platform {
     transform: none;
     will-change: auto;
+  }
+}
+
+/* WCAG 2.2 target size: text links in header and footer get a 24px+ hit area. */
+@media (min-width: 981px) {
+  .header-inner nav a:not(.mobile-phone) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 4px;
+  }
+}
+.footer-top > div a,
+.footer-bottom nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  min-width: 32px;
+}
+.story-bottom > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Hero v2 — camera parts separate on scroll (--p 0→1 from connected-ui.js) and a glass 4G module. */
+.hero-scene .camera-platform {
+  --s: calc(var(--p, 0) * var(--spread, 1));
+  transform: none;
+  will-change: auto;
+}
+.hero-scene .camera-platform::before {
+  content: "";
+  position: absolute;
+  inset: -18% -6% -40%;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(97, 208, 211, 0.13), transparent 72%);
+  pointer-events: none;
+}
+.hero-scene .hero-camera,
+.hero-scene .hero-mount,
+.hero-scene .hero-rear {
+  filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.42));
+}
+.hero-scene .hero-mount {
+  filter: grayscale(1) brightness(0.65) drop-shadow(0 18px 24px rgba(0, 0, 0, 0.4));
+}
+.hero-scene .hero-camera {
+  transform: translateY(calc(var(--s) * -3%)) scale(calc(1 + var(--s) * 0.04));
+}
+.hero-scene .hero-mount {
+  transform: translateY(calc(var(--s) * -78%)) rotate(calc(var(--s) * -3deg));
+}
+.hero-scene .hero-rear {
+  transform: translate(calc(-8% + var(--s) * -52%), calc(18% + var(--s) * 37%));
+}
+.part-label {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  direction: ltr;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  color: #e6eef0;
+  text-shadow: 0 1px 2px rgba(4, 14, 18, 0.6);
+  opacity: clamp(0, calc((var(--p, 0) - 0.35) * 2.5), 1);
+  transform: translateY(calc((1 - var(--p, 0)) * 6px));
+  pointer-events: none;
+}
+.part-label::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #61d0d3;
+  box-shadow: 0 0 0 4px rgba(97, 208, 211, 0.16);
+  flex: none;
+}
+.part-label::after {
+  content: "";
+  order: 1;
+  width: 28px;
+  height: 1px;
+  background: rgba(97, 208, 211, 0.4);
+}
+.part-label > span {
+  order: 2;
+  direction: rtl;
+}
+.part-label--mount {
+  left: 63%;
+  top: -6%;
+}
+.part-label--main {
+  left: 64%;
+  top: 128%;
+}
+.part-label--rear {
+  left: 24%;
+  top: 142%;
+}
+.signal-badge {
+  position: absolute;
+  left: 4%;
+  top: 14%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  direction: rtl;
+  padding: 10px 16px 10px 10px;
+  border-radius: 14px;
+  background: rgba(8, 22, 26, 0.66);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(97, 208, 211, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 40px rgba(4, 14, 18, 0.35);
+  transform: translateY(calc(var(--p, 0) * var(--spread, 1) * -10px));
+}
+.signal-tile {
+  position: relative;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 2px;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #1d4049, #12303a);
+  border: 1px solid rgba(97, 208, 211, 0.3);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.signal-arcs {
+  width: 22px;
+  height: 12px;
+  overflow: visible;
+}
+.signal-arcs path {
+  fill: none;
+  stroke: #61d0d3;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.9;
+  /* Two short ripples on load, then still (under 5s — WCAG 2.2.2). */
+  animation: signal-arc 1.8s ease-in-out 0.4s 2;
+}
+.signal-arcs path:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.signal-arcs path:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes signal-arc {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.25; }
+}
+.signal-label {
+  display: grid;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #fff;
+}
+.signal-label small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #c0d0d3;
+}
+.hero-scene .visual-note {
+  bottom: -30px;
+  direction: rtl;
+  text-align: right;
+  font-size: 13px;
+  color: #c0d0d3;
+}
+@media (min-width: 1181px) {
+  .hero-scene .camera-platform {
+    left: 4%;
+    width: 84%;
+  }
+}
+@media (min-width: 981px) and (max-width: 1180px) {
+  .hero-scene {
+    height: 340px;
+  }
+  .hero-scene .camera-platform {
+    top: 16%;
+    left: 10%;
+    width: 78%;
+    height: 54%;
+  }
+  .signal-badge {
+    top: 0;
+  }
+  .part-label {
+    display: none;
+  }
+}
+@media (min-width: 601px) and (max-width: 980px) {
+  .hero-scene .camera-platform {
+    left: 7%;
+    width: 80%;
+  }
+}
+@media (min-width: 601px) and (max-width: 1180px) {
+  .part-label--rear {
+    left: 27%;
+    top: 128%;
+  }
+  .part-label--main {
+    left: 66%;
+    top: 128%;
+  }
+}
+@media (max-width: 600px) {
+  .hero-scene {
+    --spread: 0.85;
+    height: 236px;
+  }
+  .hero-scene .camera-platform {
+    left: 7%;
+    width: 86%;
+    top: 12%;
+  }
+  .part-label {
+    display: none;
+  }
+  .signal-badge {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(8, 22, 26, 0.88);
+    top: 2%;
+    left: 2%;
+    gap: 9px;
+    padding: 7px 12px 7px 7px;
+    border-radius: 12px;
+  }
+  .signal-tile {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+    border-radius: 8px;
+    gap: 1px;
+  }
+  .signal-arcs {
+    width: 13px;
+    height: 7px;
+  }
+  .signal-label {
+    font-size: 11px;
+  }
+  .signal-label small {
+    font-size: 10px;
+  }
+  .hero-scene .visual-note {
+    bottom: 2px;
+    left: 2%;
+    max-width: 96%;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signal-arcs path {
+    animation: none;
+    opacity: 0.85;
+  }
+  .part-label {
+    transform: none;
   }
 }

@@ -6,7 +6,7 @@
     <title>גוב ארי מערכות | לראות את הרכב. גם מרחוק.</title>
     <meta
       name="description"
-      content="מצלמת רכב 4 ערוצים עם 4G, GPS ואפליקציה בעברית. מבצע סוכות: מצלמה והתקנה בבית הלקוח ב־1,099 ₪. קבלו הצעה לרכב שלכם ללא התחייבות."
+      content="מצלמת רכב 4 ערוצים עם 4G, GPS ואפליקציה בעברית. מחיר השקה: מצלמה והתקנה בבית הלקוח ב־1,099 ₪. קבלו הצעה לרכב שלכם ללא התחייבות."
     />
     <link rel="canonical" href="https://www.govarisystems.co.il/" />
     <meta
@@ -15,7 +15,7 @@
     />
     <meta
       property="og:description"
-      content="4 ערוצים, 4G, GPS ואפליקציה בעברית. מבצע סוכות: מצלמה והתקנה ב־1,099 ₪."
+      content="4 ערוצים, 4G, GPS ואפליקציה בעברית. מחיר השקה: מצלמה והתקנה ב־1,099 ₪."
     />
     <meta property="og:url" content="https://www.govarisystems.co.il/" />
     <meta
@@ -25,7 +25,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f6f8f8" />
     <link rel="icon" href="assets/images/favicon.png" />
-    <link rel="stylesheet" href="css/connected.css?v=20261004-video" />
+    <link rel="stylesheet" href="css/connected.css?v=20261004-hero3" />
     <script>
       try {
         document.documentElement.dataset.theme =
@@ -55,7 +55,7 @@
               "price": "1099",
               "priceCurrency": "ILS",
               "url": "https://www.govarisystems.co.il/#lead",
-              "description": "מבצע סוכות: מצלמה והתקנה בבית הלקוח. בית שמש, ירושלים והמרכז בתיאום. סים לשנה בתוספת 199 ₪ לבחירה."
+              "description": "מחיר השקה: מצלמה והתקנה בבית הלקוח. בית שמש, ירושלים והמרכז בתיאום. סים לשנה בתוספת 199 ₪ לבחירה."
             }
           },
           {
@@ -66,7 +66,7 @@
                 "name": "כמה עולה המערכת?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "במבצע סוכות: מצלמה והתקנה בבית הלקוח ב־1,099 ₪. השירות בבית שמש, ירושלים והמרכז בתיאום. סים לשנה הוא תוספת לבחירה של 199 ₪. אין תשלום באתר; מקבלים את פרטי ההזמנה לפני החלטה."
+                  "text": "במחיר ההשקה: מצלמה והתקנה בבית הלקוח ב־1,099 ₪. השירות בבית שמש, ירושלים והמרכז בתיאום. סים לשנה הוא תוספת לבחירה של 199 ₪. אין תשלום באתר; מקבלים את פרטי ההזמנה לפני החלטה."
                 }
               },
               {
@@ -141,7 +141,7 @@
     <script src="js/config.js?v=20260925" defer></script>
     <script src="js/track.js?v=20260929" defer></script>
     <script src="js/lead-form.js?v=20261004-recovery" defer></script>
-    <script src="js/connected-ui.js?v=20261004-video" defer></script>
+    <script src="js/connected-ui.js?v=20261004-hero3" defer></script>
     <script src="js/vendor/gsap.min.js" defer></script>
     <script src="js/vendor/ScrollTrigger.min.js" defer></script>
     <script src="js/connected-story.js?v=20260925" defer></script>
@@ -199,9 +199,10 @@
     </header>
     <main id="content">
       <section class="connected-hero" aria-labelledby="hero-title">
-        <div class="windshield" aria-label="סרטון נסיעה ברקע">
+        <div class="windshield">
           <video
             id="roadFilm"
+            aria-hidden="true"
             autoplay
             muted
             loop
@@ -229,7 +230,7 @@
             אפליקציה בעברית, גם מרחוק.
           </p>
           <div class="hero-offer">
-            <span>מבצע סוכות · מצלמה והתקנה</span
+            <span>מחיר השקה · מצלמה והתקנה</span
             ><strong
               ><bdi>1,099 <small>₪</small></bdi></strong
             >
@@ -291,32 +292,20 @@
               class="hero-rear"
               width="700"
               height="420"
-            />
+            /><span class="part-label part-label--mount" aria-hidden="true"><span>תושבת לשמשה</span></span
+            ><span class="part-label part-label--main" aria-hidden="true"><span>יחידת המצלמה הראשית</span></span
+            ><span class="part-label part-label--rear" aria-hidden="true"><span>מצלמה אחורית נפרדת</span></span>
           </div>
-          <div class="phone-preview">
-            <img
-              src="assets/images/app-live-view-ui.webp"
-              alt="המחשת אפליקציה בעברית עם ארבע זוויות צילום ומפה"
-              class=""
-              width="1138"
-              height="1436"
-            /><span>באפליקציה: ארבע זוויות צילום</span>
+          <div class="signal-badge">
+            <span class="signal-tile"
+              ><svg class="signal-arcs" viewBox="0 0 20 11" aria-hidden="true" focusable="false">
+                <path d="M7.2 8.2a4 4 0 0 1 5.6 0" />
+                <path d="M4.4 5.4a8 8 0 0 1 11.2 0" />
+                <path d="M1.6 2.6a12 12 0 0 1 16.8 0" /></svg
+              ><bdi dir="ltr">4G</bdi></span
+            ><span class="signal-label">חיבור סלולרי<small>צפייה מרחוק</small></span>
           </div>
-          <span class="signal-pill" dir="rtl"
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M4 18v3m5-8v8m5-13v13m5-18v18" />
-            </svg>
-            <span class="signal-copy"><bdi dir="ltr">4G</bdi><small>חיבור סלולרי</small></span></span
-          >
-          <p class="visual-note">המחשת מוצר וממשק</p>
+          <p class="visual-note" aria-hidden="true">יחידה ראשית, תושבת לשמשה ומצלמה אחורית · המחשת מוצר</p>
         </div>
       </section>
       <div class="trust-rail">
@@ -346,7 +335,7 @@
               aria-hidden="true"
             >
               <path d="M4 18v3m5-8v8m5-13v13m5-18v18" /></svg
-            >צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span
+            ><span>צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span></span
           ><span
             ><svg
               viewBox="0 0 24 24"
@@ -359,7 +348,7 @@
             >
               <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
               <circle cx="12" cy="10" r="2" /></svg
-            ><bdi dir="ltr">GPS</bdi> ומסלול</span
+            ><span><bdi dir="ltr">GPS</bdi> ומסלול</span></span
           ><span
             ><svg
               viewBox="0 0 24 24"
@@ -621,7 +610,7 @@
                 >
                   <path d="M4 18v3m5-8v8m5-13v13m5-18v18" />
                 </svg>
-                <bdi dir="ltr">4G</bdi> · צפייה מרחוק</span
+                <span><bdi dir="ltr">4G</bdi> · צפייה מרחוק</span></span
               >
               <div class="build-route">
                 <div class="map-grid"></div>
@@ -674,7 +663,7 @@
                       aria-hidden="true"
                     >
                       <path d="M4 18v3m5-8v8m5-13v13m5-18v18" /></svg
-                    >צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span
+                    ><span>צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span></span
                   ><span
                     ><svg
                       viewBox="0 0 24 24"
@@ -689,7 +678,7 @@
                         d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"
                       />
                       <circle cx="12" cy="10" r="2" /></svg
-                    ><bdi dir="ltr">GPS</bdi> ומסלול</span
+                    ><span><bdi dir="ltr">GPS</bdi> ומסלול</span></span
                   ><span
                     ><svg
                       viewBox="0 0 24 24"
@@ -718,7 +707,7 @@
                     >אחריות לשנה</span
                   >
                 </div>
-                <p>מבצע סוכות · מצלמה והתקנה</p>
+                <p>מחיר השקה · מצלמה והתקנה</p>
                 <strong><bdi>1,099 ₪</bdi></strong
                 ><span>הצעה ללא התחייבות</span>
               </div>
@@ -750,7 +739,7 @@
             ונתאם התקנה אם תרצו להתקדם.
           </p>
           <div class="offer-card">
-            <span>מבצע סוכות</span><strong><bdi>1,099 ₪</bdi></strong>
+            <span>מחיר השקה</span><strong><bdi>1,099 ₪</bdi></strong>
             <p>מצלמה והתקנה בבית הלקוח</p>
             <small
               >בית שמש, ירושלים והמרכז בתיאום.<br />סים לשנה לבחירה:
@@ -783,7 +772,7 @@
                 aria-hidden="true"
               >
                 <path d="M4 18v3m5-8v8m5-13v13m5-18v18" /></svg
-              >צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span
+              ><span>צפייה מרחוק ב־<bdi dir="ltr">4G</bdi></span></span
             ><span
               ><svg
                 viewBox="0 0 24 24"
@@ -796,7 +785,7 @@
               >
                 <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
                 <circle cx="12" cy="10" r="2" /></svg
-              ><bdi dir="ltr">GPS</bdi> ומסלול</span
+              ><span><bdi dir="ltr">GPS</bdi> ומסלול</span></span
             ><span
               ><svg
                 viewBox="0 0 24 24"
@@ -1037,7 +1026,7 @@
           <details>
             <summary>כמה עולה המערכת?<span aria-hidden="true">+</span></summary>
             <p>
-              במבצע סוכות: מצלמה והתקנה בבית הלקוח ב־<bdi dir="ltr">1,099
+              במחיר ההשקה: מצלמה והתקנה בבית הלקוח ב־<bdi dir="ltr">1,099
               ₪</bdi>. השירות בבית שמש, ירושלים והמרכז בתיאום. סים לשנה הוא
               תוספת לבחירה של <bdi dir="ltr">199 ₪</bdi>. אין תשלום באתר;
               מקבלים את פרטי ההזמנה לפני החלטה.
@@ -1054,7 +1043,7 @@
           </details>
           <details>
             <summary>
-              האם יש <bdi dir="ltr">GPS</bdi> והיסטוריית מסלול?<span aria-hidden="true">+</span>
+              <span class="faq-q">האם יש <bdi dir="ltr">GPS</bdi> והיסטוריית מסלול?</span><span aria-hidden="true">+</span>
             </summary>
             <p>
               כן. המערכת מציגה את מיקום הרכב בזמן אמת, וכן היסטוריית נסיעות
@@ -1143,7 +1132,8 @@
       <div class="footer-bottom">
         <span>גוב ארי מערכות · עוסק 207575192</span>
         <nav aria-label="מידע ושירות">
-          <a href="privacy.html">מדיניות פרטיות</a
+          <a href="about.html">עלינו</a
+          ><a href="privacy.html">מדיניות פרטיות</a
           ><a href="terms.html">תנאי שימוש</a
           ><a href="accessibility.html">נגישות</a
           ><a href="privacy.html#measurement-preferences">העדפות מדידה</a>

@@ -4,7 +4,7 @@
 
 ## סטאק טכני
 - HTML / CSS / JavaScript נקי (ללא פריימוורק). קובץ כניסה: `site/index.html`.
-- עיצוב: `site/css/styles.css`. לוגיקה: `site/js/main.js`.
+- עיצוב: `site/css/connected.css` (טוקנים + דף הבית) ו-`site/css/inner.css` (דפים פנימיים ומשפטיים). לוגיקה: `site/js/connected-ui.js` (כותרת, תפריט, מצב תצוגה), `site/js/lead-form.js` (טופס), `site/js/track.js` (מדידה).
 - נכסים: תמונות ב-`assets/images/`, וידאו/פוסטרים ב-`assets/videos/`.
 - תוכן (קופי, מפרט, מחירים): `content/content.md` — **מקור האמת היחיד לטקסט**.
 
