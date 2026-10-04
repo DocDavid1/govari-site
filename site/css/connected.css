@@ -3760,3 +3760,15 @@ html[data-theme="dark"] .trust-rail > img {
   outline: 3px solid var(--tech);
   outline-offset: 4px;
 }
+
+/* Hero mount: true proportion and colour (matches the product photo) */
+.hero-scene .camera-platform .hero-mount {
+  width: 25%;
+  height: auto;
+  left: 37.5%;
+  top: 18%;
+  margin-top: -6.8%;
+  object-fit: contain;
+  z-index: -1;
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.42));
+}
